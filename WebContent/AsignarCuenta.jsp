@@ -50,6 +50,10 @@
 			<th>Monto inicial</th>
 			<td><input type="number" name="txtMontoInicial" id="txtMontoInicial"></td>	
 		</tr>
+		<tr>
+
+			<td colspan="2" style=" height:50px;"><button type="submit" name="btnAsignar" style="text-align:center; border-radius: 5px;">Asignar</button>
+		</tr>
 	</tbody>
 </table>
 </div>
