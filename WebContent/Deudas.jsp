@@ -16,8 +16,8 @@
     </select>
  </div>
  
-<h2 id="usuario" style="position: absolute; top:1px; right:6px">Nombre Usuario</h2>
-<h1>Pago de Préstamos</h1>
+<h1 id="usuario" style="position: absolute; top:1px; right:6px">Nombre Usuario</h1>
+<h2>Pago de Préstamos</h2>
 <div>
 <table style="text-align:center;">
 	<thead >
