@@ -38,8 +38,8 @@ public class LoginServlet extends HttpServlet {
         
         if (usuario != null) {
             HttpSession session = request.getSession();
-            session.setAttribute("usuario", usuario);
-            
+            session.setAttribute("usuario", nombreUsuario);
+        	
             if (usuario.isTipoUsuario()=='A') {
                 response.sendRedirect("AdminHome.jsp");
             } else {
