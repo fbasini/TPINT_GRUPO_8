@@ -11,21 +11,20 @@ import entidad.Usuario;
 
 public class usuarioDaoImpl implements usuarioDao{
 	
-	private static final String select = "SELECT * FROM usuarios WHERE nombreUsuario = ? AND contraseñaUsuario = ?";
+	private static final String select = "SELECT * FROM usuario WHERE nombreUsuario = ? AND passwordUsuario = ?";
 
 	@Override
-	public Usuario obtenerUsuario(String nombreUsuario, String contraseñaUsuario) {
+	public Usuario obtenerUsuario(String nombreUsuario, String passwordUsuario) {
 		Usuario usuario = null;
         PreparedStatement statement;
         Connection conexion = Conexion.getConexion().getSQLConexion();
-
+        
         try {
         	statement = conexion.prepareStatement(select);
-            statement.setString(2, contraseñaUsuario);
             statement.setString(1, nombreUsuario);
+        	statement.setString(2, passwordUsuario);
             ResultSet rs = statement.executeQuery();
-            rs.next();
-
+    
             if (rs.next()) {
                 usuario = getUsuarioFromResultSet(rs);
             }
@@ -38,10 +37,10 @@ public class usuarioDaoImpl implements usuarioDao{
 
 	private Usuario getUsuarioFromResultSet(ResultSet rs) throws SQLException {
         Usuario usuario = new Usuario();
-        usuario.setIdUsuario(rs.getInt("idUsuario"));
         usuario.setNombreUsuario(rs.getString("nombreUsuario"));
-        usuario.setContraseñaUsuario(rs.getString("contraseñaUsuario"));
-        usuario.setTipoUsuario(rs.getBoolean("tipoUsuario"));
+        usuario.setContraseñaUsuario(rs.getString("passwordUsuario"));
+        String tipoUsuario=(rs.getString("tipoUsuario"));
+        usuario.setTipoUsuario(tipoUsuario.charAt(0));
         return usuario;
     }
 		

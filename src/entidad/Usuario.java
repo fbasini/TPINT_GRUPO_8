@@ -1,30 +1,20 @@
 package entidad;
 
 public class Usuario {
-    private int idUsuario;
     private String nombreUsuario;
     private String contraseñaUsuario;
-    private boolean tipoUsuario;
+    private char tipoUsuario;
 
     public Usuario() {
     }
 
-    public Usuario(int idUsuario, String nombreUsuario, String contraseñaUsuario, boolean tipoUsuario) {
-        this.idUsuario = idUsuario;
+    public Usuario(String nombreUsuario, String contraseñaUsuario, char tipoUsuario) {
         this.nombreUsuario = nombreUsuario;
         this.contraseñaUsuario = contraseñaUsuario;
         this.tipoUsuario = tipoUsuario;
     }
 
     // Getters y Setters
-    public int getIdUsuario() {
-        return idUsuario;
-    }
-
-    public void setIdUsuario(int idUsuario) {
-        this.idUsuario = idUsuario;
-    }
-
     public String getNombreUsuario() {
         return nombreUsuario;
     }
@@ -41,11 +31,11 @@ public class Usuario {
         this.contraseñaUsuario = contraseñaUsuario;
     }
 
-    public boolean isTipoUsuario() {
+    public char isTipoUsuario() {
         return tipoUsuario;
     }
 
-    public void setTipoUsuario(boolean tipoUsuario) {
+    public void setTipoUsuario(char tipoUsuario) {
         this.tipoUsuario = tipoUsuario;
     }
 }

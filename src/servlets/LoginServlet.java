@@ -10,6 +10,8 @@ import javax.servlet.http.HttpSession;
 
 import daoimpl.usuarioDaoImpl;
 import entidad.Usuario;
+import negocio.usuarioNegocio;
+import negocioImpl.usuarioNegocioImpl;
 
 
 @WebServlet("/LoginServlet")
@@ -29,16 +31,16 @@ public class LoginServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String nombreUsuario = request.getParameter("usuario");
-        String contraseñaUsuario = request.getParameter("contraseña");
-        
-        usuarioDaoImpl usuarioDAO = new usuarioDaoImpl();
-        Usuario usuario = usuarioDAO.obtenerUsuario(nombreUsuario, contraseñaUsuario);
+        String passwordUsuario = request.getParameter("contraseña");
+       
+        usuarioNegocioImpl usuarioNeg= new usuarioNegocioImpl();
+        Usuario usuario= usuarioNeg.obtenerUsuario(nombreUsuario,passwordUsuario);
         
         if (usuario != null) {
             HttpSession session = request.getSession();
             session.setAttribute("usuario", usuario);
             
-            if (usuario.isTipoUsuario()) {
+            if (usuario.isTipoUsuario()=='A') {
                 response.sendRedirect("AdminHome.jsp");
             } else {
                 response.sendRedirect("UsuarioHome.jsp");
