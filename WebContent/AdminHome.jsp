@@ -23,12 +23,12 @@
                 </li>
                 <li class="nav-item">
                     <form action="volver" method="post" class="form-inline">
-                        <button type="submit" class="btn btn-link nav-link">Volver</button>
+                        <button type="submit" class="btn btn-link nav-link boton-links">Volver</button>
                     </form>
                 </li>
                 <li class="nav-item">
                     <form action="CerrarSesionServlet" method="post" class="form-inline">
-                        <button type="submit" class="btn btn-link nav-link">Cerrar Sesión</button>
+                        <button type="submit" class="btn-cerrar-sesion">Cerrar Sesión</button>
                     </form>
                 </li>
             </ul>
