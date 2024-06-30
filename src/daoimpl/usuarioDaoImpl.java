@@ -12,6 +12,7 @@ import entidad.Usuario;
 public class usuarioDaoImpl implements usuarioDao{
 	
 	private static final String select = "SELECT * FROM usuario WHERE nombreUsuario = ? AND passwordUsuario = ?";
+	private static final String insert= "INSERT INTO usuario (nombreUsuario,passwordUsuario,tipoUsuario) VALUES (?,?,?)";
 
 	@Override
 	public Usuario obtenerUsuario(String nombreUsuario, String passwordUsuario) {
@@ -46,5 +47,33 @@ public class usuarioDaoImpl implements usuarioDao{
         return usuario;
     }
 		
-	
+	public int agregarUsuario(Usuario usuario) {
+		{
+			PreparedStatement statement;
+			Connection conexion = Conexion.getConexion().getSQLConexion();
+			int filas = 0;
+			try
+			{
+				statement = conexion.prepareStatement(insert);
+				statement.setString(1,usuario.getNombreUsuario() );
+				statement.setString(2,usuario.getContraseñaUsuario());
+				statement.setString(3, "C");
+				filas = statement.executeUpdate();
+				if (filas > 0) {
+	                conexion.commit();
+	            }
+			} 
+			catch (SQLException e) 
+			{
+				e.printStackTrace();
+				try {
+					conexion.rollback();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+			}
+			
+			return filas;
+	}
+}
 }
