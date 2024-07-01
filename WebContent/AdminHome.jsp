@@ -41,7 +41,7 @@
     <div class="container" style="display: flex; justify-content: center; align-items: center; height: 100vh;">
         <div class="text-center">
             <div class="btn-group-vertical">
-                <form action="clientes" method="post">
+                <form action="GestionClientes.jsp" method="post">
                     <button type="submit" id="clientes" name="clientes" class="btn btn-primary mb-2">CLIENTES</button>
                 </form>
                 <form action="cuentas" method="post">
