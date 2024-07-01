@@ -85,8 +85,9 @@
 }
 
 /* Estilo para el botón de cerrar sesión */
-.nav-links .btn-cerrar-sesion {
-    color: #fff;
+/* Estilo para el botón de cerrar sesión */
+.btn-cerrar-sesion {
+    color: #FFF;
     background-color: #E52320; 
     border-radius: 20px;
     padding: 8px 20px;
@@ -99,7 +100,7 @@
     transition: all .2s linear;
 }
 
-.nav-links .btn-cerrar-sesion:hover {
+.btn-cerrar-sesion:hover {
     background-color: #AE1917; 
     transform: scale(1.1);
 }
