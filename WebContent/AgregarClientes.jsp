@@ -21,7 +21,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <span class="nav-link">Usuario: <%= session.getAttribute("usuario") %> </span>
+                    <span class="nav-link">Usuario: <%=session.getAttribute("usuario") %> </span>
                 </li>
                 <li class="nav-item">
                     <form action="GestionClientes.jsp" method="post" class="form-inline">
