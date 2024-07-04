@@ -65,26 +65,8 @@
     text-decoration: none;
 }
 
-.nav-links .boton {
-    color: #fff;
-    background: #AE1917;
-    border-radius: 20px;
-    padding: 8px 20px;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    text-align: center;
-    outline: none;
-    border: none;
-    transition: all .2s linear;
-}
 
-.nav-links .boton:hover {
-    background: #E52320;
-    transform: scale(1.1);
-}
 
-/* Estilo para el botón de cerrar sesión */
 /* Estilo para el botón de cerrar sesión */
 .btn-cerrar-sesion {
     color: #FFF;

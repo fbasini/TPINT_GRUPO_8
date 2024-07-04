@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Agregar Cliente</title>
 	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="Style.css">
+    <link rel="stylesheet" href="../Style.css">
 </head>
 <div>
 	<h1 id="usuario" style="position: absolute; top: 1px ;right:6px " >Nombre usuario</h1>
@@ -50,18 +50,24 @@
                     <td><input type="password" class="form-control mb-3 custom-input"  id="contraseña" name="txtContraseña" required></td>
                 </tr>
                 <tr>
+                    <td style="text-align: left;"><label for="contraseña">Repetir contraseña:</label></td>
+                    <td><input type="password" class="form-control mb-3 custom-input"  id="RepetirContraseña" name="txtRepetirContraseña" required></td>
+                </tr>
+                <tr>
                     <td colspan="2" style="text-align: center; padding-top: 15px;">
                         <button type="submit" name="btnAceptar" class="btn btn-primary">Aceptar</button>
                     </td>
                 </tr>
             </table>
            <% 
-		    Object mensajeObj = request.getAttribute("mensaje");
-		    if (mensajeObj != null) {
-		        String mensaje = (String) mensajeObj;
-		    %>
-		    <label class="custom-label"><%= mensaje %></label>
-		    <% } %>
+                Object mensajeObj = request.getAttribute("mensaje");
+                if (mensajeObj != null) {
+                    String mensaje = (String) mensajeObj;
+            %>
+            <div class="text-center mt-3">
+                <label class="custom-label"><%= mensaje %></label>
+            </div>
+            <% } %>
         </form>
     </div>
 

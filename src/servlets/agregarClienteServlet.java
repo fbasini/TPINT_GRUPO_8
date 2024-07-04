@@ -13,54 +13,50 @@ import entidad.Cliente;
 import entidad.Usuario;
 import negocioImpl.usuarioNegocioImpl;
 
-/**
- * Servlet implementation class agregarClienteServlet
- */
 @WebServlet("/agregarClienteServlet")
 public class agregarClienteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * Default constructor. 
-     */
     public agregarClienteServlet() {
-        // TODO Auto-generated constructor stub
+    	super();
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if(request.getParameter("btnAceptar")!=null) {
-			Usuario usuario= new Usuario();
-			usuario.setNombreUsuario(request.getParameter("txtUsuario"));
-			usuario.setContraseñaUsuario(request.getParameter("txtContraseña"));
-			usuarioNegocioImpl usuarioNeg= new usuarioNegocioImpl();
-			Cliente cliente=new Cliente();
-			cliente.setNombreUsuario(request.getParameter("txtUsuario"));
-			
-			int filas=usuarioNeg.agregarUsuario(usuario);
-			String mensaje;
-			if(filas>0) {
-				mensaje="Cliente agregado con éxito";
-			}
-			else {
-				mensaje="No se pudo agregar al cliente"; //manejar excepción
-			}
-			 request.setAttribute("mensaje", mensaje);
-		     RequestDispatcher rd = request.getRequestDispatcher("AgregarClientes.jsp");
-		     rd.forward(request, response);
-			
-	
-		}
+		 if(request.getParameter("btnAceptar") != null) {
+	            String usuarioNombre = request.getParameter("txtUsuario");
+	            String contraseña = request.getParameter("txtContraseña");
+	            String repetirContraseña = request.getParameter("txtRepetirContraseña");
+
+	            if (!contraseña.equals(repetirContraseña)) {
+	                String mensajeError = "Las contraseñas no coinciden.";
+	                request.setAttribute("mensaje", mensajeError);
+	                RequestDispatcher rd = request.getRequestDispatcher("Admin/AgregarClientes.jsp");
+	                rd.forward(request, response);
+	                return;
+	            }
+
+	            Usuario usuario = new Usuario();
+	            usuario.setNombreUsuario(usuarioNombre);
+	            usuario.setContraseñaUsuario(contraseña);
+	            usuarioNegocioImpl usuarioNeg = new usuarioNegocioImpl();
+	            Cliente cliente = new Cliente();
+	            cliente.setNombreUsuario(usuarioNombre);
+
+	            int filas = usuarioNeg.agregarUsuario(usuario);
+	            String mensaje;
+	            if (filas > 0) {
+	                mensaje = "Cliente agregado con éxito";
+	            } else {
+	                mensaje = "No se pudo agregar al cliente"; // manejar excepción
+	            }
+	            request.setAttribute("mensaje", mensaje);
+	            RequestDispatcher rd = request.getRequestDispatcher("Admin/AgregarClientes.jsp");
+	            rd.forward(request, response);
+		 }
 	}
 }
 ;

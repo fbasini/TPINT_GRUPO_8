@@ -41,9 +41,9 @@ public class LoginServlet extends HttpServlet {
             session.setAttribute("usuario", nombreUsuario);
         	
             if (usuario.isTipoUsuario()=='A') {
-                response.sendRedirect("AdminHome.jsp");
+                response.sendRedirect("Admin/AdminHome.jsp");
             } else {
-                response.sendRedirect("UsuarioHome.jsp");
+                response.sendRedirect("Cliente/UsuarioHome.jsp");
             }
         } else {
             response.sendRedirect("Login.jsp?error=true");
