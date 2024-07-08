@@ -181,6 +181,10 @@ public class Cliente {
 				+ ", LocalidadCliente=" + LocalidadCliente + ", idProvincias=" + idProvincias + ", EmailCliente="
 				+ EmailCliente + ", TelefonoCliente=" + TelefonoCliente + "]";
 	}
+
+
+
+
 	
 	
 	

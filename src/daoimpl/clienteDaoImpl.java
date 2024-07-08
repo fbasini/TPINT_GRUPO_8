@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import dao.ClienteDao;
 import daoimpl.Conexion;
 import entidad.Cliente;
-
+import dao.usuarioDao;
+import daoimpl.usuarioDaoImpl;
+import entidad.Usuario;
 
 public class clienteDaoImpl implements ClienteDao {
 

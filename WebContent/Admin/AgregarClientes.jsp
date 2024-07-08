@@ -29,7 +29,7 @@
                     </form>
                 </li>
                 <li class="nav-item">
-                    <form action="CerrarSesionServlet" method="post" class="form-inline">
+                    <form action="../CerrarSesionServlet" method="post" class="form-inline">
                         <button type="submit" class="btn-cerrar-sesion">Cerrar Sesión</button>
                     </form>
                 </li>

@@ -42,8 +42,8 @@ public class usuarioDaoImpl implements usuarioDao{
         usuario.setContraseñaUsuario(rs.getString("passwordUsuario"));
         String tipoUsuario=(rs.getString("tipoUsuario"));
         usuario.setTipoUsuario(tipoUsuario.charAt(0));
-        String usuarioActivo=(rs.getString("usuarioActivo"));
-        usuario.setUsuarioActivo(usuarioActivo.charAt(0));
+        //String usuarioActivo=(rs.getString("usuarioActivo"));
+        //usuario.setUsuarioActivo(usuarioActivo.charAt(0));
         return usuario;
     }
 		
@@ -74,6 +74,7 @@ public class usuarioDaoImpl implements usuarioDao{
 			}
 			
 			return filas;
-	}
+	}		
 }
+	
 }

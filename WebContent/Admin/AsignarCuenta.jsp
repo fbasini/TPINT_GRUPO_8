@@ -7,7 +7,6 @@
 <title>Asignación de cuenta</title>
 </head>
 <body>
-
  <div>
  <h1 id="usuario" style="position: absolute; top:1px; right:6px">Nombre Usuario</h1>
 	<h2>Asignación de cuenta</h2>
