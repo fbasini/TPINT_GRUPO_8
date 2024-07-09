@@ -9,8 +9,16 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<title>Administrar Clientes</title>
 	<!-- Bootstrap CSS -->
-	    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-	    <link rel="stylesheet" href="../Style.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../Style.css">
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/2.0.8/css/dataTables.dataTables.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/2.0.8/js/dataTables.min.js"></script>  
+	<script type="text/javascript">
+		$(document).ready(function (){
+			$('#tablaClientes').DataTable();
+		});
+	</script>	
 </head>
 <body>
 	<!-- Header -->
@@ -41,7 +49,7 @@
 	 <form method="get" action="ClientesServlet">
 	 <div class="container mt-5">
 	    <h2>Lista de Clientes</h2>
-	    <table class="table table-bordered">
+	    <table id="tablaClientes" class="table table-bordered">
 	        <thead>
 	            <tr>
 	                <th>ID</th>
