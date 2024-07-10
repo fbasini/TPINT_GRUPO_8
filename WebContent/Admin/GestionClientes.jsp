@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>AdminHome</title>
+    <title>Gestion Clientes</title>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../Style.css">
@@ -42,7 +42,7 @@
                 <form action="AgregarClientes.jsp" method="post">
                     <button type="submit" id="AgregarClientes" name="AgregarClientes" class="btn btn-primary mb-2">REGISTRAR NUEVO CLIENTE</button>
                 </form>
-                <form action="AdministrarClientes2.jsp" method="post">
+                <form action="AdministrarClientes.jsp" method="post">
                     <button type="submit" id="AdministrarClientes" name="AdministrarClientes" class="btn btn-primary mb-2">ADMINISTRAR CLIENTES</button>
                 </form>
             </div>

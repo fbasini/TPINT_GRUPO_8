@@ -34,7 +34,7 @@
                     <span class="nav-link">Usuario: <%= session.getAttribute("usuario") %> </span>
                 </li>
                 <li class="nav-item">
-                    <form action="AdminHome.jsp" method="post" class="form-inline">
+                    <form action="GestionClientes.jsp" method="post" class="form-inline">
                         <button type="submit" class="btn btn-link nav-link boton-links">Volver</button>
                     </form>
                 </li>                
@@ -46,7 +46,7 @@
             </ul>
         </div>
     </nav>
-	 <form method="get" action="ClientesServlet">
+	 <form method="get" action="ListarClientesServlet">
 	 <div class="container mt-5">
 	    <h2>Lista de Clientes</h2>
 	    <table id="tablaClientes" class="table table-bordered">
@@ -70,15 +70,15 @@
 	                            <td><%= cliente.getIdCliente() %></td>
 	                            <td><%= cliente.getNombreUsuario() %></td>
 	                            <td></td>
-	                            <td><button type="button" class="btn btn-info" onclick="mostrarDetalles(<%= cliente.getIdCliente() %>)">Detalle</button></td>
+	                            <td><button type="button" class="btn btn-info">Detalle</button></td>
 	                            <td>
-	                                <form action="ModificarClienteServlet" method="post">
+	                                <form method="post" action="ModificarClientesServlet">
 	                                    <input type="hidden" name="id" value="<%= cliente.getIdCliente() %>">
 	                                    <button type="submit" class="btn btn-warning">Modificar</button>
 	                                </form>
 	                            </td>
 	                            <td>
-	                                <form action="EliminarClienteServlet" method="post">
+	                                <form  method="post" action="EliminarClientesServlet">
 	                                    <input type="hidden" name="id" value="<%= cliente.getIdCliente() %>">
 	                                    <button type="submit" class="btn btn-danger">Eliminar</button>
 	                                </form>

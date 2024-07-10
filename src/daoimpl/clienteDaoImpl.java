@@ -137,6 +137,7 @@ public class clienteDaoImpl implements ClienteDao {
 	            Cliente cliente = new Cliente(); // Crear un nuevo objeto Cliente en cada iteración
 	            cliente.setIdCliente(resultSet.getInt("idcliente"));
 	            cliente.setNombreUsuario(resultSet.getString("nombreUsuario"));
+	            /*
 	            cliente.setDNIcliente(resultSet.getInt("DNIcliente"));
 	            cliente.setCUILcliente(resultSet.getInt("CUILcliente"));
 	            cliente.setNombreCliente(resultSet.getString("NombreCliente"));
@@ -150,6 +151,7 @@ public class clienteDaoImpl implements ClienteDao {
 	            cliente.setEmailCliente(resultSet.getString("EmailCliente"));
 	            cliente.setTelefonoCliente(resultSet.getInt("TelefonoCliente"));
 	            cliente.setClienteActivo(resultSet.getString("ClienteActivo").charAt(0));
+	            */
 	            clientes.add(cliente);
 	        }
 	    } catch (SQLException e) {
