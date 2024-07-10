@@ -18,6 +18,12 @@
 		$(document).ready(function (){
 			$('#tablaClientes').DataTable();
 		});
+		
+		function confirmarEliminacion(event) {
+            if (!confirm('¿Estás seguro de que deseas eliminar este cliente?')) {
+                event.preventDefault();
+            }
+        }
 	</script>	
 </head>
 <body>
@@ -72,16 +78,17 @@
 	                            <td></td>
 	                            <td><button type="button" class="btn btn-info">Detalle</button></td>
 	                            <td>
+	                            <!-- para modificar solo la pw -->
 	                                <form method="post" action="ModificarClientesServlet">
 	                                    <input type="hidden" name="id" value="<%= cliente.getIdCliente() %>">
 	                                    <button type="submit" class="btn btn-warning">Modificar</button>
 	                                </form>
 	                            </td>
 	                            <td>
-	                                <form  method="post" action="EliminarClientesServlet">
-	                                    <input type="hidden" name="id" value="<%= cliente.getIdCliente() %>">
-	                                    <button type="submit" class="btn btn-danger">Eliminar</button>
-	                                </form>
+	                                <form method="post" action="EliminarClientesServlet" onsubmit="confirmarEliminacion(event)">
+                                            <input type="hidden" name="id" value="<%= cliente.getIdCliente() %>">
+                                            <button type="submit" class="btn btn-danger">Eliminar</button>
+                                    </form>
 	                            </td>
 	                        </tr>
 	            <% 
