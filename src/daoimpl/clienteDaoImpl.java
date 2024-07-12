@@ -127,6 +127,7 @@ public class clienteDaoImpl implements ClienteDao {
 
 	
 	public ArrayList<Cliente> listarClientes() {
+		System.out.println("Ejecutando listarClientes()"); // debug
 	    PreparedStatement statement;
 	    Connection conexion = Conexion.getConexion().getSQLConexion();
 	    ArrayList<Cliente> clientes = new ArrayList<>();
@@ -135,6 +136,7 @@ public class clienteDaoImpl implements ClienteDao {
 	        ResultSet resultSet = statement.executeQuery();
 	        while (resultSet.next()) {
 	            Cliente cliente = new Cliente(); // Crear un nuevo objeto Cliente en cada iteración
+	            System.out.println("Obteniendo cliente con ID: " + resultSet.getInt("idCliente")); // debug
 	            cliente.setIdCliente(resultSet.getInt("idcliente"));
 	            cliente.setNombreUsuario(resultSet.getString("nombreUsuario"));
 	            /*

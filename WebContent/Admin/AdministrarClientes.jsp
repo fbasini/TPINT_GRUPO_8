@@ -52,7 +52,8 @@
             </ul>
         </div>
     </nav>
-	 <form method="get" action="ListarClientesServlet">
+	 <form method="post" action="ListarClientesServlet">
+	 <input type="hidden" name="opc" value="1">
 	 <div class="container mt-5">
 	    <h2>Lista de Clientes</h2>
 	    <table id="tablaClientes" class="table table-bordered">
