@@ -1,5 +1,4 @@
 package negocioImpl;
-import dao.usuarioDao;
 import daoimpl.usuarioDaoImpl;
 import entidad.Usuario;
 import negocio.usuarioNegocio;
@@ -16,5 +15,9 @@ public class usuarioNegocioImpl implements usuarioNegocio {
 	}
 	public int agregarUsuario(Usuario usuario) {
 		return usuarioDAO.agregarUsuario(usuario);
+	}
+	public int updatePassword(Usuario usuario) {
+		return usuarioDAO.updatePassword(usuario);
+	
 	}
 }

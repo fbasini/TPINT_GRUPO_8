@@ -19,8 +19,8 @@
 			$('#tablaClientes').DataTable();
 		});
 		
-		function confirmarEliminacion(event) {
-            if (!confirm('¿Estás seguro de que deseas eliminar este cliente?')) {
+		function confirmarEliminacion(event) { 
+            if (!confirm('¿Estás seguro de que deseas eliminar este cliente? ')) {
                 event.preventDefault();
             }
         }
@@ -52,7 +52,7 @@
             </ul>
         </div>
     </nav>
-	 <form method="post" action="ListarClientesServlet">
+	 <form method="post" action="/TPINT_GRUPO_8_LAB4/ListarClientesServlet">
 	 <input type="hidden" name="opc" value="1">
 	 <div class="container mt-5">
 	    <h2>Lista de Clientes</h2>
@@ -62,9 +62,9 @@
 	                <th>ID</th>
 	                <th>Usuario</th>
 	                <th>Contraseña</th>
-	                <th>Detalle</th>
 	                <th>Modificar</th>
 	                <th>Eliminar</th>
+	                <th>Detalle</th>
 	            </tr>
 	        </thead>
 	        <tbody>
@@ -76,20 +76,26 @@
 	                        <tr>
 	                            <td><%= cliente.getIdCliente() %></td>
 	                            <td><%= cliente.getNombreUsuario() %></td>
-	                            <td></td>
-	                            <td><button type="button" class="btn btn-info">Detalle</button></td>
+	                            
 	                            <td>
-	                            <!-- para modificar solo la pw -->
-	                                <form method="post" action="ModificarClientesServlet">
-	                                    <input type="hidden" name="id" value="<%= cliente.getIdCliente() %>">
-	                                    <button type="submit" class="btn btn-warning">Modificar</button>
-	                                </form>
+	                            <form method="post" action="/TPINT_GRUPO_8_LAB4/ModificarClientesServlet">
+	                            	<input type="text" name="txtPassword" class="form-control custom-input">
 	                            </td>
 	                            <td>
-	                                <form method="post" action="EliminarClientesServlet" onsubmit="confirmarEliminacion(event)">
+	                                    <input type="hidden" name="id" value="<%= cliente.getIdCliente() %>">
+	                                    <button type="submit" class="btn btn-warning" name="btnModificar">Modificar</button>
+
+	                             </form>
+	                             </td>
+	                            <td><form method="post" action="EliminarClientesServlet" onsubmit="confirmarEliminacion(event)">
                                             <input type="hidden" name="id" value="<%= cliente.getIdCliente() %>">
                                             <button type="submit" class="btn btn-danger">Eliminar</button>
                                     </form>
+	                            <!-- para modificar solo la pw -->
+	                                
+	                            </td>
+	                            <td>
+	                                <button type="button" class="btn btn-info">Detalle</button>
 	                            </td>
 	                        </tr>
 	            <% 
@@ -99,7 +105,7 @@
 	                }
 	            %>
 	        </tbody>
-	    </table>
+	    </table><br><button type="submit" class="btn btn-link nav-link boton-links" name="listar">Listar</button>
 	</div>
     </form>
     

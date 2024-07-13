@@ -13,6 +13,7 @@ public class usuarioDaoImpl implements usuarioDao{
 	
 	private static final String select = "SELECT * FROM usuario WHERE nombreUsuario = ? AND passwordUsuario = ?";
 	private static final String insert= "INSERT INTO usuario (nombreUsuario,passwordUsuario,tipoUsuario) VALUES (?,?,?)";
+	private static final String updatePassword= "UPDATE usuario SET passwordUsuario = ? WHERE nombreUsuario = ?";
 
 	@Override
 	public Usuario obtenerUsuario(String nombreUsuario, String passwordUsuario) {
@@ -48,7 +49,6 @@ public class usuarioDaoImpl implements usuarioDao{
     }
 		
 	public int agregarUsuario(Usuario usuario) {
-		{
 			PreparedStatement statement;
 			Connection conexion = Conexion.getConexion().getSQLConexion();
 			int filas = 0;
@@ -75,6 +75,33 @@ public class usuarioDaoImpl implements usuarioDao{
 			
 			return filas;
 	}		
-}
 	
+			public int updatePassword(Usuario usuario) {
+				
+					PreparedStatement statement;
+					Connection conexion = Conexion.getConexion().getSQLConexion();
+					int filas = 0;
+					try
+					{
+						statement = conexion.prepareStatement(updatePassword);
+						statement.setString(1,usuario.getContraseñaUsuario());
+						statement.setString(2,"AguilaPino");
+						filas = statement.executeUpdate();
+						if (filas > 0) {
+			                conexion.commit();
+			            }
+					} 
+					catch (SQLException e) 
+					{
+						e.printStackTrace();
+						try {
+							conexion.rollback();
+						} catch (SQLException e1) {
+							e1.printStackTrace();
+						}
+					}
+					
+					return filas;
+
+			}
 }

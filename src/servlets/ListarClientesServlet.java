@@ -27,6 +27,7 @@ public class ListarClientesServlet extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("--------------------------------------------");
 		System.out.println("Entrando en el servlet ListarClientesServlet"); // debug
 		try {
             String opc = request.getParameter("opc");
