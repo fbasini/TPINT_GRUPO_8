@@ -23,12 +23,17 @@ public class EliminarClientesServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int idCliente = Integer.parseInt(request.getParameter("id"));
-		clienteDaoImpl clienteDAO = new clienteDaoImpl();
-		Cliente cliente = new Cliente();
-		cliente.setIdCliente(idCliente);
-		clienteDAO.eliminarCliente(cliente);
-		response.sendRedirect("ListarClientesServlet");
+		try {
+            int idCliente = Integer.parseInt(request.getParameter("id"));
+            clienteDaoImpl clienteDAO = new clienteDaoImpl();
+            Cliente cliente = new Cliente();
+            cliente.setIdCliente(idCliente);
+            clienteDAO.eliminarCliente(cliente);
+            response.sendRedirect("ListarClientesServlet?opc=1");
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Ocurrió un error al eliminar el cliente: " + e.getMessage());
+        }
 	}
 
 }
