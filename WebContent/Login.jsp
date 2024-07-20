@@ -8,7 +8,7 @@
 </head>
 <body style="display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0;">
     <div>
-        <form action="LoginServlet" method="post">
+        <form action="/TPINT_GRUPO_8_LAB4/LoginServlet" method="post">
             <table style="margin: 0 auto;">
                 <tr>
                     <td style="text-align: left;"><label for="usuario">Usuario:</label></td>

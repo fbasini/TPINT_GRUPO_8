@@ -83,7 +83,7 @@
 	                            </td>
 	                            <td>
 	                                    <button type="submit" class="btn btn-warning" name="btnModificar">Modificar</button>
-	                                </form>
+	          </form>
 	                            </td>
 	                            <td>
 	                            	<form method="post" action="EliminarClientesServlet" onsubmit="confirmarEliminacion(event)">

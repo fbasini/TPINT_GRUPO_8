@@ -27,25 +27,28 @@ public class ModificarClientesServlet extends HttpServlet {
             String password = request.getParameter("txtPassword");
             String nombreUsuario = request.getParameter("nombreUsuario");
 
-            // Depuración: imprimir los valores recibidos
+           
             System.out.println("Nombre de usuario: " + nombreUsuario);
-            System.out.println("Contraseña: " + password);
+            System.out.println("Nueva contraseña: " + password);
+            
+            if (nombreUsuario != null && !nombreUsuario.isEmpty() && password != null && !password.isEmpty()) {
+                Usuario usuario = new Usuario();
+                usuario.setNombreUsuario(nombreUsuario);
+                usuario.setContraseñaUsuario(password);
 
-            Usuario usuario = new Usuario();
-            usuario.setNombreUsuario(nombreUsuario);
-            usuario.setContraseñaUsuario(password);
+                usuarioNegocioImpl usuarioNeg = new usuarioNegocioImpl();
+                int filas = usuarioNeg.updatePassword(usuario);
 
-            usuarioNegocioImpl usuarioNeg = new usuarioNegocioImpl();
-            int filas = usuarioNeg.updatePassword(usuario);
-
-            String mensaje;
-            if (filas > 0) {
-                mensaje = "Cliente modificado con éxito";
-            } else {
-                mensaje = "No se pudo modificar al cliente";
+                String mensaje;
+                if (filas > 0) {
+                    mensaje = "Cliente modificado con éxito";
+                } else {
+                    mensaje = "No se pudo modificar al cliente";
+                }
+                request.setAttribute("mensaje", mensaje);
+                // Redirigir de vuelta a la página de gestión de clientes
+                request.getRequestDispatcher("Admin/AdministrarClientes.jsp").forward(request, response);
             }
-            request.setAttribute("mensaje", mensaje);
-            request.getRequestDispatcher("Admin/AdministrarClientes.jsp").forward(request, response);
         }
     }
 }

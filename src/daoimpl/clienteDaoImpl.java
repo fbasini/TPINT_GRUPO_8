@@ -20,9 +20,10 @@ public class clienteDaoImpl implements ClienteDao {
 	private static final String selectAll = "SELECT * FROM cliente";
 	private static final String update = "UPDATE cliente SET nombreUsuario = ?, DNIcliente = ?, CUILcliente = ?, NombreCliente = ?, ApellidoCliente = ?, SexoCliente = ?, NacionalidadCliente = ?, FechaNacimientoCliente = ?, DireccionCliente = ?, LocalidadCliente = ?, idProvincias = ?, EmailCliente = ?, TelefonoCliente = ?, ClienteActivo = ? WHERE idcliente = ?";
 	
+	
+	
 	public int agregarCliente(Cliente cliente) {
-		
-		
+			
 		PreparedStatement statement;
 		Connection conexion = Conexion.getConexion().getSQLConexion();
 		int filas = 0;
