@@ -78,30 +78,25 @@ public class usuarioDaoImpl implements usuarioDao{
 	
 			public int updatePassword(Usuario usuario) {
 				
-					PreparedStatement statement;
-					Connection conexion = Conexion.getConexion().getSQLConexion();
-					int filas = 0;
-					try
-					{
-						statement = conexion.prepareStatement(updatePassword);
-						statement.setString(1,usuario.getContraseñaUsuario());
-						statement.setString(2,"AguilaPino");
-						filas = statement.executeUpdate();
-						if (filas > 0) {
-			                conexion.commit();
-			            }
-					} 
-					catch (SQLException e) 
-					{
-						e.printStackTrace();
-						try {
-							conexion.rollback();
-						} catch (SQLException e1) {
-							e1.printStackTrace();
-						}
-					}
-					
-					return filas;
-
+				PreparedStatement statement;
+			    Connection conexion = Conexion.getConexion().getSQLConexion();
+			    int filas = 0;
+			    try {
+			        statement = conexion.prepareStatement(updatePassword);
+			        statement.setString(1, usuario.getContraseñaUsuario());
+			        statement.setString(2, usuario.getNombreUsuario());
+			        filas = statement.executeUpdate();
+			        if (filas > 0) {
+			            conexion.commit();
+			        }
+			    } catch (SQLException e) {
+			        e.printStackTrace();
+			        try {
+			            conexion.rollback();
+			        } catch (SQLException e1) {
+			            e1.printStackTrace();
+			        }
+			    }
+			    return filas;
 			}
 }

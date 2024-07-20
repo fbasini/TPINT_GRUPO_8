@@ -76,23 +76,20 @@
 	                        <tr>
 	                            <td><%= cliente.getIdCliente() %></td>
 	                            <td><%= cliente.getNombreUsuario() %></td>
-	                            
 	                            <td>
-	                            <form method="post" action="/TPINT_GRUPO_8_LAB4/ModificarClientesServlet">
-	                            	<input type="text" name="txtPassword" class="form-control custom-input">
+	                                <form method="post" action="ModificarClientesServlet">
+	                                    <input type="text" name="txtPassword" class="form-control custom-input" required>
+	                                    <input type="hidden" name="nombreUsuario" value="<%= cliente.getNombreUsuario() %>">
 	                            </td>
 	                            <td>
-	                                    <input type="hidden" name="id" value="<%= cliente.getIdCliente() %>">
 	                                    <button type="submit" class="btn btn-warning" name="btnModificar">Modificar</button>
-
-	                             </form>
-	                             </td>
-	                            <td><form method="post" action="EliminarClientesServlet" onsubmit="confirmarEliminacion(event)">
-                                            <input type="hidden" name="id" value="<%= cliente.getIdCliente() %>">
-                                            <button type="submit" class="btn btn-danger">Eliminar</button>
-                                    </form>
-	                            <!-- para modificar solo la pw -->
-	                                
+	                                </form>
+	                            </td>
+	                            <td>
+	                            	<form method="post" action="EliminarClientesServlet" onsubmit="confirmarEliminacion(event)">
+                                        <input type="hidden" name="id" value="<%= cliente.getIdCliente() %>">
+                                        <button type="submit" class="btn btn-danger">Eliminar</button>
+	                            	</form>
 	                            </td>
 	                            <td>
 	                                <button type="button" class="btn btn-info">Detalle</button>
@@ -108,8 +105,6 @@
 	    </table><br><button type="submit" class="btn btn-link nav-link boton-links" name="listar">Listar</button>
 	</div>
     </form>
-    
-    
     
     <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

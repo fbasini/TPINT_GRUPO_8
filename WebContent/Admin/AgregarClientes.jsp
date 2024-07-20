@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+
     pageEncoding="ISO-8859-1"%>
+    <%@ page import="entidad.Cliente" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -39,7 +41,7 @@
 
  <div>
 <h2 style="text-align:center; margin:50px">Agregar Cliente</h2>
-        <form action="agregarClienteServlet" method="post">
+        <form action="../agregarClienteServlet" method="post">
             <table style="margin: 0 auto; ">
                 <tr>
                     <td style="text-align: left; width: 101px"><label for="usuario">Usuario:</label></td>
