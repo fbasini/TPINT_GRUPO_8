@@ -1,5 +1,26 @@
 package negocioImpl;
 
-public class clienteNegocioImpl {
+import java.util.ArrayList;
 
+import entidad.Cliente;
+
+import daoimpl.clienteDaoImpl;
+import daoimpl.cuentaDaoImpl;
+
+public class clienteNegocioImpl {
+private clienteDaoImpl clientedao; 
+	
+	public clienteNegocioImpl() {
+		
+		
+		this.clientedao= new clienteDaoImpl();
+		
+	}
+	public ArrayList<Cliente> listarClientes(){
+		
+		
+		return clientedao.listarClientes();
+		
+	}
+	
 }

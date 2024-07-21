@@ -1,14 +1,16 @@
-package dao;
+package negocio;
+
+
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import entidad.Cuenta;
 import entidad.Cliente;
+import entidad.Cuenta;
 
-public interface cuentaDao {
 
+public interface cuentaNegocio {
 	public int agregarCuenta(Cuenta cuenta);
 	public int eliminarCuenta(Cuenta cuenta);
 	public int modificarCuenta(Cuenta cuenta);

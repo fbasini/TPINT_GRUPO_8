@@ -19,7 +19,7 @@ public class clienteDaoImpl implements ClienteDao {
 	private static final String delete = "DELETE FROM cliente WHERE idcliente = ?";
 	private static final String selectAll = "SELECT * FROM cliente";
 	private static final String update = "UPDATE cliente SET nombreUsuario = ?, DNIcliente = ?, CUILcliente = ?, NombreCliente = ?, ApellidoCliente = ?, SexoCliente = ?, NacionalidadCliente = ?, FechaNacimientoCliente = ?, DireccionCliente = ?, LocalidadCliente = ?, idProvincias = ?, EmailCliente = ?, TelefonoCliente = ?, ClienteActivo = ? WHERE idcliente = ?";
-	
+	private static final String selectAll2 = "SELECT idCliente, NombreCliente FROM cliente";
 	
 	
 	public int agregarCliente(Cliente cliente) {
@@ -162,4 +162,7 @@ public class clienteDaoImpl implements ClienteDao {
 	    }
 	    return clientes;
 	}
+
+
+
 }

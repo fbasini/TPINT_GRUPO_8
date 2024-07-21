@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>AdminHome</title>
+    <title>Gestion Clientes</title>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../Style.css">
@@ -21,13 +21,11 @@
                 <li class="nav-item">
                     <span class="nav-link">Usuario: <%= session.getAttribute("usuario") %> </span>
                 </li>
-                <!-- 
                 <li class="nav-item">
-                    <form action="volver" method="post" class="form-inline">
+                    <form action="AdminHome.jsp" method="post" class="form-inline">
                         <button type="submit" class="btn btn-link nav-link boton-links">Volver</button>
                     </form>
-                </li>
-                -->
+                </li>                
                 <li class="nav-item">
                     <form action="../CerrarSesionServlet" method="post" class="form-inline">
                         <button type="submit" class="btn-cerrar-sesion">Cerrar Sesión</button>
@@ -41,17 +39,11 @@
     <div class="container" style="display: flex; justify-content: center; align-items: center; height: 100vh;">
         <div class="text-center">
             <div class="btn-group-vertical">
-                <form action="GestionClientes.jsp" method="post">
-                    <button type="submit" id="clientes" name="clientes" class="btn btn-primary mb-2">CLIENTES</button>
+                <form action="AsignarCuenta.jsp" method="post">
+                    <button type="submit" id="AgregarCuentas" name="AgregarCuentas" class="btn btn-primary mb-2">CREAR NUEVA CUENTA</button>
                 </form>
-                <form action="GestionCuentas.jsp" method="post">
-                    <button type="submit" id="cuentas" name="cuentas" class="btn btn-primary mb-2">CUENTAS</button>
-                </form>
-                <form method="post" action="AutorizarPrestamos.jsp">
-                    <button type="submit" id="prestamos" name="prestamos" class="btn btn-primary mb-2">PRESTAMOS</button>
-                </form>
-                <form action="estadisticas" method="post">
-                    <button type="submit" id="estadisticas" name="estadisticas" class="btn btn-primary mb-2">ESTADISTICAS</button>
+                <form action="AdministrarCuenta.jsp" method="post">
+                    <button type="submit" id="AdministrarCuentas" name="AdministrarCuentas" class="btn btn-primary mb-2">ADMINISTRAR CUENTAS</button>
                 </form>
             </div>
         </div>
@@ -63,4 +55,3 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
-
