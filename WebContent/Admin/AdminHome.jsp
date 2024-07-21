@@ -47,7 +47,7 @@
                 <form action="cuentas" method="post">
                     <button type="submit" id="cuentas" name="cuentas" class="btn btn-primary mb-2">CUENTAS</button>
                 </form>
-                <form action="prestamos" method="post">
+                <form method="post" action="AutorizarPrestamos.jsp">
                     <button type="submit" id="prestamos" name="prestamos" class="btn btn-primary mb-2">PRESTAMOS</button>
                 </form>
                 <form action="estadisticas" method="post">
