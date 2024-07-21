@@ -4,57 +4,41 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Asignación de cuenta</title>
+<title>Creacion de Cuenta</title>
 </head>
 <body>
  <div>
  <h1 id="usuario" style="position: absolute; top:1px; right:6px">Nombre Usuario</h1>
-	<h2>Asignación de cuenta</h2>
+	<h2>Creacion de Cuenta</h2>
 </div>
 
 <div>
+<form action="../agregarCuentaServlet" method="post">
 <table style="width: 353px; text-align:center;">
 	<tbody>
-		<tr>
-			<th>Cliente</th>
-			<td style="width: 175px; ">
-				<select name="usuarios" id="usuarios">
-			        <option value="Usuario1">Felipe</option>
-			        <option value="Usuario2">Maria</option>
-			        <option value="Uusuario3">Pedro</option>
-			    </select>
-			</td>	
-			
-		</tr>
+		
 		
 		<tr>
 			<th>Tipo de cuenta</th>
 			<td><select name="tipoCuenta" id="tipoCuenta">
-					 <option value="cajaDeAhorro">Caja de Ahorro</option>
-			        <option value="cuentaCorriente">Cuenta Corriente</option>
+					 <option value="Caja de ahorro">Caja de ahorro</option>
+			        <option value="Cuenta corriente">Cuenta corriente</option>
 			    </select>
 			</td>	
-		</tr>
-		<tr>
-			<th>N° de cuenta</th>
-			<td><input type="number" name="txtNroCuenta" id="txtNroCuenta"></td>	
-			
-		</tr>
+		
 		<tr>
 			<th>CBU</th>
 			<td><input type="number" name="txtCBU" id="txtCBU"></td>	
 			
 		</tr>
-		<tr>
-			<th>Monto inicial</th>
-			<td><input type="number" name="txtMontoInicial" id="txtMontoInicial"></td>	
-		</tr>
+		
 		<tr>
 
-			<td colspan="2" style=" height:50px;"><button type="submit" name="btnAsignar" style="text-align:center; border-radius: 5px;">Asignar</button>
+			<td colspan="2" style=" height:50px;"><button type="submit" name="btnAsignar" style="text-align:center; border-radius: 5px;">Crear</button>
 		</tr>
 	</tbody>
 </table>
+</form>
 </div>
 </body>
 </html>

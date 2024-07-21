@@ -8,4 +8,5 @@ public int agregarCliente(Cliente cliente);
 public int eliminarCliente(Cliente cliente);
 public int modificarCliente(Cliente cliente);
 public ArrayList<Cliente> listarClientes();
+
 }

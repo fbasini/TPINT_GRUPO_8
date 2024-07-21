@@ -1,0 +1,68 @@
+package negocioImpl;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import entidad.Cliente;
+import entidad.Cuenta;
+import negocio.cuentaNegocio;
+import daoimpl.cuentaDaoImpl;
+
+
+public class cuentaNegocioImpl implements cuentaNegocio {
+	private cuentaDaoImpl cuentadao; 
+	
+	public cuentaNegocioImpl() {
+		
+		
+		this.cuentadao= new cuentaDaoImpl();
+		
+	}
+	
+
+	public int agregarCuenta(Cuenta cuenta) {
+		
+		return cuentadao.agregarCuenta(cuenta);
+	}
+
+	
+	public int eliminarCuenta(Cuenta cuenta) {
+		
+		return cuentadao.eliminarCuenta(cuenta);
+	}
+
+	
+	public int modificarCuenta(Cuenta cuenta) {
+	
+		return cuentadao.modificarCuenta(cuenta);
+	}
+
+	
+	public ArrayList<Cuenta> listarCuentas() {
+		
+		return cuentadao.listarCuentas();
+	}
+
+	
+
+	
+	public boolean asignarCuenta(int idCliente, int idCuenta) throws SQLException {
+		// TODO Auto-generated method stub
+		return cuentadao.asignarCuenta(idCliente, idCuenta);
+	}
+
+
+	
+	public List<Cuenta> obtenerCuentasDisponibles() throws SQLException {
+		// TODO Auto-generated method stub
+		return cuentadao.obtenerCuentasDisponibles();
+	}
+
+
+	
+	public boolean puedeAsignarCuenta(int idCliente) throws SQLException {
+		// TODO Auto-generated method stub
+		return cuentadao.puedeAsignarCuenta(idCliente);
+	}
+
+}
