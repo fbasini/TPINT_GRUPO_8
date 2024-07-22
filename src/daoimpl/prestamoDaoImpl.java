@@ -38,6 +38,7 @@ public class prestamoDaoImpl {
 	    return filas;
 	}
 	public ArrayList<Prestamos> listarPrestamos(){
+		System.out.println("dao");
 	    PreparedStatement statement;
 	    Connection conexion = Conexion.getConexion().getSQLConexion();
 	    ArrayList<Prestamos> prestamos=new ArrayList<Prestamos>();
@@ -45,13 +46,14 @@ public class prestamoDaoImpl {
 	        statement = conexion.prepareStatement(selectAll);
 	        ResultSet resultSet = statement.executeQuery();
 	        while (resultSet.next()) {
+	        	System.out.println("qlq");
 	        	Prestamos prestamo=new Prestamos();
 	        	prestamo.setIdPrestamo(resultSet.getInt("idprestamo"));
 	        	prestamo.setIdcliente(resultSet.getInt("idcliente"));
 	        	prestamo.setIdcuenta(resultSet.getInt("idcuenta"));
 	        	prestamo.setFechaPrestamo(resultSet.getDate("fechaPrestamo").toLocalDate());
 	        	prestamo.setImporteAPagar(resultSet.getBigDecimal("importeAPagar"));
-	        	prestamo.setPlazoEnCuotas(resultSet.getInt("montoPorCuota"));
+	        	prestamo.setPlazoEnCuotas(resultSet.getInt("plazoEnCoutas"));
 	        	prestamo.setMontoPorCuota(resultSet.getBigDecimal("montoPorCuota"));
 	        	prestamo.setAutorizado(resultSet.getString("autorizado").charAt(0));
 	        	prestamos.add(prestamo);
