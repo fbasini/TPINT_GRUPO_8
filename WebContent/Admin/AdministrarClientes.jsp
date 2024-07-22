@@ -47,8 +47,9 @@
 	        </thead>
 	        <tbody>
 	            <% 
-	                ArrayList<Cliente> listaClientes = (ArrayList<Cliente>) request.getAttribute("listaClientes");
-	                if (listaClientes != null) {
+	                ArrayList<Cliente> listaClientes = (ArrayList<Cliente>) request.getSession().getAttribute("listaClientes");
+	                
+	            		if (listaClientes != null) {
 	                    for (Cliente cliente : listaClientes) {
 	            %>
 	                        <tr>
@@ -61,7 +62,7 @@
 	                            </td>
 	                            <td>
 	                                    <button type="submit" class="btn btn-warning" name="btnModificar">Modificar</button>
-	          </form>
+	          						</form>
 	                            </td>
 	                            <td>
 	                            	<form method="post" action="EliminarClientesServlet" onsubmit="confirmarEliminacion(event)">
@@ -80,7 +81,7 @@
 	                }
 	            %>
 	        </tbody>
-	    </table><br><button type="submit" class="btn btn-link nav-link boton-links" name="listar">Listar</button>
+	    </table> <br><button type="submit" class="btn btn-link nav-link boton-links" name="listar">Listar</button> 
 	</div>
     </form>
     

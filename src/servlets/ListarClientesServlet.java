@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import daoimpl.clienteDaoImpl;
 import entidad.Cliente;
@@ -30,18 +31,28 @@ public class ListarClientesServlet extends HttpServlet {
 		System.out.println("--------------------------------------------");
 		System.out.println("Entrando en el servlet ListarClientesServlet"); // debug
 		try {
-            String opc = request.getParameter("opc");
-            if (opc != null && opc.equals("1")) {
+            /* String opc = request.getParameter("opc");
+            if (opc != null && opc.equals("1")) { */
 				clienteDaoImpl clienteDAO = new clienteDaoImpl();
 		        ArrayList<Cliente> clientes = clienteDAO.listarClientes();
 		        System.out.println("Número de clientes en servlet: " + clientes.size()); // Debug
+		        
+		        /*
 		        request.setAttribute("listaClientes", clientes);
 		        request.getRequestDispatcher("Admin/AdministrarClientes.jsp").forward(request, response);
-            }
+		        */
+		        
+		        HttpSession misesion = request.getSession();
+		        misesion.setAttribute("listaClientes", clientes);
+		        
+            //}
 		 } catch (Exception e) {
 	            e.printStackTrace();
 	            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Ocurrió un error en el servidor: " + e.getMessage());
 	        }
+		response.sendRedirect("Admin/AdministrarClientes.jsp");
 	}
+	
+	
 
 }

@@ -42,7 +42,7 @@
                 <form action="AgregarClientes.jsp" method="post">
                     <button type="submit" id="AgregarClientes" name="AgregarClientes" class="btn btn-primary mb-2">REGISTRAR NUEVO CLIENTE</button>
                 </form>
-                <form action="AdministrarClientes.jsp" method="post">
+                <form action="../ListarClientesServlet" method="post" >
                     <button type="submit" id="AdministrarClientes" name="AdministrarClientes" class="btn btn-primary mb-2">ADMINISTRAR CLIENTES</button>
                 </form>
             </div>
