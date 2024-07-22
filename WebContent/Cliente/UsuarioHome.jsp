@@ -7,7 +7,7 @@
 <title>mi home</title>
 </head>
 <body>
-	<form action="redireccionarServlet" method="post">
+	<!--  <form action="redireccionarServlet" method="post">-->
     <select name="misCuentas" id="misCuentas">
         <option value="Cuenta1">Mi cuenta 1</option>
         <option value="Cuenta2">Mi cuenta 2</option>
@@ -31,7 +31,9 @@
             <td><button type="submit" id="misDeudas" name="misDeudas">PAGO DE DEUDAS</button></td>
         </tr>
         <tr>
-            <td> <button type="submit" id="solicitarPrestamo" name="solicitarPrestamo">SOLICTAR PRESTAMO</button></td>
+            <form action="../solicitarPrestamoServlet" method="get">
+            <td> <button type="submit" id="solicitarPrestamo" name="solicitarPrestamo">SOLICITAR PRESTAMO</button></td>
+            </form>
         </tr>
         <tr>
             <td><button type="submit" id="transferirFondos" name="transferirFondos">TRANSFERIR FONDOS</button></td>
@@ -39,7 +41,7 @@
 
     </table>
     </div>
-</form>
+<!-- </form> -->
 
 </body>
 </html>

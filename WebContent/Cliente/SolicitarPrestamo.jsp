@@ -22,25 +22,38 @@
 	<thead >
 		<tr>
 			<td style="width: 74px; ">Importe</td>
-			<td style="width: 162px; "><input type="number" name="txtImporte"></td>
-			<td></td>
 		</tr>
 	</thead>
 	<tbody>
+			
+			
 		<tr style="width: 482px; ">
 				
+			<td style="width: 162px; "></td>
 			<td>Cuotas</td>
 			<td style="width: 128px">
+				
+			<form action="../calcularPrestamoServlet" method=get>
+				<input type="number" name="txtImporte">
 				<select name="ddlCuotas" id="ddlCuotas">
-			        <option value="Cuota1">1 cuota</option>
-			        <option value="Cuota3">3 cuotas</option>
-			        <option value="Cuota6">6 cuotas</option>
-			        <option value="Cuota12">12 cuotas</option>
+			    	
+			        <option value="3">3 cuotas</option>
+			        <option value="6">6 cuotas</option>
+			        <option value="12">12 cuotas</option>
 			    </select>
+			    
+			    <button type="submit" name="btnCalcular">Calcular</button>
+			    </form>
 			</td>
-			<td>Interes:</td>
-			
-		</tr>
+			<td><h1 id="txtInteres" name="mostrarInteres"></h1></td>
+			</tr>
+			<tr>
+			<% if (request.getSession().getAttribute("importeFinal") != null){
+				double importeFinal = (double) request.getSession().getAttribute("importeFinal");%>
+			<td>Interes: <%= importeFinal %> </td>
+			<td>Importe por cuota : <%= request.getSession().getAttribute("montoCuota") %></td> 
+			<%} %>
+			</tr>
 		<tr style="width: 482px; ">
 			
 			<td>Cuenta a depositar</td>

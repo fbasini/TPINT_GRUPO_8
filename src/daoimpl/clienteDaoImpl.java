@@ -20,7 +20,7 @@ public class clienteDaoImpl implements ClienteDao {
 	private static final String selectAll = "SELECT * FROM cliente";
 	private static final String update = "UPDATE cliente SET nombreUsuario = ?, DNIcliente = ?, CUILcliente = ?, NombreCliente = ?, ApellidoCliente = ?, SexoCliente = ?, NacionalidadCliente = ?, FechaNacimientoCliente = ?, DireccionCliente = ?, LocalidadCliente = ?, idProvincias = ?, EmailCliente = ?, TelefonoCliente = ?, ClienteActivo = ? WHERE idcliente = ?";
 	private static final String selectAll2 = "SELECT idCliente, NombreCliente FROM cliente";
-	
+	private static final String selectOne = "SELECT idcliente FROM cliente WHERE nombreUsuario = ?";
 	
 	public int agregarCliente(Cliente cliente) {
 			
@@ -163,6 +163,25 @@ public class clienteDaoImpl implements ClienteDao {
 	    return clientes;
 	}
 
-
+	public int obtenerIDClienteDeUsuario(String usuario) {
+		PreparedStatement statement;
+	    Connection conexion = Conexion.getConexion().getSQLConexion();
+	    int idCliente=0;
+	    try {
+	        statement = conexion.prepareStatement(selectOne);
+	        statement.setString(1,usuario);
+	        ResultSet resultSet = statement.executeQuery();
+	        while (resultSet.next()) {
+	           
+	            idCliente = resultSet.getInt("idcliente");
+	          
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+		
+	    return idCliente;
+	    
+	}
 
 }

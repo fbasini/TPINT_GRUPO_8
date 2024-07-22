@@ -1,6 +1,8 @@
 package servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,8 +11,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import daoimpl.usuarioDaoImpl;
+import entidad.Cuenta;
 import entidad.Usuario;
 import negocio.usuarioNegocio;
+import negocioImpl.clienteNegocioImpl;
+import negocioImpl.cuentaNegocioImpl;
 import negocioImpl.usuarioNegocioImpl;
 
 
@@ -43,6 +48,15 @@ public class LoginServlet extends HttpServlet {
             if (usuario.isTipoUsuario()=='A') {
                 response.sendRedirect("Admin/AdminHome.jsp");
             } else {
+            	clienteNegocioImpl clienteNeg = new clienteNegocioImpl();
+            	int idcliente = clienteNeg.obtenerIDUsuario(nombreUsuario);
+            	
+            	cuentaNegocioImpl cuentaNeg = new cuentaNegocioImpl();
+            	ArrayList<Cuenta> cuentasCliente =cuentaNeg.listarCuentasDeCliente(idcliente);
+            	
+            	session.setAttribute("cuentasCliente", cuentasCliente);
+            	
+            	
                 response.sendRedirect("Cliente/UsuarioHome.jsp");
             }
         } else {

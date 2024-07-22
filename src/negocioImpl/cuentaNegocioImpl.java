@@ -43,7 +43,10 @@ public class cuentaNegocioImpl implements cuentaNegocio {
 		return cuentadao.listarCuentas();
 	}
 
-	
+	public ArrayList<Cuenta> listarCuentasDeCliente(int idcliente) {
+		
+		return cuentadao.obtenerCuentasCliente(idcliente);
+	}
 
 	
 	public boolean asignarCuenta(int idCliente, int idCuenta) throws SQLException {

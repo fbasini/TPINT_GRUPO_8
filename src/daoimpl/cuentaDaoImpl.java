@@ -24,10 +24,12 @@ public class cuentaDaoImpl implements cuentaDao {
 	private static final String delete = "UPDATE cuenta SET CuentaActiva = 'N' WHERE idcuenta = ?";
 	private static final String selectAll = "SELECT * FROM cuenta";
 	private static final String update = "UPDATE cuenta SET tipoCuenta = ?, CBUCuenta = ?, saldoCuenta = ?  WHERE idcuenta = ?";
-	 private static final String LISTA_CUENTAS_DISPONIBLES_QUERY = "SELECT idCuenta FROM Cuentas WHERE idCliente IS = 1";
-	    private static final String CHECK_COUNT_QUERY = "SELECT COUNT(*) AS cuentaCount FROM Cuentas WHERE idCliente = ?";
-	    private static final String ASIGNAR_CUENTA_QUERY = "UPDATE Cuentas SET idCliente = ? WHERE idCuenta = ?";
-
+	private static final String LISTA_CUENTAS_DISPONIBLES_QUERY = "SELECT idCuenta FROM Cuentas WHERE idCliente IS = 1";
+	private static final String CHECK_COUNT_QUERY = "SELECT COUNT(*) AS cuentaCount FROM Cuentas WHERE idCliente = ?";
+	private static final String ASIGNAR_CUENTA_QUERY = "UPDATE Cuentas SET idCliente = ? WHERE idCuenta = ?";
+	private static final String obtenerCuentaDeCliente = "SELECT * FROM cuenta WHERE idcliente = ?";
+	
+	
 	public int agregarCuenta(Cuenta cuenta) {
 		
 		
@@ -133,7 +135,32 @@ public class cuentaDaoImpl implements cuentaDao {
 		return cuentas;
 	}
 
-	
+	public ArrayList<Cuenta> obtenerCuentasCliente(int idcliente) {
+		
+		PreparedStatement statement;
+		Connection conexion = Conexion.getConexion().getSQLConexion();
+		ArrayList<Cuenta> cuentas = new ArrayList<>();
+		try {
+			statement = conexion.prepareStatement(obtenerCuentaDeCliente);
+			statement.setInt(1, idcliente);
+			ResultSet resultSet = statement.executeQuery();
+			while (resultSet.next()) {
+				Cuenta cuenta = new Cuenta();
+				cuenta.setIdcuenta(resultSet.getInt("idcuenta"));
+				cuenta.setIdcliente(resultSet.getInt("idcliente"));
+				cuenta.setTipoCuenta(resultSet.getString("tipoCuenta"));
+				cuenta.setFechaCreacion(resultSet.getDate("fechaCreacion").toLocalDate());
+				cuenta.setCBUCuenta(resultSet.getInt("CBUCuenta"));
+				cuenta.setSaldoCuenta(resultSet.getBigDecimal("saldoCuenta"));
+				cuenta.setCuentaActiva(resultSet.getString("CuentaActiva").charAt(0));
+				cuentas.add(cuenta);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return cuentas;
+		
+	}
 	
 
 
@@ -183,5 +210,7 @@ public class cuentaDaoImpl implements cuentaDao {
 	        }
 	        return false;
 	}
+	
+	
 	
 }
