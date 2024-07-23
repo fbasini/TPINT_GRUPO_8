@@ -18,7 +18,7 @@
     </select>
  </div>
  
-<h1 id="usuario" style="position: absolute; top:1px; right:6px">Nombre Usuario</h1>
+<h1 id="usuario" style="position: absolute; top:1px; right:6px"><%= request.getSession().getAttribute("usuario") %></h1>
 <h2>Solicitar Préstamo</h2>
 <div>
 <table style="text-align:center;">
@@ -37,7 +37,7 @@
 			<td style="width: 128px">
 				
 			<form action="../calcularPrestamoServlet" method=get>
-				<input type="number" name="txtImporte">
+				<input type="number" required value="5000.0" min="5000.0" max="100000000" name="txtImporte" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1').replace(/^0[^.]/, '0');">
 				<select name="ddlCuotas" id="ddlCuotas">
 			    	
 			        <option value="3">3 cuotas</option>
@@ -48,14 +48,14 @@
 			    <button type="submit" name="btnCalcular">Calcular</button>
 			    </form>
 			</td>
-			<td><h1 id="txtInteres" name="mostrarInteres"></h1></td>
+			
 			</tr>
 			<tr>
 			<% if (request.getSession().getAttribute("importeFinal") != null){
 				double importeFinal = (double) request.getSession().getAttribute("importeFinal");%>
 			<td>Interes: <%= importeFinal %> </td>
 			<td>Importe por cuota : <%= request.getSession().getAttribute("montoCuota") %></td> 
-			<%} %>
+			
 			</tr>
 		<tr style="width: 482px; ">
 			
@@ -79,6 +79,7 @@
 				style="text-align:center; border-radius: 5px;">Solicitar</button>
 			</form>
 			</td>
+			<%} %>
 		</tr>
 		<tr>
 			
