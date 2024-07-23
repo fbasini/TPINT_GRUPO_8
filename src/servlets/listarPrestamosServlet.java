@@ -38,15 +38,12 @@ public class listarPrestamosServlet extends HttpServlet {
 		System.out.println("--------------------------");
 		System.out.println("servlet");
 		try{
-			/*if(request.getParameter("btnEnviar")!=null) { *///ver q onda
-			
 				prestamoNegocioImpl prestamoNeg= new prestamoNegocioImpl();
 		        ArrayList<Prestamos> listaPrestamos = prestamoNeg.listaPrestamo();
 		        System.out.println("Número de prestamos en servlet: " + listaPrestamos.size()); 
-		        HttpSession sesion = request.getSession();
-		        sesion.setAttribute("listaPrestamos", listaPrestamos);
-		      
-			//}
+			        HttpSession sesion = request.getSession();
+			        sesion.setAttribute("listaPrestamos", listaPrestamos);
+
 		}
 			catch(Exception e) {
 				e.printStackTrace();

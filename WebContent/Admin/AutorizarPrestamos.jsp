@@ -51,6 +51,7 @@
     			<th>Cuenta</th>
     			<th>Fecha</th>
     			<th>Importe a Pagar</th>
+    			<th>Importe solicitado</th>
     			<th>Plazo en cuotas</th>
     			<th>Monto Por Cuota</th>
     			<th>Autorizar</th>	
@@ -69,11 +70,15 @@
 	    		<td><%=prestamo.getIdcliente() %></td>
 	    		<td><%=prestamo.getFechaPrestamo() %></td>
 	    		<td><%=prestamo.getImporteAPagar() %></td>
+	    		<td><%=prestamo.getImporteSolicitado()%></td>
 	    		<td><%=prestamo.getPlazoEnCuotas() %></td>
 	    		<td><%=prestamo.getMontoPorCuota() %></td>
 	    		<td>
 	    		<form method="get" action="/TPINT_GRUPO_8_LAB4/autorizarPrestamoServlet">
+	    		
 	    			<input type="hidden" value="<%=prestamo.getIdPrestamo() %>" name="idPrestamo"></input>
+	    			<input type="hidden" value="<%=prestamo.getIdcuenta() %>" name="idCuenta"></input>
+	    			<input type="hidden" value="<%=prestamo.getImporteSolicitado()%>" name="montoSolicitado"></input>
 	    			<select name="autorizar" id="autorizar">
 	    				<option value="Y">Autorizar</option>
 	    				<option value="N">No autorizar</option>

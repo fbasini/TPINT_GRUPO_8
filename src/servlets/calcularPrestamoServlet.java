@@ -59,9 +59,9 @@ public class calcularPrestamoServlet extends HttpServlet {
 		
 		Prestamos prestamo = new Prestamos();
 		HttpSession misesion = request.getSession();
-		double importeFinal = (double) misesion.getAttribute("importeFinal");
-		double importeSolicitado =  (double) misesion.getAttribute("importeSolicitado");
-		double montoPorCuota = (double) misesion.getAttribute("montoCuota");
+		BigDecimal importeFinal = (BigDecimal) misesion.getAttribute("importeFinal");
+		BigDecimal importeSolicitado =  (BigDecimal) misesion.getAttribute("importeSolicitado");
+		BigDecimal montoPorCuota = (BigDecimal) misesion.getAttribute("montoCuota");
 		
 		prestamo.setIdcliente((int)misesion.getAttribute("idcliente"));
 		int idCuentaDestino = Integer.parseInt(request.getParameter("misCuentas"));

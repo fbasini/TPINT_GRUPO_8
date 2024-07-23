@@ -12,6 +12,7 @@ import dao.cuentaDao;
 import daoimpl.Conexion;
 import entidad.Cliente;
 import entidad.Cuenta;
+import entidad.Prestamos;
 import dao.usuarioDao;
 import daoimpl.usuarioDaoImpl;
 import entidad.Usuario;
@@ -28,7 +29,7 @@ public class cuentaDaoImpl implements cuentaDao {
 	private static final String CHECK_COUNT_QUERY = "SELECT COUNT(*) AS cuentaCount FROM Cuentas WHERE idCliente = ?";
 	private static final String ASIGNAR_CUENTA_QUERY = "UPDATE Cuentas SET idCliente = ? WHERE idCuenta = ?";
 	private static final String obtenerCuentaDeCliente = "SELECT * FROM cuenta WHERE idcliente = ?";
-	
+	private static final String updateSaldo="UPDATE cuenta SET saldoCuenta = saldoCuenta + ? WHERE idcuenta = ?";
 	
 	public int agregarCuenta(Cuenta cuenta) {
 		
@@ -211,6 +212,28 @@ public class cuentaDaoImpl implements cuentaDao {
 	        return false;
 	}
 	
-	
+public int asignarPrestamo(Cuenta cuenta) {
+		
+		PreparedStatement statement;
+	    Connection conexion = Conexion.getConexion().getSQLConexion();
+	    int filas = 0;
+	    try {
+	        statement = conexion.prepareStatement(updateSaldo);
+	        statement.setBigDecimal(1, cuenta.getSaldoCuenta());
+	        statement.setInt(2, cuenta.getIdcuenta());
+	        filas = statement.executeUpdate();
+	        if (filas > 0) {
+	            conexion.commit();
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        try {
+	            conexion.rollback();
+	        } catch (SQLException e1) {
+	            e1.printStackTrace();
+	        }
+	    }
+	    return filas;
+	}
 	
 }

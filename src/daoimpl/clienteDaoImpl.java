@@ -21,7 +21,7 @@ public class clienteDaoImpl implements ClienteDao {
 	private static final String update = "UPDATE cliente SET nombreUsuario = ?, DNIcliente = ?, CUILcliente = ?, NombreCliente = ?, ApellidoCliente = ?, SexoCliente = ?, NacionalidadCliente = ?, FechaNacimientoCliente = ?, DireccionCliente = ?, LocalidadCliente = ?, idProvincias = ?, EmailCliente = ?, TelefonoCliente = ?, ClienteActivo = ? WHERE idcliente = ?";
 	private static final String selectAll2 = "SELECT idCliente, NombreCliente FROM cliente";
 	private static final String selectOne = "SELECT idcliente FROM cliente WHERE nombreUsuario = ?";
-	
+
 	public int agregarCliente(Cliente cliente) {
 			
 		PreparedStatement statement;
