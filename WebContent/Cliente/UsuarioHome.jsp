@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    
+<%@ page import="entidad.Cuenta" %>
+<%@ page import="java.util.ArrayList" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -9,10 +12,17 @@
 <body>
 	<!--  <form action="redireccionarServlet" method="post">-->
     <select name="misCuentas" id="misCuentas">
-        <option value="Cuenta1">Mi cuenta 1</option>
-        <option value="Cuenta2">Mi cuenta 2</option>
-        <option value="Cuenta3">Mi cuenta 3</option>
+   <% ArrayList<Cuenta> cuentasCliente = (ArrayList<Cuenta>) request.getSession().getAttribute("cuentasCliente");
+	                
+	   if (cuentasCliente != null) {
+	     for (Cuenta cuenta : cuentasCliente) { %>
+	    	 
+	    	 <option value= "<%= cuenta.getIdcuenta() %>" >Cuenta:<%= cuenta.getIdcuenta() %> </option>
+	    	 
+	      <%} }%>
+     
     </select>
+    
     <div>
     <h1 id="usuario" style="position: absolute; top: 1px ;right:6px " >Nombre usuario</h1>
     <h1 id="cuentaSeleccionada" style="text-align: left;">Cuenta "tipo X" Nº "Y"</h1>

@@ -2,6 +2,7 @@ package servlets;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import entidad.Prestamos;
 
 
 @WebServlet("/calcularPrestamoServlet")
@@ -44,6 +47,8 @@ public class calcularPrestamoServlet extends HttpServlet {
 		montoCuota = ((double)redondear)/100;
 		
 		HttpSession misesion= request.getSession();
+		misesion.setAttribute("cuotas", cuotas);
+		misesion.setAttribute("importeSolicitado", importeSolicitado);
 		misesion.setAttribute("importeFinal", importeFinal);
 		misesion.setAttribute("montoCuota", montoCuota);
 		
@@ -52,7 +57,26 @@ public class calcularPrestamoServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-			
+		Prestamos prestamo = new Prestamos();
+		HttpSession misesion = request.getSession();
+		double importeFinal = (double) misesion.getAttribute("importeFinal");
+		double importeSolicitado =  (double) misesion.getAttribute("importeSolicitado");
+		double montoPorCuota = (double) misesion.getAttribute("montoCuota");
+		
+		prestamo.setIdcliente((int)misesion.getAttribute("idcliente"));
+		int idCuentaDestino = Integer.parseInt(request.getParameter("misCuentas"));
+        prestamo.setIdcuenta(idCuentaDestino);
+        prestamo.setFechaPrestamo(LocalDate.now());
+        prestamo.setImporteAPagar(importeFinal);
+        prestamo.setImporteSolicitado(importeSolicitado);
+		prestamo.setPlazoEnCuotas((int)misesion.getAttribute("cuotas"));	
+        prestamo.setMontoPorCuota(montoPorCuota);
+        prestamo.setAutorizado('p');
+        
+        System.out.println(prestamo.toString());
+        
+        
+        response.sendRedirect("Cliente/UsuarioHome.jsp");
 		
 	}
 

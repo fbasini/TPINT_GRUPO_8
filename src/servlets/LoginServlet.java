@@ -54,6 +54,7 @@ public class LoginServlet extends HttpServlet {
             	cuentaNegocioImpl cuentaNeg = new cuentaNegocioImpl();
             	ArrayList<Cuenta> cuentasCliente =cuentaNeg.listarCuentasDeCliente(idcliente);
             	
+            	session.setAttribute("idcliente", idcliente);
             	session.setAttribute("cuentasCliente", cuentasCliente);
             	
             	

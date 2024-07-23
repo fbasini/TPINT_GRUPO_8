@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    
+<%@ page import="entidad.Cuenta" %>
+<%@ page import="java.util.ArrayList" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -57,17 +60,29 @@
 		<tr style="width: 482px; ">
 			
 			<td>Cuenta a depositar</td>
-			<td style="width: 128px"><select name="cuentas">
-					<option value="cuenta1">Cuenta 1</option>
-					<option value="cuenta2">Cuenta 2</option>
-					<option value="cuenta3">Cuenta 3</option>
-				</select></td>
-				<td></td>
+			<td style="width: 128px"> 
+			<form action="../calcularPrestamoServlet" method=post>
+			<select name="misCuentas" id="Cuentas">
+   			<% ArrayList<Cuenta> cuentasCliente = (ArrayList<Cuenta>) request.getSession().getAttribute("cuentasCliente");
+	                
+	   			if (cuentasCliente != null) {
+	     		for (Cuenta cuenta : cuentasCliente) { %>
+	    	 
+	    	 <option value= "<%= cuenta.getIdcuenta() %>" >Cuenta:<%= cuenta.getIdcuenta() %> </option>
+	    	 
+	      <%} }%>
+     
+    		</select></td>
+			<td colspan="3" style=" height:50px;">
 			
+			<button type="submit" name="btnSolicitar" 
+				style="text-align:center; border-radius: 5px;">Solicitar</button>
+			</form>
+			</td>
 		</tr>
 		<tr>
-			<td colspan="3" style=" height:50px;"><button type="submit" name="btnSolicitar" style="text-align:center; border-radius: 5px;">Solicitar</button>
-			</td>
+			
+			
 		</tr>
 		
 	</tbody>

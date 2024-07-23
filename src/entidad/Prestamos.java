@@ -9,16 +9,17 @@ public class Prestamos {
 	private int idcuenta;
 	private int idcliente;
 	private LocalDate fechaPrestamo;
-	private BigDecimal importeAPagar;
-	private BigDecimal importeSolicitado;
+	private double importeAPagar;
+	private double importeSolicitado;
 	private int PlazoEnCuotas;
-	private BigDecimal montoPorCuota;
+	private double montoPorCuota;
 	private char autorizado;
 	
 	public Prestamos() {}
 
-	public Prestamos(int idPrestamo, int idcuenta, int idcliente, LocalDate fechaPrestamo, BigDecimal importeAPagar,
-			BigDecimal importeSolicitado, int plazoEnCuotas, BigDecimal montoPorCuota, char autorizado) {
+	
+	public Prestamos(int idPrestamo, int idcuenta, int idcliente, LocalDate fechaPrestamo, double importeAPagar,
+			double importeSolicitado, int plazoEnCuotas, double montoPorCuota, char autorizado) {
 		super();
 		this.idPrestamo = idPrestamo;
 		this.idcuenta = idcuenta;
@@ -30,6 +31,7 @@ public class Prestamos {
 		this.montoPorCuota = montoPorCuota;
 		this.autorizado = autorizado;
 	}
+
 
 	public int getIdPrestamo() {
 		return idPrestamo;
@@ -63,21 +65,37 @@ public class Prestamos {
 		this.fechaPrestamo = fechaPrestamo;
 	}
 
-	public BigDecimal getImporteAPagar() {
+	
+
+	public double getImporteAPagar() {
 		return importeAPagar;
 	}
 
-	public void setImporteAPagar(BigDecimal importeAPagar) {
+
+	public void setImporteAPagar(double importeAPagar) {
 		this.importeAPagar = importeAPagar;
 	}
 
-	public BigDecimal getImporteSolicitado() {
+
+	public double getImporteSolicitado() {
 		return importeSolicitado;
 	}
 
-	public void setImporteSolicitado(BigDecimal importeSolicitado) {
+
+	public void setImporteSolicitado(double importeSolicitado) {
 		this.importeSolicitado = importeSolicitado;
 	}
+
+
+	public double getMontoPorCuota() {
+		return montoPorCuota;
+	}
+
+
+	public void setMontoPorCuota(double montoPorCuota) {
+		this.montoPorCuota = montoPorCuota;
+	}
+
 
 	public int getPlazoEnCuotas() {
 		return PlazoEnCuotas;
@@ -87,13 +105,7 @@ public class Prestamos {
 		PlazoEnCuotas = plazoEnCuotas;
 	}
 
-	public BigDecimal getMontoPorCuota() {
-		return montoPorCuota;
-	}
-
-	public void setMontoPorCuota(BigDecimal montoPorCuota) {
-		this.montoPorCuota = montoPorCuota;
-	}
+	
 
 	public char getAutorizado() {
 		return autorizado;

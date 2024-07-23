@@ -52,9 +52,9 @@ public class prestamoDaoImpl {
 	        	prestamo.setIdcliente(resultSet.getInt("idcliente"));
 	        	prestamo.setIdcuenta(resultSet.getInt("idcuenta"));
 	        	prestamo.setFechaPrestamo(resultSet.getDate("fechaPrestamo").toLocalDate());
-	        	prestamo.setImporteAPagar(resultSet.getBigDecimal("importeAPagar"));
+	        	prestamo.setImporteAPagar(resultSet.getDouble("importeAPagar"));
 	        	prestamo.setPlazoEnCuotas(resultSet.getInt("plazoEnCoutas"));
-	        	prestamo.setMontoPorCuota(resultSet.getBigDecimal("montoPorCuota"));
+	        	prestamo.setMontoPorCuota(resultSet.getDouble("montoPorCuota"));
 	        	prestamo.setAutorizado(resultSet.getString("autorizado").charAt(0));
 	        	prestamos.add(prestamo);
 	        }
