@@ -28,4 +28,9 @@ private clienteDaoImpl clientedao;
 		
 		return clientedao.obtenerIDClienteDeUsuario(usuario);
 	}
+	
+	public Cliente obtenerClienteActual(int idcliente) {
+		
+		return clientedao.clienteActual(idcliente);
+	}
 }

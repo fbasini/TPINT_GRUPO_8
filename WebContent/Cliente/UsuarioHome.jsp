@@ -32,7 +32,9 @@
     <table style="margin-left: auto; margin-right: auto;">
 
         <tr>
-            <td><button type="submit" id="misDatos" name="misDatos">MIS DATOS</button></td>
+        	
+            <td><form action="../manejarDatosServlet" method="get">
+            <button type="submit" id="misDatos" name="misDatos">MIS DATOS</button></form></td>
         </tr>
         <tr>
             <td><button type="submit" id="misMovimientos" name="misMovientos">MIS MOVIMIENTOS</button></td>

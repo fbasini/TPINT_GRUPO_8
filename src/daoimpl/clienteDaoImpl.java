@@ -21,6 +21,7 @@ public class clienteDaoImpl implements ClienteDao {
 	private static final String update = "UPDATE cliente SET nombreUsuario = ?, DNIcliente = ?, CUILcliente = ?, NombreCliente = ?, ApellidoCliente = ?, SexoCliente = ?, NacionalidadCliente = ?, FechaNacimientoCliente = ?, DireccionCliente = ?, LocalidadCliente = ?, idProvincias = ?, EmailCliente = ?, TelefonoCliente = ?, ClienteActivo = ? WHERE idcliente = ?";
 	private static final String selectAll2 = "SELECT idCliente, NombreCliente FROM cliente";
 	private static final String selectOne = "SELECT idcliente FROM cliente WHERE nombreUsuario = ?";
+	private static final String loggedClient = "SELECT * FROM cliente WHERE idcliente = ?";
 
 	public int agregarCliente(Cliente cliente) {
 			
@@ -182,6 +183,43 @@ public class clienteDaoImpl implements ClienteDao {
 		
 	    return idCliente;
 	    
+	}
+	
+	public Cliente clienteActual (int idcliente) {
+		Cliente cliente = new Cliente();
+		
+		PreparedStatement statement;
+	    Connection conexion = Conexion.getConexion().getSQLConexion();
+	    
+	    try {
+	        statement = conexion.prepareStatement(loggedClient);
+	        statement.setInt(1,idcliente);
+	        ResultSet resultSet = statement.executeQuery();
+	        while (resultSet.next()) {
+	           
+	            cliente.setIdCliente(resultSet.getInt("idcliente"));
+	            cliente.setNombreUsuario(resultSet.getString("nombreUsuario"));
+	            cliente.setDNIcliente(resultSet.getInt("DNIcliente"));
+	            cliente.setCUILcliente(resultSet.getInt("CUILcliente"));
+	            cliente.setNombreCliente(resultSet.getString("NombreCliente"));
+	            cliente.setApellidoCliente(resultSet.getString("ApellidoCliente"));
+	            cliente.setSexoCliente(resultSet.getString("SexoCliente").charAt(0));
+	            cliente.setNacionalidadCliente(resultSet.getString("NacionalidadCliente"));
+	            cliente.setFechaNacimientoCliente(resultSet.getDate("FechaNacimientoCliente").toLocalDate());
+	            cliente.setDireccionCliente(resultSet.getString("DireccionCliente"));
+	            cliente.setLocalidadCliente(resultSet.getString("LocalidadCliente"));
+	            cliente.setIdProvincias(resultSet.getInt("idProvincias"));
+	            cliente.setEmailCliente(resultSet.getString("EmailCliente"));
+	            cliente.setTelefonoCliente(resultSet.getInt("TelefonoCliente"));
+	          
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+		
+		
+		
+		return cliente;
 	}
 
 }
