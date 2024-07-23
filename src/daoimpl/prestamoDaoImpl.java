@@ -12,6 +12,7 @@ import entidad.Usuario;
 
 public class prestamoDaoImpl {
 	private static final String selectAll="SELECT * FROM prestamos";
+	private static final String select="SELECT * FROM prestamos WHERE autorizado='-'";
 	private static final String update= "UPDATE prestamos SET autorizado = ? WHERE idprestamo = ?";
 	
 	public int updatePrestamo(Prestamos prestamo) {
@@ -43,7 +44,7 @@ public class prestamoDaoImpl {
 	    Connection conexion = Conexion.getConexion().getSQLConexion();
 	    ArrayList<Prestamos> prestamos=new ArrayList<Prestamos>();
 	    try {
-	        statement = conexion.prepareStatement(selectAll);
+	        statement = conexion.prepareStatement(select);
 	        ResultSet resultSet = statement.executeQuery();
 	        while (resultSet.next()) {
 	        	System.out.println("qlq");
@@ -52,9 +53,10 @@ public class prestamoDaoImpl {
 	        	prestamo.setIdcliente(resultSet.getInt("idcliente"));
 	        	prestamo.setIdcuenta(resultSet.getInt("idcuenta"));
 	        	prestamo.setFechaPrestamo(resultSet.getDate("fechaPrestamo").toLocalDate());
-	        	prestamo.setImporteAPagar(resultSet.getDouble("importeAPagar"));
-	        	prestamo.setPlazoEnCuotas(resultSet.getInt("plazoEnCoutas"));
-	        	prestamo.setMontoPorCuota(resultSet.getDouble("montoPorCuota"));
+	        	prestamo.setImporteAPagar(resultSet.getBigDecimal("importeAPagar"));
+	        	prestamo.setImporteSolicitado(resultSet.getBigDecimal("importeSolicitado"));
+	        	prestamo.setPlazoEnCuotas(resultSet.getInt("plazoEnCuotas"));
+	        	prestamo.setMontoPorCuota(resultSet.getBigDecimal("montoPorCuota"));
 	        	prestamo.setAutorizado(resultSet.getString("autorizado").charAt(0));
 	        	prestamos.add(prestamo);
 	        }

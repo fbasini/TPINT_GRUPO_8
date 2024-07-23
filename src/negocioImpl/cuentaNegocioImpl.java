@@ -67,5 +67,7 @@ public class cuentaNegocioImpl implements cuentaNegocio {
 		// TODO Auto-generated method stub
 		return cuentadao.puedeAsignarCuenta(idCliente);
 	}
-
+	public int asignarPrestamo(Cuenta cuenta) {
+		return cuentadao.asignarPrestamo(cuenta);
+	}
 }

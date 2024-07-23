@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,7 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import entidad.Cuenta;
 import entidad.Prestamos;
+import negocioImpl.clienteNegocioImpl;
+import negocioImpl.cuentaNegocioImpl;
 import negocioImpl.prestamoNegocioImpl;
 
 /**
@@ -34,14 +38,31 @@ public class autorizarPrestamoServlet extends HttpServlet {
 		System.out.println("sAutorizar");
 		try{
 			if(request.getParameter("btnEnviar")!=null) { 
-				System.out.println("sIf");
+				System.out.println("-------------------");
+				System.out.println("servlet autorizar");
+				
+				char autorizado=request.getParameter("autorizar").charAt(0);
+				int idPrestamo=Integer.parseInt(request.getParameter("idPrestamo"));
+				int idCuenta=Integer.parseInt(request.getParameter("idCuenta"));
+				double monto=Double.parseDouble(request.getParameter("montoSolicitado"));
+				BigDecimal montoSolicitado=BigDecimal.valueOf(monto);
+				
 				Prestamos prestamo= new Prestamos();
-				prestamo.setAutorizado(request.getParameter("autorizar").charAt(0));
-				prestamo.setIdPrestamo(Integer.parseInt(request.getParameter("idPrestamo")));
+				prestamo.setAutorizado(autorizado);
+				prestamo.setIdPrestamo(idPrestamo);
 				prestamoNegocioImpl prestamoNeg=new prestamoNegocioImpl();
+				System.out.println(autorizado);
+				if(autorizado=='Y') {
+					System.out.println("cuenta");
+					Cuenta cuenta=new Cuenta();
+					cuenta.setIdcuenta(idCuenta);
+					cuenta.setSaldoCuenta(montoSolicitado);
+					cuentaNegocioImpl cuentaNeg= new cuentaNegocioImpl();
+					cuentaNeg.asignarPrestamo(cuenta);
+				}
 				int filas=prestamoNeg.updatePrestamo(prestamo);
 				System.out.println(filas);
-				 RequestDispatcher rd = request.getRequestDispatcher("Admin/AutorizarPrestamos.jsp");
+				 RequestDispatcher rd = request.getRequestDispatcher("listarPrestamosServlet");
 		            rd.forward(request, response);
 			}
 		}

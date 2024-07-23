@@ -1,5 +1,4 @@
 package entidad;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -9,17 +8,17 @@ public class Prestamos {
 	private int idcuenta;
 	private int idcliente;
 	private LocalDate fechaPrestamo;
-	private double importeAPagar;
-	private double importeSolicitado;
+	private BigDecimal importeAPagar;
+	private BigDecimal importeSolicitado;
 	private int PlazoEnCuotas;
-	private double montoPorCuota;
+	private BigDecimal montoPorCuota;
 	private char autorizado;
 	
 	public Prestamos() {}
 
 	
-	public Prestamos(int idPrestamo, int idcuenta, int idcliente, LocalDate fechaPrestamo, double importeAPagar,
-			double importeSolicitado, int plazoEnCuotas, double montoPorCuota, char autorizado) {
+	public Prestamos(int idPrestamo, int idcuenta, int idcliente, LocalDate fechaPrestamo, BigDecimal importeAPagar,
+			BigDecimal importeSolicitado, int plazoEnCuotas, BigDecimal montoPorCuota, char autorizado) {
 		super();
 		this.idPrestamo = idPrestamo;
 		this.idcuenta = idcuenta;
@@ -67,32 +66,32 @@ public class Prestamos {
 
 	
 
-	public double getImporteAPagar() {
+	public BigDecimal getImporteAPagar() {
 		return importeAPagar;
 	}
 
 
-	public void setImporteAPagar(double importeAPagar) {
+	public void setImporteAPagar(BigDecimal importeAPagar) {
 		this.importeAPagar = importeAPagar;
 	}
 
 
-	public double getImporteSolicitado() {
+	public BigDecimal getImporteSolicitado() {
 		return importeSolicitado;
 	}
 
 
-	public void setImporteSolicitado(double importeSolicitado) {
+	public void setImporteSolicitado(BigDecimal importeSolicitado) {
 		this.importeSolicitado = importeSolicitado;
 	}
 
 
-	public double getMontoPorCuota() {
+	public BigDecimal getMontoPorCuota() {
 		return montoPorCuota;
 	}
 
 
-	public void setMontoPorCuota(double montoPorCuota) {
+	public void setMontoPorCuota(BigDecimal montoPorCuota) {
 		this.montoPorCuota = montoPorCuota;
 	}
 
