@@ -137,7 +137,7 @@ public class clienteDaoImpl implements ClienteDao {
 	        ResultSet resultSet = statement.executeQuery();
 	        while (resultSet.next()) {
 	            Cliente cliente = new Cliente(); // Crear un nuevo objeto Cliente en cada iteración
-	            System.out.println("Obteniendo cliente con ID: " + resultSet.getInt("idCliente")); // debug
+	            System.out.println("Obteniendo cliente con ID: " + resultSet.getInt("idcliente")); // debug
 	            cliente.setIdCliente(resultSet.getInt("idcliente"));
 	            cliente.setNombreUsuario(resultSet.getString("nombreUsuario"));
 	            /*

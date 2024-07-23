@@ -11,8 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import entidad.Movimiento;
 import entidad.Prestamos;
 import negocioImpl.prestamoNegocioImpl;
+import negocioImpl.movimientoNegocioImpl;
 
 
 @WebServlet("/calcularPrestamoServlet")
@@ -59,6 +61,7 @@ public class calcularPrestamoServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		Prestamos prestamo = new Prestamos();
+		
 		HttpSession misesion = request.getSession();
 		BigDecimal importeFinal =  BigDecimal.valueOf((double)misesion.getAttribute("importeFinal"));
 		BigDecimal importeSolicitado =  BigDecimal.valueOf((double) misesion.getAttribute("importeSolicitado"));
@@ -73,10 +76,13 @@ public class calcularPrestamoServlet extends HttpServlet {
 		prestamo.setPlazoEnCuotas((int)misesion.getAttribute("cuotas"));	
         prestamo.setMontoPorCuota(montoPorCuota);
         prestamo.setAutorizado('p');
+        	
+       
         
         System.out.println(prestamo.toString());
         
         prestamoNegocioImpl negPrestamos = new prestamoNegocioImpl();
+       
         int resultado = negPrestamos.agregarPrestamo(prestamo);
         
         if (resultado != 1) {

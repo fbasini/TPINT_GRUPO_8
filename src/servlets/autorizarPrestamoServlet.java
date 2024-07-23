@@ -2,6 +2,7 @@ package servlets;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,9 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import entidad.Cuenta;
+import entidad.Movimiento;
 import entidad.Prestamos;
 import negocioImpl.clienteNegocioImpl;
 import negocioImpl.cuentaNegocioImpl;
+import negocioImpl.movimientoNegocioImpl;
 import negocioImpl.prestamoNegocioImpl;
 
 /**
@@ -76,6 +79,27 @@ public class autorizarPrestamoServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
+		
+		/*
+		 * Movimiento movimiento = new Movimiento();
+		 *  movimiento.setIdcuenta(idCuentaDestino);
+        movimiento.setTipoMovimiento("Alta de un préstamo");
+        movimiento.setFechaMovimiento(LocalDate.now());
+        movimiento.setDetalleMovimiento("-");
+        movimiento.setImporteMovimiento(importeFinal);
+        movimiento.setDestinatario((int)misesion.getAttribute("idcliente"));
+        
+         movimientoNegocioImpl negMovimientos = new movimientoNegocioImpl();
+         
+         
+         
+         int resultado2 = negMovimientos.agregarMovimiento(movimiento);
+		 * 
+		 * 
+		 * 
+		 */
+		
 		doGet(request, response);
 	}
 }

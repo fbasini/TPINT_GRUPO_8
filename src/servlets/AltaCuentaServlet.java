@@ -31,40 +31,28 @@ public class AltaCuentaServlet extends HttpServlet {
         List<Cliente> clientes = new ArrayList<>();
         List<Cuenta> cuentasDisponibles = new ArrayList<>();
 
-        try {
-            clientes = clienteDAO.listarClientes();
-            cuentasDisponibles = cuentaDAO.obtenerCuentasDisponibles();
-            request.setAttribute("clientes", clientes);
-            request.setAttribute("cuentasDisponibles", cuentasDisponibles);
-            request.getRequestDispatcher("/altaCliente.jsp").forward(request, response);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            request.setAttribute("error", "Error al obtener datos.");
-            request.getRequestDispatcher("/altaCliente.jsp").forward(request, response);
-        }
+        clientes = clienteDAO.listarClientes();
+		cuentasDisponibles = cuentaDAO.obtenerCuentasDisponibles();
+		request.setAttribute("clientes", clientes);
+		request.setAttribute("cuentasDisponibles", cuentasDisponibles);
+		request.getRequestDispatcher("/altaCliente.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int idCliente = Integer.parseInt(request.getParameter("usuarios"));
         int idCuenta = Integer.parseInt(request.getParameter("numeroCuentaAsig"));
 
-        try {
-            if (cuentaDAO.puedeAsignarCuenta(idCliente)) {
-                boolean asignado = cuentaDAO.asignarCuenta(idCliente, idCuenta);
-                if (asignado) {
-                    response.sendRedirect("success.jsp");
-                } else {
-                    request.setAttribute("error", "No se pudo asignar la cuenta.");
-                    doGet(request, response); // Redirige para recargar los datos en el formulario
-                }
-            } else {
-                request.setAttribute("error", "El cliente ya tiene 3 cuentas asignadas.");
-                doGet(request, response); // Redirige para recargar los datos en el formulario
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            request.setAttribute("error", "Error al asignar la cuenta.");
-            doGet(request, response); // Redirige para recargar los datos en el formulario
-        }
+        if (cuentaDAO.puedeAsignarCuenta(idCliente)) {
+		    boolean asignado = cuentaDAO.asignarCuenta(idCliente, idCuenta);
+		    if (asignado) {
+		        response.sendRedirect("success.jsp");
+		    } else {
+		        request.setAttribute("error", "No se pudo asignar la cuenta.");
+		        doGet(request, response); // Redirige para recargar los datos en el formulario
+		    }
+		} else {
+		    request.setAttribute("error", "El cliente ya tiene 3 cuentas asignadas.");
+		    doGet(request, response); // Redirige para recargar los datos en el formulario
+		}
     }
 }

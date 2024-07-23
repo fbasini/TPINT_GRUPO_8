@@ -25,9 +25,9 @@ public class cuentaDaoImpl implements cuentaDao {
 	private static final String delete = "UPDATE cuenta SET CuentaActiva = 'N' WHERE idcuenta = ?";
 	private static final String selectAll = "SELECT * FROM cuenta";
 	private static final String update = "UPDATE cuenta SET tipoCuenta = ?, CBUCuenta = ?, saldoCuenta = ?  WHERE idcuenta = ?";
-	private static final String LISTA_CUENTAS_DISPONIBLES_QUERY = "SELECT idCuenta FROM Cuentas WHERE idCliente IS = 1";
-	private static final String CHECK_COUNT_QUERY = "SELECT COUNT(*) AS cuentaCount FROM Cuentas WHERE idCliente = ?";
-	private static final String ASIGNAR_CUENTA_QUERY = "UPDATE Cuentas SET idCliente = ? WHERE idCuenta = ?";
+	private static final String LISTA_CUENTAS_DISPONIBLES_QUERY = "SELECT idcuenta FROM cuenta WHERE idcliente = 1";
+	private static final String CHECK_COUNT_QUERY = "SELECT COUNT(*) AS cuentaCount FROM cuenta WHERE idcliente = ?";
+	private static final String ASIGNAR_CUENTA_QUERY = "UPDATE cuenta SET idcliente = ? WHERE idcuenta = ?";
 	private static final String obtenerCuentaDeCliente = "SELECT * FROM cuenta WHERE idcliente = ?";
 	private static final String updateSaldo="UPDATE cuenta SET saldoCuenta = saldoCuenta + ? WHERE idcuenta = ?";
 	
@@ -166,7 +166,7 @@ public class cuentaDaoImpl implements cuentaDao {
 
 
 	@Override
-	public boolean asignarCuenta(int idCliente, int idCuenta)throws SQLException {
+	public boolean asignarCuenta(int idCliente, int idCuenta) {
 		try (Connection conexion = Conexion.getConexion().getSQLConexion();
 	             PreparedStatement statement = conexion.prepareStatement(ASIGNAR_CUENTA_QUERY)) {
 	            statement.setInt(1, idCliente);
@@ -176,31 +176,43 @@ public class cuentaDaoImpl implements cuentaDao {
 	                conexion.commit();
 	                return true;
 	            }
-	        }
+	        }catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	        return false;
 	}
 
 
 	@Override
-	public List<Cuenta> obtenerCuentasDisponibles() throws SQLException{
-		List<Cuenta> cuentas = new ArrayList<>();
+	public ArrayList<Cuenta> obtenerCuentasDisponibles() {
+		ArrayList<Cuenta> cuentas = new ArrayList<>();
         try (Connection conexion = Conexion.getConexion().getSQLConexion();
              PreparedStatement statement = conexion.prepareStatement(LISTA_CUENTAS_DISPONIBLES_QUERY);
              ResultSet rs = statement.executeQuery()) {
 
             while (rs.next()) {
                 Cuenta cuenta = new Cuenta();
-                cuenta.setIdcuenta(rs.getInt("idCuenta"));
-                cuenta.setIdcliente(0); // Indica que está disponible
-                cuentas.add(cuenta);
+                cuenta.setIdcuenta(rs.getInt("idcuenta"));
+                cuenta.setIdcuenta(rs.getInt("idcuenta"));
+				cuenta.setIdcliente(rs.getInt("idcliente"));
+				cuenta.setTipoCuenta(rs.getString("tipoCuenta"));
+				cuenta.setFechaCreacion(rs.getDate("fechaCreacion").toLocalDate());
+				cuenta.setCBUCuenta(rs.getInt("CBUCuenta"));
+				cuenta.setSaldoCuenta(rs.getBigDecimal("saldoCuenta"));
+				cuenta.setCuentaActiva(rs.getString("CuentaActiva").charAt(0));
+				cuentas.add(cuenta);
             }
-        }
+        }catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         return cuentas;
 	}
 
 
 	@Override
-	public boolean puedeAsignarCuenta(int idCliente)  throws SQLException {
+	public boolean puedeAsignarCuenta(int idCliente)   {
 		try (Connection conexion = Conexion.getConexion().getSQLConexion();
 	             PreparedStatement statement = conexion.prepareStatement(CHECK_COUNT_QUERY)) {
 	            statement.setInt(1, idCliente);
@@ -208,7 +220,10 @@ public class cuentaDaoImpl implements cuentaDao {
 	            if (rs.next()) {
 	                return rs.getInt("cuentaCount") < 3;
 	            }
-	        }
+	        } catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	        return false;
 	}
 	

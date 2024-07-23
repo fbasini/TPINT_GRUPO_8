@@ -49,21 +49,21 @@ public class cuentaNegocioImpl implements cuentaNegocio {
 	}
 
 	
-	public boolean asignarCuenta(int idCliente, int idCuenta) throws SQLException {
+	public boolean asignarCuenta(int idCliente, int idCuenta)  {
 		// TODO Auto-generated method stub
 		return cuentadao.asignarCuenta(idCliente, idCuenta);
 	}
 
 
 	
-	public List<Cuenta> obtenerCuentasDisponibles() throws SQLException {
+	public ArrayList<Cuenta> obtenerCuentasDisponibles()  {
 		// TODO Auto-generated method stub
 		return cuentadao.obtenerCuentasDisponibles();
 	}
 
 
 	
-	public boolean puedeAsignarCuenta(int idCliente) throws SQLException {
+	public boolean puedeAsignarCuenta(int idCliente)  {
 		// TODO Auto-generated method stub
 		return cuentadao.puedeAsignarCuenta(idCliente);
 	}
