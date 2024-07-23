@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import entidad.Prestamos;
+import negocioImpl.prestamoNegocioImpl;
 
 
 @WebServlet("/calcularPrestamoServlet")
@@ -59,9 +60,9 @@ public class calcularPrestamoServlet extends HttpServlet {
 		
 		Prestamos prestamo = new Prestamos();
 		HttpSession misesion = request.getSession();
-		BigDecimal importeFinal = (BigDecimal) misesion.getAttribute("importeFinal");
-		BigDecimal importeSolicitado =  (BigDecimal) misesion.getAttribute("importeSolicitado");
-		BigDecimal montoPorCuota = (BigDecimal) misesion.getAttribute("montoCuota");
+		BigDecimal importeFinal =  BigDecimal.valueOf((double)misesion.getAttribute("importeFinal"));
+		BigDecimal importeSolicitado =  BigDecimal.valueOf((double) misesion.getAttribute("importeSolicitado"));
+		BigDecimal montoPorCuota = BigDecimal.valueOf((double) misesion.getAttribute("montoCuota"));
 		
 		prestamo.setIdcliente((int)misesion.getAttribute("idcliente"));
 		int idCuentaDestino = Integer.parseInt(request.getParameter("misCuentas"));
@@ -75,9 +76,16 @@ public class calcularPrestamoServlet extends HttpServlet {
         
         System.out.println(prestamo.toString());
         
+        prestamoNegocioImpl negPrestamos = new prestamoNegocioImpl();
+        int resultado = negPrestamos.agregarPrestamo(prestamo);
+        
+        if (resultado != 1) {
+        	response.sendRedirect("Cliente/PaginaError.jsp");	
+        }
+        else {
         
         response.sendRedirect("Cliente/UsuarioHome.jsp");
-		
+        }
 	}
 
 }

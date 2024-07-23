@@ -75,7 +75,7 @@
     		</select></td>
 			<td colspan="3" style=" height:50px;">
 			
-			<button type="submit" name="btnSolicitar" 
+			<button type="submit" name="btnSolicitar" onclick="return confirm('¿Esta seguro?');"
 				style="text-align:center; border-radius: 5px;">Solicitar</button>
 			</form>
 			</td>

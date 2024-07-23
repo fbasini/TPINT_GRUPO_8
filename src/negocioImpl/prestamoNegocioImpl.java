@@ -20,4 +20,12 @@ public class prestamoNegocioImpl {
 		int filas=prestamoDAO.updatePrestamo(prestamo);
 		return filas;
 	}
+	
+	public int agregarPrestamo(Prestamos prestamo) {
+		
+		int filas = prestamoDAO.agregarPrestamo(prestamo);
+				
+		return filas;
+		
+	}
 }
