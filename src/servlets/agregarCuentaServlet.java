@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import entidad.Cuenta;
+import entidad.Movimiento;
 import negocioImpl.cuentaNegocioImpl;
+import negocioImpl.movimientoNegocioImpl;
 
 /**
  * Servlet implementation class agregarCuentaServlet
@@ -44,11 +46,11 @@ public class agregarCuentaServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		cuentaNegocioImpl neo = new cuentaNegocioImpl();
-		
+		 movimientoNegocioImpl negMovimientos = new movimientoNegocioImpl();
 		int CBU = Integer.parseInt(request.getParameter("txtCBU"));
         String tipoCuenta = request.getParameter("tipoCuenta");
         BigDecimal saldoFijo = BigDecimal.valueOf(10000.00);
-        
+        Movimiento movimiento = new Movimiento();
         Cuenta nuevaCuenta = new Cuenta();
         nuevaCuenta.setIdcliente(1);
         nuevaCuenta.setTipoCuenta(tipoCuenta);
@@ -58,6 +60,8 @@ public class agregarCuentaServlet extends HttpServlet {
        nuevaCuenta.setCuentaActiva('Y');
         	
         
+       
+       
        int filas = neo.agregarCuenta(nuevaCuenta);
        String mensaje;
        if (filas > 0) {
@@ -65,6 +69,28 @@ public class agregarCuentaServlet extends HttpServlet {
        } else {
            mensaje = "No se pudo agregar al cliente"; // manejar excepción
        }
+       
+       
+
+       movimiento.setIdcuenta(nuevaCuenta.getIdcuenta());
+       movimiento.setTipoMovimiento("Alta de cuenta");
+       movimiento.setFechaMovimiento(LocalDate.now());
+       movimiento.setDetalleMovimiento("-");
+       movimiento.setImporteMovimiento(saldoFijo);
+       movimiento.setDestinatario(CBU);
+       
+       int resultado2 = negMovimientos.agregarMovimiento(movimiento);
+       
+       if(resultado2 !=1) {
+    	   
+    	   System.out.println("Movimiento agregado");
+    	   
+       }else {
+    	   
+    	   System.out.println("Error en movimiento");
+    	   
+       }
+       
        request.setAttribute("mensaje", mensaje);
        response.sendRedirect("Admin/GestionCuentas.jsp");
 	}

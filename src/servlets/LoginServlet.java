@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import daoimpl.usuarioDaoImpl;
+import entidad.Cliente;
 import entidad.Cuenta;
 import entidad.Usuario;
 import negocio.usuarioNegocio;
@@ -46,7 +47,17 @@ public class LoginServlet extends HttpServlet {
             session.setAttribute("usuario", nombreUsuario);
         	
             if (usuario.isTipoUsuario()=='A') {
+            	clienteNegocioImpl clienteNeg = new clienteNegocioImpl();
+            	cuentaNegocioImpl cuentaNeg = new cuentaNegocioImpl();
+            	
+            	ArrayList<Cuenta> cuentasCliente =cuentaNeg.obtenerCuentasDisponibles();
+            	ArrayList<Cliente> clientes =clienteNeg.listarClientes();
+            	
+            	session.setAttribute("cuentasClientesDisp", cuentasCliente);
+            	session.setAttribute("clientesAll", clientes);
+            	
                 response.sendRedirect("Admin/AdminHome.jsp");
+
             } else {
             	clienteNegocioImpl clienteNeg = new clienteNegocioImpl();
             	int idcliente = clienteNeg.obtenerIDUsuario(nombreUsuario);
