@@ -44,26 +44,7 @@
     <div class="container" style="display: flex; justify-content: center; align-items: center; height: 100vh;">
     	<div class="text-center">
     	
-    		<!-- Cuenta Contenedor -->
-    		<form action="/TPINT_GRUPO_8_LAB4/CuentasClienteServlet" method="post">
-                <div class="cuenta-contenedor">
-                <h2>Mis Cuentas</h2>
-                    <select name="misCuentas" id="misCuentas" class="form-control">
-                        <% 
-                            ArrayList<Cuenta> cuentasCliente = (ArrayList<Cuenta>) session.getAttribute("cuentasCliente");
-                            if (cuentasCliente != null) {
-                                for (Cuenta cuenta : cuentasCliente) {
-                        %>
-                                    <option value="<%= cuenta.getIdcuenta() %>">
-                                        Cuenta: <%= cuenta.getTipoCuenta() %> - Saldo: $<%= cuenta.getSaldoCuenta() %>
-                                    </option>
-                        <% 
-                                }
-                            }
-                        %>
-                    </select>
-                </div>
-                </form>
+    		
                 
                 <div class="btn-group-vertical">
                 <form action="../manejarDatosServlet" method="get">
