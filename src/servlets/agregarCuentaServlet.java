@@ -69,10 +69,10 @@ public class agregarCuentaServlet extends HttpServlet {
        } else {
            mensaje = "No se pudo agregar al cliente"; // manejar excepción
        }
-       
+       int idCuentaGenerada= neo.obtenerIdCuentaPorCBU(CBU);
        
 
-       movimiento.setIdcuenta(nuevaCuenta.getIdcuenta());
+       movimiento.setIdcuenta(idCuentaGenerada);
        movimiento.setTipoMovimiento("Alta de cuenta");
        movimiento.setFechaMovimiento(LocalDate.now());
        movimiento.setDetalleMovimiento("-");
