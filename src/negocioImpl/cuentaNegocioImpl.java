@@ -70,4 +70,11 @@ public class cuentaNegocioImpl implements cuentaNegocio {
 	public int asignarPrestamo(Cuenta cuenta) {
 		return cuentadao.asignarPrestamo(cuenta);
 	}
+	
+	public int obtenerIdCuentaPorCBU(int CBU) {
+		
+		return cuentadao.obtenerIdCuentaPorCBU(CBU);
+		
+	}
+	
 }
