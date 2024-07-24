@@ -31,7 +31,7 @@
                 -->
                 <li class="nav-item">
                     <form action="../CerrarSesionServlet" method="post" class="form-inline">
-                        <button type="submit" class="btn-cerrar-sesion">Cerrar Sesi�n</button>
+                        <button type="submit" class="btn-cerrar-sesion">Cerrar Sesion</button>
                     </form>
                 </li>
             </ul>

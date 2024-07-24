@@ -17,6 +17,7 @@
 	<script type="text/javascript">
 		$(document).ready(function (){
 			$('#tablaClientes').DataTable();
+			
 		});
 		
 		function confirmarEliminacion(event) { 
@@ -95,8 +96,11 @@
 	                            	</form>
 	                            </td>
 	                            <td>
-	                                <button type="button" class="btn btn-info">Detalle</button>
-	                            </td>
+                                    <form method="post" action="/TPINT_GRUPO_8_LAB4/DetalleClienteServlet">
+									    <input type="hidden" name="idCliente" value="<%= cliente.getIdCliente() %>">
+									    <button type="submit" class="btn btn-info">Detalle</button>
+									</form>
+                                 </td>
 	                        </tr>
 	            <% 
 	                    }
