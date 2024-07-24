@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import dao.ClienteDao;
 import daoimpl.Conexion;
 import entidad.Cliente;
+import entidad.Provincias;
 import dao.usuarioDao;
 import daoimpl.usuarioDaoImpl;
 import entidad.Usuario;
@@ -22,7 +23,8 @@ public class clienteDaoImpl implements ClienteDao {
 	private static final String selectAll2 = "SELECT idCliente, NombreCliente FROM cliente";
 	private static final String selectOne = "SELECT idcliente FROM cliente WHERE nombreUsuario = ?";
 	private static final String loggedClient = "SELECT * FROM cliente WHERE idcliente = ?";
-
+	private static final String selectProvincias = "SELECT * FROM provincias";
+	
 	public int agregarCliente(Cliente cliente) {
 			
 		PreparedStatement statement;
@@ -220,6 +222,27 @@ public class clienteDaoImpl implements ClienteDao {
 		
 		
 		return cliente;
+	}
+	
+	public ArrayList<Provincias> obtenerProvincias (){
+		 PreparedStatement statement;
+		    Connection conexion = Conexion.getConexion().getSQLConexion();
+		    ArrayList<Provincias> provincias = new ArrayList<>();
+		    try {
+		        statement = conexion.prepareStatement(selectProvincias);
+		        ResultSet resultSet = statement.executeQuery();
+		        while (resultSet.next()) {
+		            Provincias provincia = new Provincias(); 
+		            provincia.setIdProvincias(resultSet.getInt("idProvincias"));
+		            provincia.setNombreProvincia(resultSet.getString("nombreProvincia"));
+		            
+		            provincias.add(provincia);
+		        }
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		    }
+		    return provincias;
+		
 	}
 
 }

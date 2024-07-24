@@ -3,7 +3,7 @@ package negocioImpl;
 import java.util.ArrayList;
 
 import entidad.Cliente;
-
+import entidad.Provincias;
 import daoimpl.clienteDaoImpl;
 import daoimpl.cuentaDaoImpl;
 
@@ -32,5 +32,10 @@ private clienteDaoImpl clientedao;
 	public Cliente obtenerClienteActual(int idcliente) {
 		
 		return clientedao.clienteActual(idcliente);
+	}
+	
+	public ArrayList<Provincias> obtenerProvincias(){
+		
+		return clientedao.obtenerProvincias();
 	}
 }

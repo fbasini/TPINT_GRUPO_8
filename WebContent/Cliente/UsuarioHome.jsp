@@ -66,7 +66,7 @@
                 </form>
                 
                 <div class="btn-group-vertical">
-                <form action="DatosPersonales.jsp" method="post">
+                <form action="../manejarDatosServlet" method="get">
                     <button type="submit" id="misDatos" name="misDatos" class="btn btn-primary mb-2">MIS DATOS</button>
                 </form>
                 <form action="MisMovimientos.jsp" method="post">
