@@ -82,7 +82,7 @@
 				</select> </td>
 		</tr>
 		<tr>
-			<td colspan="4" style=" height:50px;"><button type="submit" name="btnPagar" style="text-align:center; border-radius: 5px;">Pagar</button>
+			<td colspan="4" style=" height:50px;"><button type="submit" class="btn btn-primary mb-2" name="btnPagar" style="text-align:center; border-radius: 5px;">Pagar</button>
 			</td>
 		</tr>
 		

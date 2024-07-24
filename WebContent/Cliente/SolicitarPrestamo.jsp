@@ -53,8 +53,19 @@
 <table style="text-align:center;">
 	<thead >
 		<tr>
-			<td style="width: 74px; ">Importe</td>
+			<td ></td>
+			
+			<td >
+			
+		</td>
+		
+		<td style="width: 74px; ">
+		Importe
+		</td>
+		
 		</tr>
+		
+		
 	</thead>
 	<tbody>
 			
@@ -62,6 +73,7 @@
 		<tr style="width: 482px; ">
 				
 			<td style="width: 162px; "></td>
+			
 			<td>Cuotas</td>
 			<td style="width: 128px">
 				
@@ -74,7 +86,7 @@
 			        <option value="12">12 cuotas</option>
 			    </select>
 			    
-			    <button type="submit" name="btnCalcular">Calcular</button>
+			    <button type="submit" class="btn btn-primary mb-2" name="btnCalcular">Calcular</button>
 			    </form>
 			</td>
 			
@@ -104,7 +116,7 @@
     		</select></td>
 			<td colspan="3" style=" height:50px;">
 			
-			<button type="submit" name="btnSolicitar" onclick="return confirm('¿Esta seguro?');"
+			<button type="submit"  class="btn btn-primary mb-2" name="btnSolicitar" onclick="return confirm('¿Esta seguro?');"
 				style="text-align:center; border-radius: 5px;">Solicitar</button>
 			</form>
 			</td>

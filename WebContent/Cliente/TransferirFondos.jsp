@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Transferir Fondos</title>
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../Style.css">
 </head>
@@ -61,8 +61,8 @@
             <tr></tr>
             <tr>
                 <td></td>
-                <td style="align-content:flex-end;">
-                    <button type="submit" id="aceptarTranferencia" name="aceptarTranferencia">Transferir</button>
+                <td style="align-content:flex-end; ">
+                    <button type="submit" class="btn btn-primary mb-2" id="aceptarTranferencia" name="aceptarTranferencia">Transferir</button>
                 </td>
             </tr>
         </table>

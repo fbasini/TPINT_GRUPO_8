@@ -114,7 +114,7 @@
                 </tr>
                 <tr>
                     <td colspan="2" style="text-align: center; padding-top: 15px;">
-                        <button type="submit">Enviar</button>
+                        <button class="btn btn-primary mb-2" type="submit">Enviar</button>
                     </td>
                 </tr>
             </table>
