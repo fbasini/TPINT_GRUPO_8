@@ -350,5 +350,12 @@ public String obtenerDescripcionTipoCuenta(String tipoCuentaId) {
 }
 
 
+@Override
+public boolean asignarCuenta(int idCliente, int idCuenta) throws SQLException {
+	// TODO Auto-generated method stub
+	return false;
+}
+
+
 
 }
