@@ -38,7 +38,7 @@ public class LoginServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String nombreUsuario = request.getParameter("usuario");
-        String passwordUsuario = request.getParameter("contraseña");
+        String passwordUsuario = request.getParameter("contraseï¿½a");
        
         usuarioNegocioImpl usuarioNeg= new usuarioNegocioImpl();
         Usuario usuario= usuarioNeg.obtenerUsuario(nombreUsuario,passwordUsuario);
@@ -50,7 +50,17 @@ public class LoginServlet extends HttpServlet {
             session.setAttribute("usuario", nombreUsuario);
         	
             if (usuario.isTipoUsuario()=='A') {
-            	        
+            	clienteNegocioImpl clienteNeg = new clienteNegocioImpl();
+            	cuentaNegocioImpl cuentaNeg = new cuentaNegocioImpl();
+            	
+            	ArrayList<Cuenta> allCuentas = cuentaNeg.listarCuentas();
+            	ArrayList<Cuenta> cuentasDisp = cuentaNeg.obtenerCuentasDisponibles();
+            	ArrayList<Cliente> allClientes = clienteNeg.listarAllClientes();
+            	
+            	session.setAttribute("allCuentas", allCuentas);
+            	session.setAttribute("cuentasDisp", cuentasDisp);
+            	session.setAttribute("allClientes", allClientes);
+            	
                 response.sendRedirect("Admin/AdminHome.jsp");
 
             } 
@@ -81,7 +91,7 @@ public class LoginServlet extends HttpServlet {
             }
         } 
         else {
-        	String mensaje = "Usuario y/o contraseña incorrectos";
+        	String mensaje = "Usuario y/o contraseï¿½a incorrectos";
         	request.setAttribute("mensaje", mensaje);
         	 request.getRequestDispatcher("Login.jsp").forward(request, response);
         	}

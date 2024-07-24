@@ -168,6 +168,42 @@ public class clienteDaoImpl implements ClienteDao {
 	    return clientes;
 	}
 
+	public ArrayList<Cliente> listarAllClientes() {
+		System.out.println("Ejecutando listarAllClientes()"); // debug
+	    PreparedStatement statement;
+	    Connection conexion = Conexion.getConexion().getSQLConexion();
+	    ArrayList<Cliente> clientes = new ArrayList<>();
+	    try {
+	        statement = conexion.prepareStatement(selectAll);
+	        ResultSet resultSet = statement.executeQuery();
+	        while (resultSet.next()) {
+	            Cliente cliente = new Cliente(); // Crear un nuevo objeto Cliente en cada iteración
+	            System.out.println("Obteniendo cliente con ID: " + resultSet.getInt("idcliente")); // debug
+	            cliente.setIdCliente(resultSet.getInt("idcliente"));
+	            cliente.setNombreUsuario(resultSet.getString("nombreUsuario"));          
+	            cliente.setDNIcliente(resultSet.getInt("DNIcliente"));
+	            cliente.setCUILcliente(resultSet.getInt("CUILcliente"));
+	            cliente.setNombreCliente(resultSet.getString("NombreCliente"));
+	            cliente.setApellidoCliente(resultSet.getString("ApellidoCliente"));
+	            cliente.setSexoCliente(resultSet.getString("SexoCliente").charAt(0));
+	            cliente.setNacionalidadCliente(resultSet.getString("NacionalidadCliente"));
+	            cliente.setFechaNacimientoCliente(resultSet.getDate("FechaNacimientoCliente").toLocalDate());
+	            cliente.setDireccionCliente(resultSet.getString("DireccionCliente"));
+	            cliente.setLocalidadCliente(resultSet.getString("LocalidadCliente"));
+	            cliente.setIdProvincias(resultSet.getInt("idProvincias"));
+	            cliente.setEmailCliente(resultSet.getString("EmailCliente"));
+	            cliente.setTelefonoCliente(resultSet.getInt("TelefonoCliente"));
+	            cliente.setClienteActivo(resultSet.getString("ClienteActivo").charAt(0));
+	            
+	            clientes.add(cliente);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return clientes;
+	}
+	
+	
 	public int obtenerIDClienteDeUsuario(String usuario) {
 		PreparedStatement statement;
 	    Connection conexion = Conexion.getConexion().getSQLConexion();

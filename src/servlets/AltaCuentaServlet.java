@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import entidad.Cliente;
 import entidad.Cuenta;
@@ -28,7 +29,8 @@ public class AltaCuentaServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Cliente> clientes = new ArrayList<>();
+        
+    	/*List<Cliente> clientes = new ArrayList<>();
         List<Cuenta> cuentasDisponibles = new ArrayList<>();
 
         clientes = clienteDAO.listarClientes();
@@ -36,23 +38,28 @@ public class AltaCuentaServlet extends HttpServlet {
 		request.setAttribute("clientes", clientes);
 		request.setAttribute("cuentasDisponibles", cuentasDisponibles);
 		request.getRequestDispatcher("/altaCliente.jsp").forward(request, response);
+		*/
+    	
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int idCliente = Integer.parseInt(request.getParameter("usuarios"));
+    	HttpSession session = request.getSession();
+    	int idCliente = Integer.parseInt(request.getParameter("usuarios"));
         int idCuenta = Integer.parseInt(request.getParameter("numeroCuentaAsig"));
+        System.out.println(idCliente);
+        System.out.println(idCuenta);
+        System.out.println("Entro al servlet");
 
-        if (cuentaDAO.puedeAsignarCuenta(idCliente)) {
-		    boolean asignado = cuentaDAO.asignarCuenta(idCliente, idCuenta);
-		    if (asignado) {
-		        response.sendRedirect("success.jsp");
-		    } else {
-		        request.setAttribute("error", "No se pudo asignar la cuenta.");
-		        doGet(request, response); // Redirige para recargar los datos en el formulario
-		    }
-		} else {
-		    request.setAttribute("error", "El cliente ya tiene 3 cuentas asignadas.");
-		    doGet(request, response); // Redirige para recargar los datos en el formulario
-		}
+        if (cuentaDAO.asignarCuenta(idCliente, idCuenta)) {
+            System.out.println("Asignado");
+            
+            ArrayList<Cuenta> cuentasDisp = cuentaDAO.obtenerCuentasDisponibles();
+            session.setAttribute("cuentasDisp", cuentasDisp);
+            response.sendRedirect("Admin/GestionCuentas.jsp");
+        } else {
+            System.out.println("No asignado");
+            request.setAttribute("error", "No se pudo asignar la cuenta o el cliente ya tiene 3 cuentas asignadas.");
+            doGet(request, response); // Redirige para recargar los datos en el formulario
+        }
     }
 }
