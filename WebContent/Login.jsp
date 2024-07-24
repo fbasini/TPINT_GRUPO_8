@@ -15,19 +15,31 @@
             <table style="margin: 0 auto;">
                 <tr>
                     <td style="text-align: left;"><label for="usuario">Usuario:</label></td>
-                    <td><input type="text" id="usuario" name="usuario"></td>
+                    <td><input type="text" id="usuario" name="usuario" required ></td>
                 </tr>
                 <tr>
                     <td style="text-align: left;"><label for="contraseña">Contraseña:</label></td>
-                    <td><input type="password" id="contraseña" name="contraseña"></td>
+                    <td><input type="password" id="contraseña" name="contraseña" required></td>
                 </tr>
                 <tr>
                     <td colspan="2" style="text-align: center; padding-top: 15px;">
                         <button type="submit" class="btn btn-primary mb-2">Ingresar</button>
                     </td>
                 </tr>
+                <tr>
+                	<td>
+                	
+                	</td>
+                </tr>
+                
             </table>
         </form>
+        <h5><% if (request.getAttribute("mensaje") != null){
+           		 		String mensaje = (String) request.getAttribute("mensaje");%>
+           		 		<%= mensaje %>
+                	
+                	<% } %>
+            		</h5>
     </div>
     
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
