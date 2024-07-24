@@ -31,6 +31,7 @@ public class cuentaDaoImpl implements cuentaDao {
 	private static final String obtenerCuentaDeCliente = "SELECT * FROM cuenta WHERE idcliente = ?";
 	private static final String updateSaldo="UPDATE cuenta SET saldoCuenta = saldoCuenta + ? WHERE idcuenta = ?";
 	private static final String obtenerIdPorCBU = "SELECT idcuenta FROM cuenta WHERE CBUCuenta = ?";
+	private static final String obtenerDescripcion = "SELECT descripcion FROM tipocuenta WHERE tipoCuenta = ?";
 	public int agregarCuenta(Cuenta cuenta) {
 		
 		
@@ -275,6 +276,23 @@ public int obtenerIdCuentaPorCBU(int CBU) {
     }
     
     return idCuenta;
+}
+
+
+public String obtenerDescripcionTipoCuenta(String tipoCuentaId) {
+	String descripcion = "";
+	try {
+		Connection conexion = Conexion.getConexion().getSQLConexion();
+        PreparedStatement stmt = conexion.prepareStatement(obtenerDescripcion);
+        stmt.setString(1, tipoCuentaId);
+        ResultSet rs = stmt.executeQuery();
+        if (rs.next()) {
+        	descripcion = rs.getString("descripcion");
+        }
+       } catch (SQLException e) {
+           e.printStackTrace();
+       }
+       return descripcion;
 }
 
 

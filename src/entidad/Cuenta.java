@@ -87,6 +87,8 @@ public class Cuenta {
 	public void setCuentaActiva(char cuentaActiva) {
 		CuentaActiva = cuentaActiva;
 	}
+	
+
 
 
 	@Override

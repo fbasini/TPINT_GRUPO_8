@@ -55,7 +55,7 @@
                                 for (Cuenta cuenta : cuentasCliente) {
                         %>
                                     <option value="<%= cuenta.getIdcuenta() %>">
-                                        Cuenta: <%= cuenta.getIdcuenta() %> - Saldo: $<%= cuenta.getSaldoCuenta() %>
+                                        Cuenta: <%= cuenta.getTipoCuenta() %> - Saldo: $<%= cuenta.getSaldoCuenta() %>
                                     </option>
                         <% 
                                 }
