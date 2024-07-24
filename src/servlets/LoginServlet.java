@@ -94,7 +94,7 @@ public class LoginServlet extends HttpServlet {
             }
         } 
         else {
-        	String mensaje = "Usuario y/o contraseï¿½a incorrectos";
+        	String mensaje = "Usuario y/o contraseña incorrectos";
         	request.setAttribute("mensaje", mensaje);
         	 request.getRequestDispatcher("Login.jsp").forward(request, response);
         	}

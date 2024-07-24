@@ -32,6 +32,8 @@ public class cuentaDaoImpl implements cuentaDao {
 	private static final String updateSaldo="UPDATE cuenta SET saldoCuenta = saldoCuenta + ? WHERE idcuenta = ?";
 	private static final String obtenerIdPorCBU = "SELECT idcuenta FROM cuenta WHERE CBUCuenta = ?";
 	private static final String obtenerDescripcion = "SELECT descripcion FROM tipocuenta WHERE tipoCuenta = ?";
+	
+	
 	public int agregarCuenta(Cuenta cuenta) {
 		
 		
