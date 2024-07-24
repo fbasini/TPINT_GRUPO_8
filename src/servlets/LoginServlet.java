@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import daoimpl.usuarioDaoImpl;
 import entidad.Cliente;
 import entidad.Cuenta;
+import entidad.Provincias;
 import entidad.Usuario;
 import negocio.usuarioNegocio;
 import negocioImpl.clienteNegocioImpl;
@@ -42,40 +43,61 @@ public class LoginServlet extends HttpServlet {
         usuarioNegocioImpl usuarioNeg= new usuarioNegocioImpl();
         Usuario usuario= usuarioNeg.obtenerUsuario(nombreUsuario,passwordUsuario);
         
+        
+        
         if (usuario != null) {
             HttpSession session = request.getSession();
             session.setAttribute("usuario", nombreUsuario);
         	
+           
+            
+            
             if (usuario.isTipoUsuario()=='A') {
-            	clienteNegocioImpl clienteNeg = new clienteNegocioImpl();
-            	cuentaNegocioImpl cuentaNeg = new cuentaNegocioImpl();
             	
-            	ArrayList<Cuenta> allCuentas = cuentaNeg.listarCuentas();
-            	ArrayList<Cuenta> cuentasDisp = cuentaNeg.obtenerCuentasDisponibles();
-            	ArrayList<Cliente> allClientes = clienteNeg.listarAllClientes();
-            	
-            	session.setAttribute("allCuentas", allCuentas);
-            	session.setAttribute("cuentasDisp", cuentasDisp);
-            	session.setAttribute("allClientes", allClientes);
-            	
+            	 clienteNegocioImpl clienteNeg = new clienteNegocioImpl();
+             	cuentaNegocioImpl cuentaNeg = new cuentaNegocioImpl();
+             	
+             	ArrayList<Cuenta> allCuentas = cuentaNeg.listarCuentas();
+             	ArrayList<Cuenta> cuentasDisp = cuentaNeg.obtenerCuentasDisponibles();
+             	ArrayList<Cliente> allClientes = clienteNeg.listarAllClientes();
+             	
+             	session.setAttribute("allCuentas", allCuentas);
+             	session.setAttribute("cuentasDisp", cuentasDisp);
+             	session.setAttribute("allClientes", allClientes);
                 response.sendRedirect("Admin/AdminHome.jsp");
 
-            } else {
-            	clienteNegocioImpl clienteNeg = new clienteNegocioImpl();
-            	int idcliente = clienteNeg.obtenerIDUsuario(nombreUsuario);
+            } 
+            else if (usuario.getUsuarioActivo()== 'N') {
+            	String mensaje = "Usuario no activo, contacte a nuestras oficinas";
+            	request.setAttribute("mensaje", mensaje);
+            	request.getRequestDispatcher("Login.jsp").forward(request, response);
+            }
+            else {
+            	clienteNegocioImpl clienteNeg1 = new clienteNegocioImpl();
+            	int idcliente = clienteNeg1.obtenerIDUsuario(nombreUsuario);
             	
-            	cuentaNegocioImpl cuentaNeg = new cuentaNegocioImpl();
-            	ArrayList<Cuenta> cuentasCliente =cuentaNeg.listarCuentasDeCliente(idcliente);
+            	if (idcliente == 0) {
+            		
+            		ArrayList<Provincias> listaProvincias = clienteNeg1.obtenerProvincias();
+            		session.setAttribute("listaProvincias", listaProvincias);
+            		response.sendRedirect("Cliente/MiPrimerIngreso.jsp");
+            	}
+            	else {
+            	cuentaNegocioImpl cuentaNeg1 = new cuentaNegocioImpl();
+            	ArrayList<Cuenta> cuentasCliente =cuentaNeg1.listarCuentasDeCliente(idcliente);
             	
             	session.setAttribute("idcliente", idcliente);
             	session.setAttribute("cuentasCliente", cuentasCliente);
             	
             	
-                response.sendRedirect("Cliente/UsuarioHome.jsp");
+                response.sendRedirect("Cliente/UsuarioHome.jsp");}
             }
-        } else {
-            response.sendRedirect("Login.jsp?error=true");
-        }
+        } 
+        else {
+        	String mensaje = "Usuario y/o contrase�a incorrectos";
+        	request.setAttribute("mensaje", mensaje);
+        	 request.getRequestDispatcher("Login.jsp").forward(request, response);
+        	}
 	}
 
 }
