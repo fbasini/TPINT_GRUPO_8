@@ -32,7 +32,7 @@
                 -->
                 <li class="nav-item">
                     <form action="../CerrarSesionServlet" method="post" class="form-inline">
-                        <button type="submit" class="btn-cerrar-sesion">Cerrar Sesi�n</button>
+                        <button type="submit" class="btn-cerrar-sesion">Cerrar Sesion</button>
                     </form>
                 </li>
             </ul>
@@ -55,7 +55,7 @@
                                 for (Cuenta cuenta : cuentasCliente) {
                         %>
                                     <option value="<%= cuenta.getIdcuenta() %>">
-                                        Cuenta: <%= cuenta.getIdcuenta() %> - Saldo: $<%= cuenta.getSaldoCuenta() %>
+                                        Cuenta: <%= cuenta.getTipoCuenta() %> - Saldo: $<%= cuenta.getSaldoCuenta() %>
                                     </option>
                         <% 
                                 }
@@ -66,7 +66,7 @@
                 </form>
                 
                 <div class="btn-group-vertical">
-                <form action="DatosPersonales.jsp" method="post">
+                <form action="../manejarDatosServlet" method="get">
                     <button type="submit" id="misDatos" name="misDatos" class="btn btn-primary mb-2">MIS DATOS</button>
                 </form>
                 <form action="MisMovimientos.jsp" method="post">

@@ -77,4 +77,8 @@ public class cuentaNegocioImpl implements cuentaNegocio {
 		
 	}
 	
+	public String obtenerDescripcionTipoCuenta(String tipoCuentaId) {
+		return cuentadao.obtenerDescripcionTipoCuenta(tipoCuentaId);
+	}
+	
 }

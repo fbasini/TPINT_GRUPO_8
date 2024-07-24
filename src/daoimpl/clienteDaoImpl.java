@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import dao.ClienteDao;
 import daoimpl.Conexion;
 import entidad.Cliente;
+import entidad.Provincias;
 import dao.usuarioDao;
 import daoimpl.usuarioDaoImpl;
 import entidad.Usuario;
@@ -22,7 +23,10 @@ public class clienteDaoImpl implements ClienteDao {
 	private static final String selectAll2 = "SELECT idCliente, NombreCliente FROM cliente";
 	private static final String selectOne = "SELECT idcliente FROM cliente WHERE nombreUsuario = ?";
 	private static final String loggedClient = "SELECT * FROM cliente WHERE idcliente = ?";
-
+	private static final String selectProvincias = "SELECT * FROM provincias";
+	private static final String selectByDNI = "SELECT * FROM cliente WHERE DNIcliente = ?";
+	private static final String selectByCUIL = "SELECT * FROM cliente WHERE CUILcliente = ?";
+	
 	public int agregarCliente(Cliente cliente) {
 			
 		PreparedStatement statement;
@@ -256,6 +260,70 @@ public class clienteDaoImpl implements ClienteDao {
 		
 		
 		return cliente;
+	}
+	
+	public ArrayList<Provincias> obtenerProvincias (){
+		 PreparedStatement statement;
+		    Connection conexion = Conexion.getConexion().getSQLConexion();
+		    ArrayList<Provincias> provincias = new ArrayList<>();
+		    try {
+		        statement = conexion.prepareStatement(selectProvincias);
+		        ResultSet resultSet = statement.executeQuery();
+		        while (resultSet.next()) {
+		            Provincias provincia = new Provincias(); 
+		            provincia.setIdProvincias(resultSet.getInt("idProvincias"));
+		            provincia.setNombreProvincia(resultSet.getString("nombreProvincia"));
+		            
+		            provincias.add(provincia);
+		        }
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		    }
+		    return provincias;
+		
+	}
+	
+	
+	public boolean comprobarExistenciaDNI (int dni) {
+		PreparedStatement statement;
+	    Connection conexion = Conexion.getConexion().getSQLConexion();
+	    boolean existe=false;
+	    try {
+	        statement = conexion.prepareStatement(selectByDNI);
+	        statement.setInt(1,dni);
+	        ResultSet resultSet = statement.executeQuery();
+	        while (resultSet.next()) {
+	           
+	           existe = true;
+	          
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+		
+	    return existe;
+		
+	}
+	
+	public boolean comprobarExistenciaCUIL (int cuil) {
+		PreparedStatement statement;
+	    Connection conexion = Conexion.getConexion().getSQLConexion();
+	    boolean existe=false;
+	    try {
+	        statement = conexion.prepareStatement(selectByCUIL);
+	        statement.setInt(1,cuil);
+	        ResultSet resultSet = statement.executeQuery();
+	        while (resultSet.next()) {
+	           
+	           existe = true;
+	          
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+		
+	    return existe;
+		
 	}
 
 }

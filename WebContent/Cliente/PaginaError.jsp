@@ -38,6 +38,7 @@
     </nav>
 
 <h1>SE HA PRODUCIDO UN ERROR INTENTELO NUEVAMENTE</h1>
+<h1>${requestScope.mensaje}</h1>
 <button onclick="history.back()">VOLVER</button>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>

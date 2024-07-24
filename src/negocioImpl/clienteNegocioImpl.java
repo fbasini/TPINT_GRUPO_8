@@ -3,7 +3,7 @@ package negocioImpl;
 import java.util.ArrayList;
 
 import entidad.Cliente;
-
+import entidad.Provincias;
 import daoimpl.clienteDaoImpl;
 import daoimpl.cuentaDaoImpl;
 
@@ -42,4 +42,24 @@ public ArrayList<Cliente> listarAllClientes(){
 		
 		return clientedao.clienteActual(idcliente);
 	}
+	
+	public ArrayList<Provincias> obtenerProvincias(){
+		
+		return clientedao.obtenerProvincias();
+	}
+	
+	public boolean comprobarExistenciaDNI(int dni) {
+		
+		return clientedao.comprobarExistenciaDNI(dni);
+	}
+	
+	public boolean comprobarExistenciaCUIL(int cuil) {
+		
+		return clientedao.comprobarExistenciaCUIL(cuil);
+	}
+	
+	public int actualizarDatosCliente (Cliente cliente) {
+		return clientedao.modificarCliente(cliente);
+	}
+	
 }

@@ -31,9 +31,7 @@ public class cuentaDaoImpl implements cuentaDao {
 	private static final String obtenerCuentaDeCliente = "SELECT * FROM cuenta WHERE idcliente = ?";
 	private static final String updateSaldo="UPDATE cuenta SET saldoCuenta = saldoCuenta + ? WHERE idcuenta = ?";
 	private static final String obtenerIdPorCBU = "SELECT idcuenta FROM cuenta WHERE CBUCuenta = ?";
-	
-	
-	
+	private static final String obtenerDescripcion = "SELECT descripcion FROM tipocuenta WHERE tipoCuenta = ?";
 	public int agregarCuenta(Cuenta cuenta) {
 		
 		
@@ -212,7 +210,7 @@ public class cuentaDaoImpl implements cuentaDao {
 	            assignStatement.setInt(2, idCuenta);
 	            int filasAfectadas = assignStatement.executeUpdate();
 	            if (filasAfectadas > 0) {
-	                conexion.commit(); // Hacer commit si la actualización fue exitosa
+	                conexion.commit(); // Hacer commit si la actualizaciï¿½n fue exitosa
 	                return true;
 	            } else {
 	                conexion.rollback(); // Hacer rollback si no se afectaron filas
@@ -233,7 +231,7 @@ public class cuentaDaoImpl implements cuentaDao {
 	        if (conexion != null) {
 	            try {
 	                conexion.setAutoCommit(true); // Restaurar auto-commit
-	                conexion.close(); // Cerrar la conexión
+	                conexion.close(); // Cerrar la conexiï¿½n
 	            } catch (SQLException e) {
 	                e.printStackTrace();
 	            }
@@ -335,10 +333,20 @@ public int obtenerIdCuentaPorCBU(int CBU) {
 }
 
 
-@Override
-public boolean asignarCuenta(int idCliente, int idCuenta) throws SQLException {
-	// TODO Auto-generated method stub
-	return false;
+public String obtenerDescripcionTipoCuenta(String tipoCuentaId) {
+	String descripcion = "";
+	try {
+		Connection conexion = Conexion.getConexion().getSQLConexion();
+        PreparedStatement stmt = conexion.prepareStatement(obtenerDescripcion);
+        stmt.setString(1, tipoCuentaId);
+        ResultSet rs = stmt.executeQuery();
+        if (rs.next()) {
+        	descripcion = rs.getString("descripcion");
+        }
+       } catch (SQLException e) {
+           e.printStackTrace();
+       }
+       return descripcion;
 }
 
 

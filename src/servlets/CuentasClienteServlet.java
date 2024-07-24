@@ -27,7 +27,14 @@ public class CuentasClienteServlet extends HttpServlet {
         
         cuentaDaoImpl cuentaDao = new cuentaDaoImpl();
         ArrayList<Cuenta> cuentasCliente = cuentaDao.obtenerCuentasCliente(idCliente);
-
+        
+        for (Cuenta cuenta : cuentasCliente) {
+            String tipoCuentaId = cuenta.getTipoCuenta();
+            String descripcionTipoCuenta = cuentaDao.obtenerDescripcionTipoCuenta(tipoCuentaId); 
+            cuenta.setTipoCuenta(descripcionTipoCuenta); 
+            System.out.println("Tipo Cuenta ID: " + tipoCuentaId + ", Descripción: " + descripcionTipoCuenta);
+        }
+        
         request.getSession().setAttribute("cuentasCliente", cuentasCliente);
 
         request.getRequestDispatcher("UsuarioHome.jsp").forward(request, response);
