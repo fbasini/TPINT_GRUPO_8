@@ -24,6 +24,8 @@ public class clienteDaoImpl implements ClienteDao {
 	private static final String selectOne = "SELECT idcliente FROM cliente WHERE nombreUsuario = ?";
 	private static final String loggedClient = "SELECT * FROM cliente WHERE idcliente = ?";
 	private static final String selectProvincias = "SELECT * FROM provincias";
+	private static final String selectByDNI = "SELECT * FROM cliente WHERE DNIcliente = ?";
+	private static final String selectByCUIL = "SELECT * FROM cliente WHERE CUILcliente = ?";
 	
 	public int agregarCliente(Cliente cliente) {
 			
@@ -242,6 +244,49 @@ public class clienteDaoImpl implements ClienteDao {
 		        e.printStackTrace();
 		    }
 		    return provincias;
+		
+	}
+	
+	
+	public boolean comprobarExistenciaDNI (int dni) {
+		PreparedStatement statement;
+	    Connection conexion = Conexion.getConexion().getSQLConexion();
+	    boolean existe=false;
+	    try {
+	        statement = conexion.prepareStatement(selectByDNI);
+	        statement.setInt(1,dni);
+	        ResultSet resultSet = statement.executeQuery();
+	        while (resultSet.next()) {
+	           
+	           existe = true;
+	          
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+		
+	    return existe;
+		
+	}
+	
+	public boolean comprobarExistenciaCUIL (int cuil) {
+		PreparedStatement statement;
+	    Connection conexion = Conexion.getConexion().getSQLConexion();
+	    boolean existe=false;
+	    try {
+	        statement = conexion.prepareStatement(selectByCUIL);
+	        statement.setInt(1,cuil);
+	        ResultSet resultSet = statement.executeQuery();
+	        while (resultSet.next()) {
+	           
+	           existe = true;
+	          
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+		
+	    return existe;
 		
 	}
 

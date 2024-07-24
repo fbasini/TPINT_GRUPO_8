@@ -42,7 +42,7 @@
     </nav>
 
 <% Cliente clienteActual = (Cliente) request.getSession().getAttribute("clienteActual"); %>
-<form action="../ManejarDatosServlet" method="post">
+<form action="../manejarDatosServlet" method="post">
 <h5>DNI:</h5> <input name="txtDNI" type="number" required value="<%= clienteActual.getDNIcliente() %>" min="1" max="100000000" maxlength="11" oninput="this.value=this.value.replace(/[^0-9]/g,'');">
 
 <h5>CUIL:</h5> <input name="txtCUIL" value="<%= clienteActual.getCUILcliente() %>" type="number" required min="1" max="1000000000000" maxlength="11" oninput="this.value=this.value.replace(/[^0-9]/g,'');">

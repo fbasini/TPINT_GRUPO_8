@@ -38,4 +38,19 @@ private clienteDaoImpl clientedao;
 		
 		return clientedao.obtenerProvincias();
 	}
+	
+	public boolean comprobarExistenciaDNI(int dni) {
+		
+		return clientedao.comprobarExistenciaDNI(dni);
+	}
+	
+	public boolean comprobarExistenciaCUIL(int cuil) {
+		
+		return clientedao.comprobarExistenciaCUIL(cuil);
+	}
+	
+	public int actualizarDatosCliente (Cliente cliente) {
+		return clientedao.modificarCliente(cliente);
+	}
+	
 }
