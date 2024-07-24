@@ -32,7 +32,8 @@ public class TransferenciasServlet extends HttpServlet {
 		int cbuDestino = Integer.parseInt(request.getParameter("cbuDestino"));
         BigDecimal importe = new BigDecimal(request.getParameter("importeATransferir"));
 
-        int idCuentaOrigen = (int) request.getSession().getAttribute("idCuentaSeleccionada");
+        String idCuentaOrigenStr = (String) request.getSession().getAttribute("idCuentaSeleccionada");
+        int idCuentaOrigen = Integer.parseInt(idCuentaOrigenStr);
 
         movimientoNegocioImpl movNeg = new movimientoNegocioImpl();
         cuentaNegocioImpl cuentaNeg = new cuentaNegocioImpl();

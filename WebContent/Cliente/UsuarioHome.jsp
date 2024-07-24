@@ -56,7 +56,7 @@
 				<form action="Deudas.jsp" method="post">                   
                     <button type="submit" id="misDeudas" name="misDeudas" class="btn btn-primary mb-2">PAGO DE DEUDAS</button>
 				</form>
-				<form action="TransferirFondos.jsp" method="post">                    
+				<form action="../CuentasClienteServlet" method="post">                    
                     <button type="submit" id="transferirFondos" name="transferirFondos" class="btn btn-primary mb-2">TRANSFERIR FONDOS</button>
 				</form>	                    
                 <form action="../solicitarPrestamoServlet" method="get">

@@ -40,7 +40,7 @@
     <div class="row justify-content-center">
         <div class="col-md-6">
         	<!-- Cuenta Contenedor -->
-    		<form action="/TPINT_GRUPO_8_LAB4/CuentasClienteServlet" method="post">
+    		<form action="/TPINT_GRUPO_8_LAB4/CuentasClienteServlet" method="post"> 
                 <div class="cuenta-contenedor text-center">
                 <h2>Mis Cuentas</h2>
                     <select name="misCuentas" id="misCuentas" class="form-control mx-auto" style="max-width: 300px;">
@@ -84,6 +84,15 @@
             </form>
         </div>
     </div>
+    <% 
+                Object mensajeObj = request.getAttribute("mensaje");
+                if (mensajeObj != null) {
+                    String mensaje = (String) mensajeObj;
+            %>
+            <div class="text-center mt-3">
+                <label class="custom-label"><%= mensaje %></label>
+            </div>
+            <% } %>
 </div>
 
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

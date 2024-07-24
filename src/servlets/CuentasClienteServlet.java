@@ -50,7 +50,8 @@ public class CuentasClienteServlet extends HttpServlet {
         
         request.getSession().setAttribute("cuentasCliente", cuentasCliente);
 
-        request.getRequestDispatcher("Cliente/TransferirFondos.jsp").forward(request, response);
+        //request.getRequestDispatcher("Cliente/TransferirFondos.jsp").forward(request, response);
+        response.sendRedirect("Cliente/TransferirFondos.jsp");
 	}
 
 }
