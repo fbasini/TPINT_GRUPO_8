@@ -24,6 +24,15 @@ private clienteDaoImpl clientedao;
 		
 	}
 	
+public ArrayList<Cliente> listarAllClientes(){
+		
+
+		
+		return clientedao.listarAllClientes();
+		
+	}
+	
+	
 	public int obtenerIDUsuario ( String usuario) {
 		
 		return clientedao.obtenerIDClienteDeUsuario(usuario);

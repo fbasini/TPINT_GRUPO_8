@@ -51,7 +51,7 @@ public class cuentaNegocioImpl implements cuentaNegocio {
 	
 	public boolean asignarCuenta(int idCliente, int idCuenta)  {
 		// TODO Auto-generated method stub
-		return cuentadao.asignarCuenta(idCliente, idCuenta);
+		return cuentadao.asignarCuentaSiEsPosible(idCliente, idCuenta);
 	}
 
 

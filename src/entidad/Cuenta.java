@@ -1,5 +1,6 @@
 package entidad;
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.time.LocalDate;
 
 public class Cuenta {
@@ -95,9 +96,14 @@ public class Cuenta {
 				+ ", fechaCreacion=" + fechaCreacion + ", CBUCuenta=" + CBUCuenta + ", saldoCuenta=" + saldoCuenta
 				+ "]";
 	}
+
+
+	
+		
+	}
 	
 	
 	
 	
 	
-}
+

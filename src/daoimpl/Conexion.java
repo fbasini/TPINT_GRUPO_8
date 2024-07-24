@@ -26,7 +26,14 @@ public class Conexion {
     }
 
     public Connection getSQLConexion() {
-        return this.connection;
+        try {
+            if (connection == null || connection.isClosed()) {
+            	connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbbancog8","root","root");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return connection;
     }
 
     public void cerrarConexion() {

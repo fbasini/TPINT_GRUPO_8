@@ -47,7 +47,16 @@ public class LoginServlet extends HttpServlet {
             session.setAttribute("usuario", nombreUsuario);
         	
             if (usuario.isTipoUsuario()=='A') {
+            	clienteNegocioImpl clienteNeg = new clienteNegocioImpl();
+            	cuentaNegocioImpl cuentaNeg = new cuentaNegocioImpl();
             	
+            	ArrayList<Cuenta> allCuentas = cuentaNeg.listarCuentas();
+            	ArrayList<Cuenta> cuentasDisp = cuentaNeg.obtenerCuentasDisponibles();
+            	ArrayList<Cliente> allClientes = clienteNeg.listarAllClientes();
+            	
+            	session.setAttribute("allCuentas", allCuentas);
+            	session.setAttribute("cuentasDisp", cuentasDisp);
+            	session.setAttribute("allClientes", allClientes);
             	
                 response.sendRedirect("Admin/AdminHome.jsp");
 

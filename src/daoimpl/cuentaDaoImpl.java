@@ -24,13 +24,16 @@ public class cuentaDaoImpl implements cuentaDao {
 	private static final String insert = "INSERT INTO cuenta(idcliente, tipoCuenta, fechaCreacion, CBUCuenta, saldoCuenta, CuentaActiva) VALUES(?, ?, ?, ?, ?, ?)";
 	private static final String delete = "UPDATE cuenta SET CuentaActiva = 'N' WHERE idcuenta = ?";
 	private static final String selectAll = "SELECT * FROM cuenta";
-	private static final String update = "UPDATE cuenta SET tipoCuenta = ?, CBUCuenta = ?, saldoCuenta = ?  WHERE idcuenta = ?";
-	private static final String LISTA_CUENTAS_DISPONIBLES_QUERY = "SELECT idcuenta FROM cuenta WHERE idcliente = 1";
+	private static final String update = "UPDATE cuenta SET tipoCuenta = ?, CBUCuenta = ?, saldoCuenta = ? WHERE idcuenta = ?";
+	private static final String LISTA_CUENTAS_DISPONIBLES_QUERY = "SELECT * FROM cuenta WHERE idcliente = 1";
 	private static final String CHECK_COUNT_QUERY = "SELECT COUNT(*) AS cuentaCount FROM cuenta WHERE idcliente = ?";
 	private static final String ASIGNAR_CUENTA_QUERY = "UPDATE cuenta SET idcliente = ? WHERE idcuenta = ?";
 	private static final String obtenerCuentaDeCliente = "SELECT * FROM cuenta WHERE idcliente = ?";
 	private static final String updateSaldo="UPDATE cuenta SET saldoCuenta = saldoCuenta + ? WHERE idcuenta = ?";
 	private static final String obtenerIdPorCBU = "SELECT idcuenta FROM cuenta WHERE CBUCuenta = ?";
+	
+	
+	
 	public int agregarCuenta(Cuenta cuenta) {
 		
 		
@@ -85,29 +88,48 @@ public class cuentaDaoImpl implements cuentaDao {
 
 
 	public int modificarCuenta(Cuenta cuenta) {
-		PreparedStatement statement;
-		Connection conexion = Conexion.getConexion().getSQLConexion();
-		int filas = 0;
-		try {
-			statement = conexion.prepareStatement(update);
-			statement.setString(1, cuenta.getTipoCuenta());
-			
-			statement.setInt(2, cuenta.getCBUCuenta());
-			statement.setBigDecimal(3, cuenta.getSaldoCuenta());
-			statement.setInt(4, cuenta.getIdcuenta());
-			filas = statement.executeUpdate();
-			if (filas > 0) {
-				conexion.commit();
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			try {
-				conexion.rollback();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
-		}
-		return filas;
+		PreparedStatement statement = null;
+	    Connection conexion = null;
+	    int filas = 0;
+	    try {
+	        conexion = Conexion.getConexion().getSQLConexion();
+	        conexion.setAutoCommit(false);  // Desactiva el autocommit
+	        
+	        statement = conexion.prepareStatement(update);
+	        statement.setString(1, cuenta.getTipoCuenta());
+	        statement.setInt(2, cuenta.getCBUCuenta());
+	        statement.setBigDecimal(3, cuenta.getSaldoCuenta());
+	        statement.setInt(4, cuenta.getIdcuenta());
+	        filas = statement.executeUpdate();
+	        
+	        if (filas > 0) {
+	            conexion.commit();
+	        } else {
+	            conexion.rollback();
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        if (conexion != null) {
+	            try {
+	                conexion.rollback();
+	            } catch (SQLException e1) {
+	                e1.printStackTrace();
+	            }
+	        }
+	    } finally {
+	        try {
+	            if (statement != null) {
+	                statement.close();
+	            }
+	            if (conexion != null) {
+	                conexion.setAutoCommit(true);  // Restablece el autocommit
+	                conexion.close();
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+	    return filas;
 	}
 
 	
@@ -165,24 +187,60 @@ public class cuentaDaoImpl implements cuentaDao {
 	
 
 
-	@Override
-	public boolean asignarCuenta(int idCliente, int idCuenta) {
-		try (Connection conexion = Conexion.getConexion().getSQLConexion();
-	             PreparedStatement statement = conexion.prepareStatement(ASIGNAR_CUENTA_QUERY)) {
-	            statement.setInt(1, idCliente);
-	            statement.setInt(2, idCuenta);
-	            int filasAfectadas = statement.executeUpdate();
-	            if (filasAfectadas > 0) {
-	                conexion.commit();
-	                return true;
-	            }
-	        }catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-	        return false;
-	}
+	public boolean asignarCuentaSiEsPosible(int idCliente, int idCuenta) {
+	    Connection conexion = null;
+	    try {
+	        conexion = Conexion.getConexion().getSQLConexion();
+	        conexion.setAutoCommit(false); // Desactivar auto-commit
 
+	        // Verificar si el cliente puede tener una nueva cuenta
+	        try (PreparedStatement checkStatement = conexion.prepareStatement(CHECK_COUNT_QUERY)) {
+	            checkStatement.setInt(1, idCliente);
+	            try (ResultSet rs = checkStatement.executeQuery()) {
+	                if (rs.next()) {
+	                    if (rs.getInt("cuentaCount") >= 3) {
+	                        System.out.println("El cliente ya tiene 3 cuentas asignadas.");
+	                        return false;
+	                    }
+	                }
+	            }
+	        }
+
+	        // Asignar la cuenta si es posible
+	        try (PreparedStatement assignStatement = conexion.prepareStatement(ASIGNAR_CUENTA_QUERY)) {
+	            assignStatement.setInt(1, idCliente);
+	            assignStatement.setInt(2, idCuenta);
+	            int filasAfectadas = assignStatement.executeUpdate();
+	            if (filasAfectadas > 0) {
+	                conexion.commit(); // Hacer commit si la actualización fue exitosa
+	                return true;
+	            } else {
+	                conexion.rollback(); // Hacer rollback si no se afectaron filas
+	            }
+	        } catch (SQLException e) {
+	            if (conexion != null) {
+	                try {
+	                    conexion.rollback(); // Hacer rollback en caso de error
+	                } catch (SQLException ex) {
+	                    ex.printStackTrace();
+	                }
+	            }
+	            e.printStackTrace();
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        if (conexion != null) {
+	            try {
+	                conexion.setAutoCommit(true); // Restaurar auto-commit
+	                conexion.close(); // Cerrar la conexión
+	            } catch (SQLException e) {
+	                e.printStackTrace();
+	            }
+	        }
+	    }
+	    return false;
+	}
 
 	@Override
 	public ArrayList<Cuenta> obtenerCuentasDisponibles() {
@@ -193,7 +251,7 @@ public class cuentaDaoImpl implements cuentaDao {
 
             while (rs.next()) {
                 Cuenta cuenta = new Cuenta();
-                cuenta.setIdcuenta(rs.getInt("idcuenta"));
+             
                 cuenta.setIdcuenta(rs.getInt("idcuenta"));
 				cuenta.setIdcliente(rs.getInt("idcliente"));
 				cuenta.setTipoCuenta(rs.getString("tipoCuenta"));
@@ -211,22 +269,21 @@ public class cuentaDaoImpl implements cuentaDao {
 	}
 
 
-	@Override
-	public boolean puedeAsignarCuenta(int idCliente)   {
-		try (Connection conexion = Conexion.getConexion().getSQLConexion();
-	             PreparedStatement statement = conexion.prepareStatement(CHECK_COUNT_QUERY)) {
-	            statement.setInt(1, idCliente);
-	            ResultSet rs = statement.executeQuery();
+	public boolean puedeAsignarCuenta(int idCliente) {
+	    try (Connection conexion = Conexion.getConexion().getSQLConexion();
+	         PreparedStatement statement = conexion.prepareStatement(CHECK_COUNT_QUERY)) {
+	        
+	        statement.setInt(1, idCliente);
+	        try (ResultSet rs = statement.executeQuery()) {
 	            if (rs.next()) {
 	                return rs.getInt("cuentaCount") < 3;
 	            }
-	        } catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-	        return false;
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return false;
 	}
-	
 public int asignarPrestamo(Cuenta cuenta) {
 		
 		PreparedStatement statement;
@@ -275,6 +332,13 @@ public int obtenerIdCuentaPorCBU(int CBU) {
     }
     
     return idCuenta;
+}
+
+
+@Override
+public boolean asignarCuenta(int idCliente, int idCuenta) throws SQLException {
+	// TODO Auto-generated method stub
+	return false;
 }
 
 
