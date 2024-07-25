@@ -65,6 +65,7 @@
 	    	%>
 	    	 
 	    	<tr>
+	    	<form method="get" action="/TPINT_GRUPO_8_LAB4/autorizarPrestamoServlet">
 	    		<td><%=prestamo.getIdPrestamo() %></td>
 	    		<td><%=prestamo.getIdcuenta() %></td>
 	    		<td><%=prestamo.getIdcliente() %></td>
@@ -74,26 +75,30 @@
 	    		<td><%=prestamo.getPlazoEnCuotas() %></td>
 	    		<td><%=prestamo.getMontoPorCuota() %></td>
 	    		<td>
-	    		<form method="get" action="/TPINT_GRUPO_8_LAB4/autorizarPrestamoServlet">
 	    		
 	    			<input type="hidden" value="<%=prestamo.getIdPrestamo() %>" name="idPrestamo"></input>
 	    			<input type="hidden" value="<%=prestamo.getIdcuenta() %>" name="idCuenta"></input>
 	    			<input type="hidden" value="<%=prestamo.getImporteSolicitado()%>" name="montoSolicitado"></input>
+	    			<input type="hidden" value="<%=prestamo.getMontoPorCuota()%>" name="montoPorCuota"></input>
+	    			<input type="hidden" value="<%=prestamo.getPlazoEnCuotas()%>" name="cuotas"></input>
+	    			<input type="hidden" value="<%=prestamo.getIdcliente()%>" name="idCliente"></input>
 	    			<select name="autorizar" id="autorizar">
+	    				<option>Seleccione</option>
 	    				<option value="Y">Autorizar</option>
 	    				<option value="N">No autorizar</option>
-	    				</select>
+	    				</select><button type="submit" class="btn btn-link nav-link boton-links" name="btnEnviar">Enviar</button>
 	    				
-	    		</form>
+	    		
 	    			
 	    		</td>
+	    		</form>
 	    	</tr>
 	    	<%		}
 	    	}
 	   		 %>
     	</tbody>
     
-    </table><br><button type="submit" class="btn btn-link nav-link boton-links" name="btnEnviar">Enviar</button>
+    </table><br>
 	    		</form><br>
     </form>
 </body>

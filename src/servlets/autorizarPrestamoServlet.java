@@ -14,9 +14,11 @@ import javax.servlet.http.HttpServletResponse;
 import entidad.Cuenta;
 import entidad.Movimiento;
 import entidad.Prestamos;
+import entidad.pagoCuota;
 import negocioImpl.clienteNegocioImpl;
 import negocioImpl.cuentaNegocioImpl;
 import negocioImpl.movimientoNegocioImpl;
+import negocioImpl.pagoCuotaNegocioImpl;
 import negocioImpl.prestamoNegocioImpl;
 
 /**
@@ -38,7 +40,6 @@ public class autorizarPrestamoServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("sAutorizar");
 		try{
 			if(request.getParameter("btnEnviar")!=null) { 
 				System.out.println("-------------------");
@@ -46,24 +47,45 @@ public class autorizarPrestamoServlet extends HttpServlet {
 				
 				char autorizado=request.getParameter("autorizar").charAt(0);
 				int idPrestamo=Integer.parseInt(request.getParameter("idPrestamo"));
+				int idCliente=Integer.parseInt(request.getParameter("idCliente"));
 				int idCuenta=Integer.parseInt(request.getParameter("idCuenta"));
 				double monto=Double.parseDouble(request.getParameter("montoSolicitado"));
 				BigDecimal montoSolicitado=BigDecimal.valueOf(monto);
+				double montoPorC=Double.parseDouble(request.getParameter("montoPorCuota"));
+				BigDecimal montoPorCuota=BigDecimal.valueOf(montoPorC);
+				int cuotas=Integer.parseInt(request.getParameter("cuotas"));
 				
 				Prestamos prestamo= new Prestamos();
 				prestamo.setAutorizado(autorizado);
 				prestamo.setIdPrestamo(idPrestamo);
 				prestamoNegocioImpl prestamoNeg=new prestamoNegocioImpl();
+				
 				System.out.println(autorizado);
+				
 				if(autorizado=='Y') {
 					System.out.println("cuenta");
 					Cuenta cuenta=new Cuenta();
 					cuenta.setIdcuenta(idCuenta);
 					cuenta.setSaldoCuenta(montoSolicitado);
 					cuentaNegocioImpl cuentaNeg= new cuentaNegocioImpl();
-					cuentaNeg.asignarPrestamo(cuenta);
+					int asignado=cuentaNeg.asignarPrestamo(cuenta);
+					System.out.println("prestamos en la cuenta");
+					System.out.println(asignado);
+					
+					pagoCuota pagoCuota= new pagoCuota();
+					pagoCuota.setIdPrestamo(idPrestamo);
+					pagoCuota.setIdCuenta(idCuenta);
+					pagoCuota.setIdCliente(idCliente) ;
+					pagoCuota.setMontoAPagar(montoPorCuota);
+					pagoCuota.setCuotas(cuotas);
+					pagoCuota.setFechaPago(LocalDate.now());
+					pagoCuotaNegocioImpl pagoCuotaNeg=new pagoCuotaNegocioImpl();
+					int filas= pagoCuotaNeg.insertarCuotas(pagoCuota);
+					System.out.println("Filas insertadas en pagocuotas");
+					System.out.println(filas);
 				}
 				int filas=prestamoNeg.updatePrestamo(prestamo);
+				System.out.println("Prestamo autorizado");
 				System.out.println(filas);
 				 RequestDispatcher rd = request.getRequestDispatcher("listarPrestamosServlet");
 		            rd.forward(request, response);

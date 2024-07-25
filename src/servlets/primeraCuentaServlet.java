@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import entidad.Cliente;
 import entidad.Cuenta;
 import negocioImpl.clienteNegocioImpl;
 import negocioImpl.cuentaNegocioImpl;
@@ -38,11 +39,13 @@ public class primeraCuentaServlet extends HttpServlet {
 		String nombreUsuario = (String) session.getAttribute("usuario");
 		clienteNegocioImpl clienteNeg1 = new clienteNegocioImpl();
     	int idcliente = clienteNeg1.obtenerIDUsuario(nombreUsuario);
+    	Cliente cliente = new Cliente();
+    	cliente = (Cliente) session.getAttribute("clienteActual");
     	
     	cuenta.setIdcliente(idcliente);
     	cuenta.setTipoCuenta(request.getParameter("ddlTipoCuenta"));
     	cuenta.setFechaCreacion(LocalDate.now());
-    	cuenta.setCBUCuenta(1000);
+    	cuenta.setCBUCuenta(cliente.getDNIcliente());
     	cuenta.setSaldoCuenta((BigDecimal.valueOf(10000.0)));
     	cuenta.setCuentaActiva('Y');
 		

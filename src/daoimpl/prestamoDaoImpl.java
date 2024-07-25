@@ -5,18 +5,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
-import entidad.Cliente;
 import entidad.Prestamos;
-import entidad.Usuario;
+
 
 public class prestamoDaoImpl {
 	private static final String selectAll="SELECT * FROM prestamos";
 	private static final String select="SELECT * FROM prestamos WHERE autorizado='-'";
 	private static final String update= "UPDATE prestamos SET autorizado = ? WHERE idprestamo = ?";
-	private static final String insert = "INSERT INTO prestamos (idcliente,idcuenta,fechaPrestamo," + 
-			"importeAPagar, importeSolicitado,plazoEnCoutas, montoPorCuota,autorizado)" + 
-			"VALUES (?,?,?,?,?,?,?,?)";
+	private static final String insert = "INSERT INTO prestamos (idcliente,idcuenta,fechaPrestamo,importeAPagar, importeSolicitado,plazoEnCuotas, montoPorCuota,autorizado) VALUES (?,?,?,?,?,?,?,?)";
 			
 	public int updatePrestamo(Prestamos prestamo) {
 		
@@ -42,15 +38,14 @@ public class prestamoDaoImpl {
 	    return filas;
 	}
 	public ArrayList<Prestamos> listarPrestamos(){
-		System.out.println("dao");
 	    PreparedStatement statement;
 	    Connection conexion = Conexion.getConexion().getSQLConexion();
 	    ArrayList<Prestamos> prestamos=new ArrayList<Prestamos>();
 	    try {
+	    	System.out.println("listar");
 	        statement = conexion.prepareStatement(select);
 	        ResultSet resultSet = statement.executeQuery();
 	        while (resultSet.next()) {
-	        	System.out.println("qlq");
 	        	Prestamos prestamo=new Prestamos();
 	        	prestamo.setIdPrestamo(resultSet.getInt("idprestamo"));
 	        	prestamo.setIdcliente(resultSet.getInt("idcliente"));

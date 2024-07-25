@@ -53,7 +53,7 @@
                 <form action="MisMovimientos.jsp" method="post">
                     <button type="submit" id="misMovimientos" name="misMovimientos" class="btn btn-primary mb-2">MIS MOVIMIENTOS</button>
 				</form>
-				<form action="Deudas.jsp" method="post">                   
+				<form action="../listarPagarCuotaServlet" method="get">                   
                     <button type="submit" id="misDeudas" name="misDeudas" class="btn btn-primary mb-2">PAGO DE DEUDAS</button>
 				</form>
 				<form action="../CuentasClienteServlet" method="post">                    
