@@ -34,6 +34,8 @@ public class cuentaDaoImpl implements cuentaDao {
 	private static final String obtenerDescripcion = "SELECT descripcion FROM tipocuenta WHERE tipoCuenta = ?";
 	private static final String traerCuenta= "SELECT * FROM cuenta WHERE idcuenta = ?";
 	private static final String obtenerSaldo = "SELECT saldoCuenta FROM cuenta WHERE idcuenta = ?";
+	private static final String updateSaldoTransferencia = "UPDATE cuenta SET saldoCuenta = ? WHERE idcuenta = ?";
+	private static final String obtenerCBUPorIdCuenta = "SELECT CBUCuenta FROM cuenta WHERE idcuenta = ?";
 	public int agregarCuenta(Cuenta cuenta) {
 		
 		
@@ -407,16 +409,16 @@ public Cuenta obtenerCuentaPorID(int idcuenta) {
 	}
 
 
-	public void actualizarSaldo(int idCuenta, BigDecimal monto) {
+	public void actualizarSaldo(int idCuenta, BigDecimal nuevoSaldo) {
 		try (Connection conexion = Conexion.getConexion().getSQLConexion();
-		         PreparedStatement statement = conexion.prepareStatement(updateSaldo)) {
+		         PreparedStatement statement = conexion.prepareStatement(updateSaldoTransferencia)) {
 
-		        statement.setBigDecimal(1, monto);
+		        statement.setBigDecimal(1, nuevoSaldo);
 		        statement.setInt(2, idCuenta);
 		        int filasAfectadas = statement.executeUpdate();
-		        
+
 		        if (filasAfectadas == 0) {
-		            throw new SQLException("No se actualizï¿½ el saldo para la cuenta con id: " + idCuenta);
+		            throw new SQLException("No se actualizó el saldo para la cuenta con id: " + idCuenta);
 		        }
 
 		        conexion.commit();
@@ -431,11 +433,22 @@ public Cuenta obtenerCuentaPorID(int idcuenta) {
 	}
 
 
-@Override
-public boolean asignarCuenta(int idCliente, int idCuenta) throws SQLException {
-	// TODO Auto-generated method stub
-	return false;
-}
+	public int obtenerCBUPorIdCuenta(int idCuenta) {
+		int cbu = -1;
+		try {
+			Connection conexion = Conexion.getConexion().getSQLConexion();
+	        PreparedStatement stmt = conexion.prepareStatement(obtenerCBUPorIdCuenta);
+	        stmt.setInt(1, idCuenta);
+	        ResultSet rs = stmt.executeQuery();
+	        if (rs.next()) {
+	        	cbu = rs.getInt("CBUCuenta");
+	        }
+	       } catch (SQLException e) {
+	           e.printStackTrace();
+	       }
+       return cbu;
+	}
+
 
 
 

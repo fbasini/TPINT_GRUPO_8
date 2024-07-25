@@ -89,15 +89,14 @@ public class cuentaNegocioImpl implements cuentaNegocio {
 	public void actualizarSaldo(int idCuenta, BigDecimal monto) {
 	    cuentadao.actualizarSaldo(idCuenta, monto);
 	}
-
-
-	
-	
 	
 	public Cuenta obtenerCuentaPorID(int idcuenta) {
-		
 		return cuentadao.obtenerCuentaPorID(idcuenta);
 		
+	}
+	
+	public int obtenerCBUPorIdCuenta(int idCuenta) {
+	    return cuentadao.obtenerCBUPorIdCuenta(idCuenta);
 	}
 	
 }
