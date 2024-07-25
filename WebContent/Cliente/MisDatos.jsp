@@ -44,7 +44,7 @@
 <div class="recuadro-gris">
     <% Cliente clienteActual = (Cliente) request.getSession().getAttribute("clienteActual"); %>
 
-    <table>
+    <table class="datos">
         <tr> 
             <td>DNI:</td>
             <td><%= clienteActual.getDNIcliente() %></td>

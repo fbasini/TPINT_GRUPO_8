@@ -43,7 +43,7 @@
 <div class="recuadro-gris">
     <% Cliente clienteActual = (Cliente) request.getSession().getAttribute("clienteActual"); %>
     <form action="../manejarDatosServlet" method="post">
-        <table>
+        <table class="datos">
             <tr>
                 <td><label class="custom-label" for="txtDNI">DNI:</label></td>
                 <td><input id="txtDNI" name="txtDNI" type="number" class="custom-input" required value="<%= clienteActual.getDNIcliente() %>" min="1" max="100000000" maxlength="11" oninput="this.value=this.value.replace(/[^0-9]/g,'');"></td>
