@@ -56,8 +56,9 @@ public class agregarClienteServlet extends HttpServlet {
 	            request.setAttribute("mensaje", mensaje);
 	            
 	            
-	            RequestDispatcher rd = request.getRequestDispatcher("Admin/AgregarClientes.jsp");
-	            rd.forward(request, response);
+	            //RequestDispatcher rd = request.getRequestDispatcher("Admin/AgregarClientes.jsp");
+	            //rd.forward(request, response);
+	            response.sendRedirect("Admin/AgregarClientes.jsp");
 		 }
 	}
 }

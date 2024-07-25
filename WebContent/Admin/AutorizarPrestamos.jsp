@@ -29,7 +29,7 @@
                     <span class="nav-link">Usuario: <%= session.getAttribute("usuario") %> </span>
                 </li>
                 <li class="nav-item">
-                    <form action="GestionClientes.jsp" method="post" class="form-inline">
+                    <form action="AdminHome.jsp" method="post" class="form-inline">
                         <button type="submit" class="btn btn-link nav-link boton-links">Volver</button>
                     </form>
                 </li>                
