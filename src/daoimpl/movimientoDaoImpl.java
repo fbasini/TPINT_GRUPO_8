@@ -2,15 +2,49 @@ package daoimpl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
+import entidad.Cuenta;
 import entidad.Movimiento;
 
 public class movimientoDaoImpl {
 
 	private static final String insertarMovimiento = "INSERT INTO movimientos (idcuenta, tipoMovimiento, fechaMovimiento, detalleMovimiento, importeMovimiento, destinatario) VALUES (?,?,?,?,?,?)"; 
+	private static final String listarMovimientosPorIdCuenta = "SELECT * FROM movimientos WHERE idcuenta = ?";
 	
 	
+	public ArrayList<Movimiento> obtenerMovimientosIdCuenta(int idcuenta) {
+	
+	
+		PreparedStatement statement;
+		Connection conexion = Conexion.getConexion().getSQLConexion();
+		ArrayList<Movimiento> movimientos = new ArrayList<>();
+	
+		try {
+			statement = conexion.prepareStatement(listarMovimientosPorIdCuenta);
+			statement.setInt(1, idcuenta);
+			ResultSet resultSet = statement.executeQuery();
+			
+			while (resultSet.next()) {
+				Movimiento movimiento = new Movimiento();
+				movimiento.setIdMovimiento(resultSet.getInt("idMovimientos"));
+				movimiento.setIdcuenta(resultSet.getInt("idcuenta"));
+				movimiento.setTipoMovimiento(resultSet.getString("tipoMovimiento"));
+				movimiento.setDetalleMovimiento(resultSet.getString("detalleMovimiento"));
+				movimiento.setImporteMovimiento(resultSet.getBigDecimal("importeMovimiento"));
+				movimiento.setDestinatario(resultSet.getInt("destinatario"));
+				movimiento.setFechaMovimiento(resultSet.getDate("fechaMovimiento").toLocalDate());
+				movimientos.add(movimiento);
+			} 
+		}catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return movimientos;
+		}
+	
+
 	public int agregarMovimiento(Movimiento movimiento) {
 		
 		PreparedStatement statement = null;

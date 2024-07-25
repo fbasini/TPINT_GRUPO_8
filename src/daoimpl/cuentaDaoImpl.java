@@ -383,11 +383,8 @@ public Cuenta obtenerCuentaPorID(int idcuenta) {
 	}
 	
 	
-	@Override
-	public boolean asignarCuenta(int idCliente, int idCuenta) throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	
+	
 	
 	
 	public BigDecimal obtenerSaldo(int idCuentaOrigen) {
