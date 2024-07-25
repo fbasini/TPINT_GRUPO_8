@@ -13,13 +13,14 @@ import javax.servlet.http.HttpSession;
 import daoimpl.usuarioDaoImpl;
 import entidad.Cliente;
 import entidad.Cuenta;
+import entidad.Prestamos;
 import entidad.Provincias;
 import entidad.Usuario;
 import negocio.usuarioNegocio;
 import negocioImpl.clienteNegocioImpl;
 import negocioImpl.cuentaNegocioImpl;
 import negocioImpl.usuarioNegocioImpl;
-
+import negocioImpl.prestamoNegocioImpl;
 
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
@@ -56,14 +57,19 @@ public class LoginServlet extends HttpServlet {
             	
             	 clienteNegocioImpl clienteNeg = new clienteNegocioImpl();
              	cuentaNegocioImpl cuentaNeg = new cuentaNegocioImpl();
+             	prestamoNegocioImpl prestamoNeg = new prestamoNegocioImpl();
+             	
              	
              	ArrayList<Cuenta> allCuentas = cuentaNeg.listarCuentas();
              	ArrayList<Cuenta> cuentasDisp = cuentaNeg.obtenerCuentasDisponibles();
              	ArrayList<Cliente> allClientes = clienteNeg.listarAllClientes();
+             	ArrayList<Prestamos> allPrestamos = prestamoNeg.listaPrestamo();
+             	
              	
              	session.setAttribute("allCuentas", allCuentas);
              	session.setAttribute("cuentasDisp", cuentasDisp);
              	session.setAttribute("allClientes", allClientes);
+             	session.setAttribute("allPrestamos", allPrestamos);
                 response.sendRedirect("Admin/AdminHome.jsp");
 
             } 

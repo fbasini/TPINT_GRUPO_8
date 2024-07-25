@@ -41,14 +41,14 @@ public class TransferenciasServlet extends HttpServlet {
         BigDecimal saldoOrigen = cuentaNeg.obtenerSaldo(idCuentaOrigen);
         if (saldoOrigen.compareTo(importe) < 0) {
             request.setAttribute("mensaje", "Saldo insuficiente.");
-            request.getRequestDispatcher("TransferirFondos.jsp").forward(request, response);
+            request.getRequestDispatcher("Cliente/TransferirFondos.jsp").forward(request, response);
             return;
         }
 
         int idCuentaDestino = cuentaNeg.obtenerIdCuentaPorCBU(cbuDestino);
         if (idCuentaDestino == -1) {
             request.setAttribute("mensaje", "CBU de destinatario inválido.");
-            request.getRequestDispatcher("TransferirFondos.jsp").forward(request, response);
+            request.getRequestDispatcher("Cliente/TransferirFondos.jsp").forward(request, response);
             return;
         }
         

@@ -42,7 +42,7 @@
 </nav>
 
 <!-- Main Content -->
-<div class="container mt-5">
+<div class="row justify-content-center">
     <h2>Asignación de Cuenta</h2>
     <form action="../AltaCuentaServlet" method="post">
         <table style="width: 353px; text-align:center;">
@@ -73,7 +73,7 @@
                 </tr>
                 <tr>
                     <td colspan="2" style="height:50px;">
-                        <button type="submit" name="btnAsignar" style="text-align:center; border-radius: 5px;">Asignar</button>
+                        <button type="submit" class="btn btn-primary" name="btnAsignar" style="text-align:center; border-radius: 5px;">Asignar</button>
                     </td>
                 </tr>
             </tbody>

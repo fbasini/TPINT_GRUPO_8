@@ -42,7 +42,7 @@
         </div>
     </nav>
     
-    <form method="get" action="/TPINT_GRUPO_8_LAB4/autorizarPrestamoServlet">
+    <form method="get" action="../autorizarPrestamoServlet">
     <table  class="table table-bordered">
     	<thead>
     		<tr>
@@ -59,13 +59,13 @@
     	</thead>
     	<tbody>
 	    	<%
-	    		ArrayList<Prestamos> listaPrestamos=(ArrayList<Prestamos>) request.getSession().getAttribute("listaPrestamos");
+	    		ArrayList<Prestamos> listaPrestamos=(ArrayList<Prestamos>) request.getSession().getAttribute("allPrestamos");
 	    		if(listaPrestamos != null){
 	    			for(Prestamos prestamo : listaPrestamos){
 	    	%>
 	    	 
 	    	<tr>
-	    	<form method="get" action="/TPINT_GRUPO_8_LAB4/autorizarPrestamoServlet">
+	    	
 	    		<td><%=prestamo.getIdPrestamo() %></td>
 	    		<td><%=prestamo.getIdcuenta() %></td>
 	    		<td><%=prestamo.getIdcliente() %></td>
@@ -91,7 +91,7 @@
 	    		
 	    			
 	    		</td>
-	    		</form>
+	    		
 	    	</tr>
 	    	<%		}
 	    	}
@@ -99,7 +99,7 @@
     	</tbody>
     
     </table><br>
-	    		</form><br>
-    </form>
+	    		<br></form>
+   
 </body>
 </html>

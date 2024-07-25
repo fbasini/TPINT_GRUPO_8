@@ -47,7 +47,7 @@
                 <form action="GestionCuentas.jsp" method="post">
                     <button type="submit" id="cuentas" name="cuentas" class="btn btn-primary mb-2">CUENTAS</button>
                 </form>
-               <form method="get" action="/TPINT_GRUPO_8_LAB4/listarPrestamosServlet">
+               <form method="get" action="AutorizarPrestamos.jsp">
                     <button type="submit" id="prestamos" name="prestamos" class="btn btn-primary mb-2">PRESTAMOS</button>
                 </form>
 
