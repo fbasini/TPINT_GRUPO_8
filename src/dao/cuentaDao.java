@@ -1,5 +1,6 @@
 package dao;
 
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,5 +17,6 @@ public interface cuentaDao {
 	public boolean asignarCuenta(int idCliente, int idCuenta) throws SQLException;
 	public List<Cuenta> obtenerCuentasDisponibles() throws SQLException;
 	public boolean puedeAsignarCuenta(int idCliente) throws SQLException;
+	BigDecimal obtenerSaldo(int idCuentaOrigen);
 	
 }

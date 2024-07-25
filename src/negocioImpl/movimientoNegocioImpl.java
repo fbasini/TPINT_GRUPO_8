@@ -13,7 +13,10 @@ public class movimientoNegocioImpl {
 		this.movDao= new movimientoDaoImpl();
 	}
    
-   
+   public ArrayList<Movimiento> obtenerMovimientosIdCuenta(int idcuenta){
+	   
+	   return movDao.obtenerMovimientosIdCuenta(idcuenta);
+   }
    
 	public int agregarMovimiento(Movimiento movimiento) {
 		int filas= movDao.agregarMovimiento(movimiento);

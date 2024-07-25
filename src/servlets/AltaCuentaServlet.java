@@ -65,7 +65,7 @@ public class AltaCuentaServlet extends HttpServlet {
             movimiento.setIdcuenta(idCuenta);
             movimiento.setTipoMovimiento("Alta de cuenta");
             movimiento.setFechaMovimiento(LocalDate.now());
-            movimiento.setDetalleMovimiento("-");
+            movimiento.setDetalleMovimiento("Depósito inicial en la cuenta");
             movimiento.setImporteMovimiento(saldoFijo);
             movimiento.setDestinatario(cuenta.getCBUCuenta());
             
