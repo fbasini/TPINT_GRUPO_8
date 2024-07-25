@@ -12,7 +12,7 @@ public class prestamoDaoImpl {
 	private static final String selectAll="SELECT * FROM prestamos";
 	private static final String select="SELECT * FROM prestamos WHERE autorizado='-'";
 	private static final String update= "UPDATE prestamos SET autorizado = ? WHERE idprestamo = ?";
-	private static final String insert = "INSERT INTO prestamos (idcliente,idcuenta,fechaPrestamo,importeAPagar, importeSolicitado,plazoEnCuotas, montoPorCuota,autorizado) VALUES (?,?,?,?,?,?,?,?)";
+	private static final String insert = "INSERT INTO prestamos (idcliente,idcuenta,fechaPrestamo,importeAPagar, importeSolicitado,plazoEnCoutas, montoPorCuota,autorizado) VALUES (?,?,?,?,?,?,?,?)";
 			
 	public int updatePrestamo(Prestamos prestamo) {
 		
@@ -53,7 +53,7 @@ public class prestamoDaoImpl {
 	        	prestamo.setFechaPrestamo(resultSet.getDate("fechaPrestamo").toLocalDate());
 	        	prestamo.setImporteAPagar(resultSet.getBigDecimal("importeAPagar"));
 	        	prestamo.setImporteSolicitado(resultSet.getBigDecimal("importeSolicitado"));
-	        	prestamo.setPlazoEnCuotas(resultSet.getInt("plazoEnCuotas"));
+	        	prestamo.setPlazoEnCuotas(resultSet.getInt("plazoEnCoutas"));
 	        	prestamo.setMontoPorCuota(resultSet.getBigDecimal("montoPorCuota"));
 	        	prestamo.setAutorizado(resultSet.getString("autorizado").charAt(0));
 	        	prestamos.add(prestamo);

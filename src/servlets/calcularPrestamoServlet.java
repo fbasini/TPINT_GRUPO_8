@@ -75,7 +75,7 @@ public class calcularPrestamoServlet extends HttpServlet {
         prestamo.setImporteSolicitado(importeSolicitado);
 		prestamo.setPlazoEnCuotas((int)misesion.getAttribute("cuotas"));	
         prestamo.setMontoPorCuota(montoPorCuota);
-        prestamo.setAutorizado('p');
+        prestamo.setAutorizado('-');
         	
        
         
