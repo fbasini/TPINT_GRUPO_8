@@ -47,6 +47,8 @@ public class pagarCuotaServlet extends HttpServlet {
 				int idCliente=Integer.parseInt(request.getParameter("idCliente"));
 				int idCuenta=Integer.parseInt(request.getParameter("misCuentas"));
 				int idCuota=Integer.parseInt(request.getParameter("cuota"));
+				Double monto=Double.parseDouble(request.getParameter("cuota"));
+				BigDecimal montoAPagar=BigDecimal.valueOf(monto);
 				
 				pagoCuota pagoCuota=new pagoCuota();
 				pagoCuota.setIdCliente(idCliente);
@@ -55,7 +57,15 @@ public class pagarCuotaServlet extends HttpServlet {
 				pagoCuota.setIdCuota(idCuota);
 				pagoCuota.setIdPrestamo(idPrestamo);
 				
-			
+				System.out.println("cuenta");
+				Cuenta cuenta=new Cuenta();
+				cuenta.setIdcuenta(idCuenta);
+				cuenta.setSaldoCuenta(montoAPagar);
+				cuentaNegocioImpl cuentaNeg= new cuentaNegocioImpl();
+				int asignado=cuentaNeg.pagarPrestamo(cuenta);
+				System.out.println("prestamos en la cuenta");
+				System.out.println(asignado);
+				
 					pagoCuotaNegocioImpl pagoCuotaNeg=new pagoCuotaNegocioImpl();
 					int filas= pagoCuotaNeg.updateCuota(pagoCuota);
 					System.out.println("Filas insertadas en pagocuotas");

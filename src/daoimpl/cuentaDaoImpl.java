@@ -36,6 +36,7 @@ public class cuentaDaoImpl implements cuentaDao {
 	private static final String obtenerSaldo = "SELECT saldoCuenta FROM cuenta WHERE idcuenta = ?";
 	private static final String updateSaldoTransferencia = "UPDATE cuenta SET saldoCuenta = ? WHERE idcuenta = ?";
 	private static final String obtenerCBUPorIdCuenta = "SELECT CBUCuenta FROM cuenta WHERE idcuenta = ?";
+	private static final String updatePagar = "UPDATE cuenta SET saldoCuenta = saldoCuenta - ? WHERE idcuenta = ? AND CuentaActiva ='Y' AND saldoCuenta >= ?";
 	public int agregarCuenta(Cuenta cuenta) {
 		
 		
@@ -336,6 +337,7 @@ public Cuenta obtenerCuentaPorID(int idcuenta) {
 		            e1.printStackTrace();
 		        }
 		    }
+		    
 		    return filas;
 		}
 		
@@ -452,7 +454,32 @@ public Cuenta obtenerCuentaPorID(int idcuenta) {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
+	public int pagarPrestamo(Cuenta cuenta) {
+		
+		PreparedStatement statement;
+	    Connection conexion = Conexion.getConexion().getSQLConexion();
+	    int filas = 0;
+	    try {
+	    	System.out.println("Update pagar");
+	        statement = conexion.prepareStatement(updatePagar);
+	        statement.setBigDecimal(1, cuenta.getSaldoCuenta());
+	        statement.setInt(2, cuenta.getIdcuenta());
+	        statement.setBigDecimal(3, cuenta.getSaldoCuenta());
+	        filas = statement.executeUpdate();
+	        if (filas > 0) {
+	            conexion.commit();
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        try {
+	            conexion.rollback();
+	        } catch (SQLException e1) {
+	            e1.printStackTrace();
+	        }
+	    }
+	    
+	    return filas;
+	}
 
 
 

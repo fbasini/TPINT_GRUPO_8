@@ -82,7 +82,7 @@ public class autorizarPrestamoServlet extends HttpServlet {
 					pagoCuotaNegocioImpl pagoCuotaNeg=new pagoCuotaNegocioImpl();
 					int filas= pagoCuotaNeg.insertarCuotas(pagoCuota);
 					System.out.println("Filas insertadas en pagocuotas");
-					System.out.println(filas);
+					System.out.println(montoPorCuota);
 				}
 				int filas=prestamoNeg.updatePrestamo(prestamo);
 				System.out.println("Prestamo autorizado");

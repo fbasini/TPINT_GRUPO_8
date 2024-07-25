@@ -85,6 +85,7 @@
 	    			<input type="hidden" value="<%=cuota.getIdCuenta() %>" name="idCuenta"></input>
 	    			<input type="hidden" value="<%=cuota.getIdCuota()%>" name="cuota"></input>
 	    			<input type="hidden" value="<%=cuota.getIdCliente()%>" name="idCliente"></input>
+	    			<input type="hidden" value="<%=cuota.getMontoAPagar()%>" name="montoAPagar"></input>
 	    			<button type="submit" class="btn btn-link nav-link boton-links" name="btnEnviar">Enviar</button>
 	    		</td>
 	    		</form>
