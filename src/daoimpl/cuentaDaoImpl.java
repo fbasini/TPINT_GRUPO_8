@@ -33,6 +33,7 @@ public class cuentaDaoImpl implements cuentaDao {
 	private static final String obtenerIdPorCBU = "SELECT idcuenta FROM cuenta WHERE CBUCuenta = ?";
 	private static final String obtenerDescripcion = "SELECT descripcion FROM tipocuenta WHERE tipoCuenta = ?";
 	private static final String traerCuenta= "SELECT * FROM cuenta WHERE idcuenta = ?";
+	private static final String obtenerSaldo = "SELECT saldoCuenta FROM cuenta WHERE idcuenta = ?";
 	public int agregarCuenta(Cuenta cuenta) {
 		
 		
@@ -311,72 +312,123 @@ public Cuenta obtenerCuentaPorID(int idcuenta) {
 	    }
 	    return false;
 	}
-public int asignarPrestamo(Cuenta cuenta) {
+	
+	public int asignarPrestamo(Cuenta cuenta) {
+			
+			PreparedStatement statement;
+		    Connection conexion = Conexion.getConexion().getSQLConexion();
+		    int filas = 0;
+		    try {
+		        statement = conexion.prepareStatement(updateSaldo);
+		        statement.setBigDecimal(1, cuenta.getSaldoCuenta());
+		        statement.setInt(2, cuenta.getIdcuenta());
+		        filas = statement.executeUpdate();
+		        if (filas > 0) {
+		            conexion.commit();
+		        }
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		        try {
+		            conexion.rollback();
+		        } catch (SQLException e1) {
+		            e1.printStackTrace();
+		        }
+		    }
+		    return filas;
+		}
 		
-		PreparedStatement statement;
-	    Connection conexion = Conexion.getConexion().getSQLConexion();
-	    int filas = 0;
+	
+	public int obtenerIdCuentaPorCBU(int CBU) {
+		 int idCuenta = -1;
+	   
 	    try {
-	        statement = conexion.prepareStatement(updateSaldo);
-	        statement.setBigDecimal(1, cuenta.getSaldoCuenta());
-	        statement.setInt(2, cuenta.getIdcuenta());
-	        filas = statement.executeUpdate();
-	        if (filas > 0) {
-	            conexion.commit();
+	       
+	        Connection conexion = Conexion.getConexion().getSQLConexion();
+	        PreparedStatement stmt = conexion.prepareStatement(obtenerIdPorCBU);
+	        
+	        stmt.setInt(1, CBU);
+	        ResultSet rs = stmt.executeQuery();
+	        
+	        if (rs.next()) {
+	            idCuenta = rs.getInt("idcuenta");
+	        }
+	        
+	        rs.close();
+	        stmt.close();
+	        conexion.close();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    
+	    return idCuenta;
+	}
+	
+	
+	public String obtenerDescripcionTipoCuenta(String tipoCuentaId) {
+		String descripcion = "";
+		try {
+			Connection conexion = Conexion.getConexion().getSQLConexion();
+	        PreparedStatement stmt = conexion.prepareStatement(obtenerDescripcion);
+	        stmt.setString(1, tipoCuentaId);
+	        ResultSet rs = stmt.executeQuery();
+	        if (rs.next()) {
+	        	descripcion = rs.getString("descripcion");
+	        }
+	       } catch (SQLException e) {
+	           e.printStackTrace();
+	       }
+	       return descripcion;
+	}
+	
+	
+	@Override
+	public boolean asignarCuenta(int idCliente, int idCuenta) throws SQLException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
+	
+	public BigDecimal obtenerSaldo(int idCuentaOrigen) {
+	    BigDecimal saldo = null;
+	
+	    try {
+	    	Connection conexion = Conexion.getConexion().getSQLConexion();
+	    	PreparedStatement statement = conexion.prepareStatement(obtenerSaldo);
+	        statement.setInt(1, idCuentaOrigen);
+	        ResultSet resultSet = statement.executeQuery();
+	        if (resultSet.next()) {
+	            saldo = resultSet.getBigDecimal("saldoCuenta");
 	        }
 	    } catch (SQLException e) {
 	        e.printStackTrace();
-	        try {
-	            conexion.rollback();
-	        } catch (SQLException e1) {
-	            e1.printStackTrace();
-	        }
 	    }
-	    return filas;
-	}
 	
-
-public int obtenerIdCuentaPorCBU(int CBU) {
-	 int idCuenta = -1;
-   
-    try {
-       
-        Connection conexion = Conexion.getConexion().getSQLConexion();
-        PreparedStatement stmt = conexion.prepareStatement(obtenerIdPorCBU);
-        
-        stmt.setInt(1, CBU);
-        ResultSet rs = stmt.executeQuery();
-        
-        if (rs.next()) {
-            idCuenta = rs.getInt("idcuenta");
-        }
-        
-        rs.close();
-        stmt.close();
-        conexion.close();
-    } catch (SQLException e) {
-        e.printStackTrace();
-    }
-    
-    return idCuenta;
-}
+	    return saldo;
+	}
 
 
-public String obtenerDescripcionTipoCuenta(String tipoCuentaId) {
-	String descripcion = "";
-	try {
-		Connection conexion = Conexion.getConexion().getSQLConexion();
-        PreparedStatement stmt = conexion.prepareStatement(obtenerDescripcion);
-        stmt.setString(1, tipoCuentaId);
-        ResultSet rs = stmt.executeQuery();
-        if (rs.next()) {
-        	descripcion = rs.getString("descripcion");
-        }
-       } catch (SQLException e) {
-           e.printStackTrace();
-       }
-       return descripcion;
-}
+	public void actualizarSaldo(int idCuenta, BigDecimal monto) {
+		try (Connection conexion = Conexion.getConexion().getSQLConexion();
+		         PreparedStatement statement = conexion.prepareStatement(updateSaldo)) {
+
+		        statement.setBigDecimal(1, monto);
+		        statement.setInt(2, idCuenta);
+		        int filasAfectadas = statement.executeUpdate();
+		        
+		        if (filasAfectadas == 0) {
+		            throw new SQLException("No se actualiz� el saldo para la cuenta con id: " + idCuenta);
+		        }
+
+		        conexion.commit();
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		        try {
+		            Conexion.getConexion().getSQLConexion().rollback();
+		        } catch (SQLException rollbackEx) {
+		            rollbackEx.printStackTrace();
+		        }
+		    }
+	}
 
 
 @Override

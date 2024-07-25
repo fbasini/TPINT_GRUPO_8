@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -39,7 +40,68 @@ public class primerIngresoServlet extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		doGet(request, response);
+		
+		
+		Cliente cliente = new Cliente();
+		HttpSession session = request.getSession();
+		
+		clienteNegocioImpl negCliente = new clienteNegocioImpl();
+		
+		int DNIingresado = Integer.parseInt(request.getParameter("txtDNI"));
+		int CUILingresado = Integer.parseInt(request.getParameter("txtCUIL"));
+		
+		String mensajeResultado = "";
+		int errores = 0;
+		
+		if (negCliente.comprobarExistenciaDNI(DNIingresado)){
+			//System.out.println("DNI EXISTE");
+			
+			mensajeResultado += "Los siguientes campos no han sido validos: DNI";
+			errores++;
+			
+		}
+		//else {System.out.println("DNI VALIDO");}
+		
+		if (negCliente.comprobarExistenciaCUIL(CUILingresado)){
+			//System.out.println("CUIL EXISTE");
+			
+			if (mensajeResultado == "") {
+				mensajeResultado += "Los siguientes campos no han sido validos: CUIL";	
+			}
+			else{mensajeResultado += " CUIL";}
+			errores++;
+		}
+		//else {System.out.println("CUIL VALIDO");}
+		
+		if (errores > 0) {
+			request.setAttribute("mensaje", mensajeResultado);
+	        request.getRequestDispatcher("Cliente/PaginaError.jsp").forward(request, response);
+		}  
+		
+		cliente.setNombreUsuario((String)session.getAttribute("usuario"));
+		cliente.setDNIcliente(Integer.parseInt(request.getParameter("txtDNI")));
+		cliente.setCUILcliente(Integer.parseInt(request.getParameter("txtCUIL")));
+		cliente.setNombreCliente(request.getParameter("txtNombre"));
+		cliente.setApellidoCliente(request.getParameter("txtApellido"));
+		cliente.setSexoCliente(request.getParameter("txtSexo").charAt(0));
+		cliente.setNacionalidadCliente(request.getParameter("txtNacionalidad"));
+		cliente.setFechaNacimientoCliente(LocalDate.parse(request.getParameter("txtFechaNacimiento")));
+		cliente.setDireccionCliente(request.getParameter("txtDireccion"));
+		cliente.setLocalidadCliente(request.getParameter("txtLocalidad"));
+		cliente.setIdProvincias(Integer.parseInt(request.getParameter("ddlProvincia")));
+		cliente.setEmailCliente(request.getParameter("txtEmail"));
+		cliente.setTelefonoCliente(Integer.parseInt(request.getParameter("txtTelefono")));
+		cliente.setClienteActivo('Y');
+		
+		negCliente.agregarCliente(cliente);
+		
+		
+		session.setAttribute("clienteActual",cliente);
+		
+		
+		System.out.println("Ciente agregado");
+		
+		response.sendRedirect("Cliente/primeraCuenta.jsp");
 	}
 
 }

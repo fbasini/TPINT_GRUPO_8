@@ -62,4 +62,7 @@ public ArrayList<Cliente> listarAllClientes(){
 		return clientedao.modificarCliente(cliente);
 	}
 	
+	public int agregarCliente (Cliente cliente) {
+		return clientedao.agregarCliente(cliente);
+	}
 }

@@ -8,6 +8,7 @@
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../Style.css">
 </head>
+
 <body style="display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0;">
     <div>
         <form action="/TPINT_GRUPO_8_LAB4/LoginServlet" method="post">
