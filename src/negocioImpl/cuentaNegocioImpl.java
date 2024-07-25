@@ -1,4 +1,5 @@
 package negocioImpl;
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -72,13 +73,25 @@ public class cuentaNegocioImpl implements cuentaNegocio {
 	}
 	
 	public int obtenerIdCuentaPorCBU(int CBU) {
-		
 		return cuentadao.obtenerIdCuentaPorCBU(CBU);
-		
 	}
 	
 	public String obtenerDescripcionTipoCuenta(String tipoCuentaId) {
 		return cuentadao.obtenerDescripcionTipoCuenta(tipoCuentaId);
 	}
+
+
+	public BigDecimal obtenerSaldo(int idCuentaOrigen) {
+		return cuentadao.obtenerSaldo(idCuentaOrigen);
+	}
+
+
+	public void actualizarSaldo(int idCuenta, BigDecimal monto) {
+	    cuentadao.actualizarSaldo(idCuenta, monto);
+	}
+
+
+	
+	
 	
 }
