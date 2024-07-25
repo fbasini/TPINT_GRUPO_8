@@ -26,9 +26,9 @@ public class cuentaNegocioImpl implements cuentaNegocio {
 	}
 
 	
-	public int eliminarCuenta(Cuenta cuenta) {
+	public int eliminarCuenta(int idcuenta) {
 		
-		return cuentadao.eliminarCuenta(cuenta);
+		return cuentadao.eliminarCuenta(idcuenta);
 	}
 
 	
@@ -79,6 +79,12 @@ public class cuentaNegocioImpl implements cuentaNegocio {
 	
 	public String obtenerDescripcionTipoCuenta(String tipoCuentaId) {
 		return cuentadao.obtenerDescripcionTipoCuenta(tipoCuentaId);
+	}
+	
+	public Cuenta obtenerCuentaPorID(int idcuenta) {
+		
+		return cuentadao.obtenerCuentaPorID(idcuenta);
+		
 	}
 	
 }

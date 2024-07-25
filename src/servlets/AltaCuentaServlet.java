@@ -1,7 +1,9 @@
 package servlets;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,8 +16,9 @@ import javax.servlet.http.HttpSession;
 
 import entidad.Cliente;
 import entidad.Cuenta;
-
+import entidad.Movimiento;
 import negocioImpl.cuentaNegocioImpl;
+import negocioImpl.movimientoNegocioImpl;
 import negocioImpl.clienteNegocioImpl;
 
 @WebServlet("/AltaCuentaServlet")
@@ -46,12 +49,39 @@ public class AltaCuentaServlet extends HttpServlet {
     	HttpSession session = request.getSession();
     	int idCliente = Integer.parseInt(request.getParameter("usuarios"));
         int idCuenta = Integer.parseInt(request.getParameter("numeroCuentaAsig"));
+        Movimiento movimiento = new Movimiento();
+        movimientoNegocioImpl negMovimientos = new movimientoNegocioImpl();
+        BigDecimal saldoFijo = BigDecimal.valueOf(10000.00);
         System.out.println(idCliente);
         System.out.println(idCuenta);
         System.out.println("Entro al servlet");
 
         if (cuentaDAO.asignarCuenta(idCliente, idCuenta)) {
             System.out.println("Asignado");
+            
+            Cuenta cuenta = new Cuenta();
+            cuenta=cuentaDAO.obtenerCuentaPorID(idCuenta);
+            
+            movimiento.setIdcuenta(idCuenta);
+            movimiento.setTipoMovimiento("Alta de cuenta");
+            movimiento.setFechaMovimiento(LocalDate.now());
+            movimiento.setDetalleMovimiento("-");
+            movimiento.setImporteMovimiento(saldoFijo);
+            movimiento.setDestinatario(cuenta.getCBUCuenta());
+            
+            int resultado2 = negMovimientos.agregarMovimiento(movimiento);
+            
+            if(resultado2 !=1) {
+         	   
+         	   System.out.println("Movimiento agregado");
+         	   
+            }else {
+         	   
+         	   System.out.println("Error en movimiento");
+         	   
+            }
+            
+            
             
             ArrayList<Cuenta> cuentasDisp = cuentaDAO.obtenerCuentasDisponibles();
             session.setAttribute("cuentasDisp", cuentasDisp);

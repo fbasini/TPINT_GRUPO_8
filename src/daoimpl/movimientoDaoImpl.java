@@ -13,10 +13,12 @@ public class movimientoDaoImpl {
 	
 	public int agregarMovimiento(Movimiento movimiento) {
 		
-		PreparedStatement statement;
+		PreparedStatement statement = null;
 	    Connection conexion = Conexion.getConexion().getSQLConexion();
 	    int filas = 0;
 	    try {
+	    	 conexion.setAutoCommit(false);
+	    	 // Preparar la declaración
 	        statement = conexion.prepareStatement(insertarMovimiento);
 	        statement.setInt(1, movimiento.getIdcuenta());
 	        statement.setString(2, movimiento.getTipoMovimiento());
@@ -25,19 +27,37 @@ public class movimientoDaoImpl {
 	        statement.setBigDecimal(5, movimiento.getImporteMovimiento());
 	        statement.setInt(6, movimiento.getDestinatario());
 	 
-	        
+	        // Ejecutar la actualización
 	        filas = statement.executeUpdate();
 	        if (filas > 0) {
 	            conexion.commit();
+	        } else {
+	            conexion.rollback();
 	        }
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	        try {
-	            conexion.rollback();
+	            if (conexion != null) {
+	                conexion.rollback(); // Hacer rollback en caso de error
+	            }
 	        } catch (SQLException e1) {
 	            e1.printStackTrace();
 	        }
+	    } finally {
+	        try {
+	            if (statement != null) {
+	                statement.close();
+	            }
+	            if (conexion != null) {
+	                // Rehabilitar autocommit y cerrar conexión
+	                conexion.setAutoCommit(true);
+	                conexion.close();
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
 	    }
+
 	    return filas;
 		
 		

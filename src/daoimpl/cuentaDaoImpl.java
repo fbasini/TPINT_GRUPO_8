@@ -32,6 +32,7 @@ public class cuentaDaoImpl implements cuentaDao {
 	private static final String updateSaldo="UPDATE cuenta SET saldoCuenta = saldoCuenta + ? WHERE idcuenta = ?";
 	private static final String obtenerIdPorCBU = "SELECT idcuenta FROM cuenta WHERE CBUCuenta = ?";
 	private static final String obtenerDescripcion = "SELECT descripcion FROM tipocuenta WHERE tipoCuenta = ?";
+	private static final String traerCuenta= "SELECT * FROM cuenta WHERE idcuenta = ?";
 	public int agregarCuenta(Cuenta cuenta) {
 		
 		
@@ -62,13 +63,13 @@ public class cuentaDaoImpl implements cuentaDao {
 	}
 
 	
-	public int eliminarCuenta(Cuenta cuenta) {
+	public int eliminarCuenta(int  idcuenta) {
 		PreparedStatement statement;
 		Connection conexion = Conexion.getConexion().getSQLConexion();
 		int filas = 0;
 		try {
 			statement = conexion.prepareStatement(delete);
-			statement.setInt(1, cuenta.getIdcuenta());
+			statement.setInt(1, idcuenta);
 			filas = statement.executeUpdate();
 			if (filas > 0) {
 				conexion.commit();
@@ -183,7 +184,35 @@ public class cuentaDaoImpl implements cuentaDao {
 		
 	}
 	
-
+public Cuenta obtenerCuentaPorID(int idcuenta) {
+		
+		PreparedStatement statement;
+		Connection conexion = Conexion.getConexion().getSQLConexion();
+		Cuenta cuenta = new Cuenta();
+		try {
+			statement = conexion.prepareStatement(traerCuenta);
+			statement.setInt(1, idcuenta);
+			ResultSet resultSet = statement.executeQuery();
+			
+			while (resultSet.next()) {
+				cuenta.setIdcuenta(resultSet.getInt("idcuenta"));
+				cuenta.setIdcliente(resultSet.getInt("idcliente"));
+				cuenta.setTipoCuenta(resultSet.getString("tipoCuenta"));
+				cuenta.setFechaCreacion(resultSet.getDate("fechaCreacion").toLocalDate());
+				cuenta.setCBUCuenta(resultSet.getInt("CBUCuenta"));
+				cuenta.setSaldoCuenta(resultSet.getBigDecimal("saldoCuenta"));
+				cuenta.setCuentaActiva(resultSet.getString("CuentaActiva").charAt(0));
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return cuenta;
+		
+	}
+	
+	
+	
 
 	public boolean asignarCuentaSiEsPosible(int idCliente, int idCuenta) {
 	    Connection conexion = null;

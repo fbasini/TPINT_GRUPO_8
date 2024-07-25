@@ -1,11 +1,14 @@
 package servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import daoimpl.clienteDaoImpl;
 import daoimpl.cuentaDaoImpl;
@@ -39,32 +42,20 @@ public class EliminarCuentaServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String idCuentaParam = request.getParameter("numeroCuentaElim");
-        String mensaje;
-
-      
-       
-
-        try {
-            int idCuenta = Integer.parseInt(idCuentaParam);
-            Cuenta cuenta = new Cuenta();
-            cuenta.setIdcuenta(idCuenta);
-
-            cuentaNegocioImpl cuentaNeg = new cuentaNegocioImpl();
+		try {
+			HttpSession session = request.getSession();
+            int idCuenta = Integer.parseInt(request.getParameter("idCuenta"));
+            cuentaNegocioImpl cuentaDAO = new cuentaNegocioImpl();
             
-            int filas = cuentaNeg.eliminarCuenta(cuenta);
-
-            if (filas > 0) {
-                mensaje = "Cuenta eliminada con éxito.";
-            } else {
-                mensaje = "No se pudo eliminar la cuenta.";
-            }
-        } catch (NumberFormatException e) {
-            mensaje = "Número de cuenta inválido.";
+            cuentaDAO.eliminarCuenta(idCuenta);
+            ArrayList<Cuenta> allCuentas = cuentaDAO.listarCuentas();
+            
+			session.setAttribute("allCuentas", allCuentas);
+            response.sendRedirect("Admin/AdministrarCuenta.jsp");
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Ocurrió un error al eliminar la cuenta: " + e.getMessage());
         }
-
-        request.setAttribute("mensaje", mensaje);
-        response.sendRedirect("Admin/GestionCuentas.jsp");
 	}
 
 }
