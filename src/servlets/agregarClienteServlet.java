@@ -47,13 +47,15 @@ public class agregarClienteServlet extends HttpServlet {
 	            cliente.setNombreUsuario(usuarioNombre);
 
 	            int filas = usuarioNeg.agregarUsuario(usuario);
-	            String mensaje;
+	            String mensaje="";
 	            if (filas > 0) {
-	                mensaje = "Cliente agregado con éxito";
+	                mensaje += "Cliente agregado con éxito";
 	            } else {
-	                mensaje = "No se pudo agregar al cliente"; // manejar excepción
+	                mensaje += "No se pudo agregar al cliente"; // manejar excepción
 	            }
 	            request.setAttribute("mensaje", mensaje);
+	            
+	            
 	            RequestDispatcher rd = request.getRequestDispatcher("Admin/AgregarClientes.jsp");
 	            rd.forward(request, response);
 		 }
