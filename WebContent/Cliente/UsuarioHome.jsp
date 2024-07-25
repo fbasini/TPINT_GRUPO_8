@@ -62,6 +62,9 @@
                 <form action="../solicitarPrestamoServlet" method="get">
                     <button type="submit" id="solicitarPrestamo" name="solicitarPrestamo" class="btn btn-primary mb-2">SOLICITAR PRESTAMO</button>
                 </form>
+                <form action="cambiarContrasenia.jsp">
+                    <button type="submit" id="cambiarPass" name="cambiarPass" class="btn btn-primary mb-2">CAMBIAR CONTRASEÑA</button>
+                </form>
             </div>
     	</div>
    	</div>
