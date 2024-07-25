@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-    <%@ page import="entidad.Movimiento" %>
-      <%@ page import="entidad.Cuenta" %>
+<%@ page import="entidad.Movimiento" %>
+<%@ page import="entidad.Cuenta" %>
 <%@ page import="java.util.ArrayList" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -9,10 +9,26 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Movimientos</title>
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../Style.css">
+<link rel="stylesheet" href="../Style.css">
+<style>
+    .center-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-top: 20px;
+    }
+    .center-content h2 {
+        margin-bottom: 20px;
+    }
+    .center-content form {
+        width: 100%;
+        max-width: 400px;
+    }
+</style>
 </head>
-<body >
- <!-- Header -->
+<body>
+    <!-- Header -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bank" viewBox="0 0 16 16">
@@ -24,13 +40,11 @@
                 <li class="nav-item">
                     <span class="nav-link">Usuario: <%= session.getAttribute("usuario") %> </span>
                 </li>
-                <!-- 
                 <li class="nav-item">
-                    <form action="volver" method="post" class="form-inline">
+                    <form action="UsuarioHome.jsp" method="post" class="form-inline">
                         <button type="submit" class="btn btn-link nav-link boton-links">Volver</button>
                     </form>
                 </li>
-                -->
                 <li class="nav-item">
                     <form action="../CerrarSesionServlet" method="post" class="form-inline">
                         <button type="submit" class="btn-cerrar-sesion">Cerrar Sesion</button>
@@ -39,33 +53,31 @@
             </ul>
         </div>
     </nav>
- <h2>Historial de Movimientos</h2>
-	<div>
-	<form action="../MovimientosServlet" method="post">
-		<select name="misCuentas" id="misCuentas">
-		<option value="" disabled selected>Seleccione una cuenta</option>
-     
- <% 
-                            ArrayList<Cuenta> cuentasCliente = (ArrayList<Cuenta>) session.getAttribute("cuentasCliente");
-                            if (cuentasCliente != null) {
-                                for (Cuenta cuenta : cuentasCliente) {
-                        %>
-                                    <option value="<%= cuenta.getIdcuenta() %>">
-                                        Cuenta: <%= cuenta.getIdcuenta() %> </option>
-                        <% 
-                                }
+    <div class="container center-content">
+        <h2>Historial de Movimientos</h2>
+        <form action="../MovimientosServlet" method="post">
+            <div class="form-group">
+                <select name="misCuentas" id="misCuentas" class="form-control">
+                    <option value="" disabled selected>Seleccione una cuenta</option>
+                    <% 
+                        ArrayList<Cuenta> cuentasCliente = (ArrayList<Cuenta>) session.getAttribute("cuentasCliente");
+                        if (cuentasCliente != null) {
+                            for (Cuenta cuenta : cuentasCliente) {
+                    %>
+                        <option value="<%= cuenta.getIdcuenta() %>">
+                            Cuenta: <%= cuenta.getIdcuenta() %> </option>
+                    <% 
                             }
-                        %>
-
-
-
-    	</select>
-    	<button type="submit" >Seleccionar</button>
-    	</form>
-	</div>
-    
+                        }
+                    %>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Seleccionar</button>
+        </form>
+    </div>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
+
