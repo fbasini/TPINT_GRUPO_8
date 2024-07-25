@@ -10,7 +10,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>MIS DATOS</title>
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../Style.css">
+<link rel="stylesheet" href="../Style.css">
 </head>
 <body>
  <!-- Header -->
@@ -25,13 +25,13 @@
                 <li class="nav-item">
                     <span class="nav-link">Usuario: <%= session.getAttribute("usuario") %> </span>
                 </li>
-                <!-- 
+                
                 <li class="nav-item">
-                    <form action="volver" method="post" class="form-inline">
+                    <form action="UsuarioHome.jsp" method="post" class="form-inline">
                         <button type="submit" class="btn btn-link nav-link boton-links">Volver</button>
                     </form>
                 </li>
-                -->
+                
                 <li class="nav-item">
                     <form action="../CerrarSesionServlet" method="post" class="form-inline">
                         <button type="submit" class="btn-cerrar-sesion">Cerrar Sesion</button>
@@ -41,80 +41,78 @@
         </div>
     </nav>
 
+<div class="recuadro-gris">
+    <% Cliente clienteActual = (Cliente) request.getSession().getAttribute("clienteActual"); %>
 
-<% Cliente clienteActual = (Cliente) request.getSession().getAttribute("clienteActual"); %>
+    <table class="datos">
+        <tr> 
+            <td>DNI:</td>
+            <td><%= clienteActual.getDNIcliente() %></td>
+        </tr>
+        <tr>
+            <td>CUIL:</td>
+            <td><%= clienteActual.getCUILcliente() %></td>
+        </tr>
+        <tr>
+            <td>NOMBRE:</td>
+            <td><%= clienteActual.getNombreCliente() %></td>
+        </tr>
+        <tr>
+            <td>APELLIDO:</td>
+            <td><%= clienteActual.getApellidoCliente() %></td>
+        </tr>
+        <tr>
+            <td>SEXO:</td>
+            <td><%= clienteActual.getSexoCliente() %></td>
+        </tr>
+        <tr>
+            <td>NACIONALIDAD:</td>
+            <td><%= clienteActual.getNacionalidadCliente() %></td>
+        </tr>
+        <tr>
+            <td>FECHA DE NACIMIENTO:</td>
+            <td><%= clienteActual.getFechaNacimientoCliente() %></td>
+        </tr>
+        <tr>
+            <td>DIRECCION:</td>
+            <td><%= clienteActual.getDireccionCliente() %></td>
+        </tr>
+        <tr>
+            <td>LOCALIDAD:</td>
+            <td><%= clienteActual.getLocalidadCliente() %></td>
+        </tr>
+        <tr>
+            <td>PROVINCIA:</td>
+            <% ArrayList<Provincias> listaProvincias = (ArrayList<Provincias>) request.getSession().getAttribute("listaProvincias");
+                 
+                String nombreProvincia = "";
+                if (listaProvincias != null) {
+                    for (Provincias provincia : listaProvincias) {
+                        if(provincia.getIdProvincias() == clienteActual.getIdProvincias()){
+                            nombreProvincia = provincia.getNombreProvincia();
+                        }
+                    }
+                } %>
+            <td><%= nombreProvincia %></td>
+        </tr>
+        <tr>
+            <td>EMAIL:</td>
+            <td><%= clienteActual.getEmailCliente() %></td>
+        </tr>
+        <tr>
+            <td>TELEFONO:</td>
+            <td><%= clienteActual.getTelefonoCliente() %></td>
+        </tr>
+    </table>
 
-<table>
-<tr> 
-	<td>DNI:</td>
-	<td><%= clienteActual.getDNIcliente() %></td>
-</tr>
-<tr>
-	<td>CUIL:</td>
-	<td><%= clienteActual.getCUILcliente() %></td>
-</tr>
-<tr>
-	<td>NOMBRE:</td>
-	<td><%= clienteActual.getNombreCliente() %></td>
-</tr>
-<tr>
-	<td>APELLIDO:</td>
-	<td><%= clienteActual.getApellidoCliente() %></td>
-</tr>
-<tr>
-	<td>SEXO:</td>
-	<td><%= clienteActual.getSexoCliente() %></td>
-</tr>
-<tr>
-	<td>NACIONALIDAD:</td>
-	<td><%= clienteActual.getNacionalidadCliente() %></td>
-</tr>
-<tr>
-	<td>FECHA DE NACIMIENTO:</td>
-	<td><%= clienteActual.getFechaNacimientoCliente() %></td>
-</tr>
-<tr>
-	<td>DIRECCION:</td>
-	<td><%= clienteActual.getDireccionCliente() %></td>
-</tr>
-<tr>
-	<td>LOCALIDAD:</td>
-	<td><%= clienteActual.getLocalidadCliente() %></td>
-</tr>
-<tr>
-	<td>PROVINCIA:</td>
-	<% ArrayList<Provincias> listaProvincias = (ArrayList<Provincias>) request.getSession().getAttribute("listaProvincias");
-	             
-				String nombreProvincia = "";
-	   			if (listaProvincias != null) {
-	     		for (Provincias provincia : listaProvincias) {
-	    	 		if(provincia.getIdProvincias() == clienteActual.getIdProvincias()){
-	    	 		
-	    	 		 nombreProvincia = provincia.getNombreProvincia();
-	    	 		 }
-	     		}
-	   			} %>
-	    	 
-	      
-	<td><%= nombreProvincia %></td>
-</tr>
-<tr>
-	<td>EMAIL:</td>
-	<td><%= clienteActual.getEmailCliente() %></td>
-</tr>
-<tr>
-	<td>TELEFONO:</td>
-	<td><%= clienteActual.getTelefonoCliente() %></td>
-</tr>
+    <form action="ModificarMisDatos.jsp">
+        <button type="submit" class="btn-modificar">MODIFICAR DATOS</button>
+    </form>
+</div>
 
-</table>
-
-
-<button onclick="history.back()" > VOLVER</button>
-<form action="ModificarMisDatos.jsp"> <button type= "submit"> MODIFICAR DATOS</button>
-</form>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
+

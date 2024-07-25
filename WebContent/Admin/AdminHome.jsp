@@ -51,7 +51,7 @@
                     <button type="submit" id="prestamos" name="prestamos" class="btn btn-primary mb-2">PRESTAMOS</button>
                 </form>
 
-                <form action="estadisticas" method="post">
+                <form action="Estadisticas.jsp">
                     <button type="submit" id="estadisticas" name="estadisticas" class="btn btn-primary mb-2">ESTADISTICAS</button>
                 </form>
             </div>
