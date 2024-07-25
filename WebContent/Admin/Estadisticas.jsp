@@ -97,7 +97,7 @@
     </nav>
 
 <div class="form-container">
-    <form action="calcularEstadisticasServlet" method="get">
+    <form action="../calcularEstadisticasServlet" method="get">
         <label for="ddlTipo">Seleccione la estadistica de dinero a obtener:</label>
         <select name="ddlTipo">
             <option value="sum">SUMA TOTAL</option>
@@ -127,7 +127,7 @@
         <% } %>
     </div>
 
-    <form action="calcularEstadisticasServlet" method="get">
+    <form action="../calcularEstadisticasServlet" method="get">
         <label for="ddlConteo">Cantidad de usuarios de sexo:</label>
         <select name="ddlConteo">
             <option value="M">MASCULINO</option>

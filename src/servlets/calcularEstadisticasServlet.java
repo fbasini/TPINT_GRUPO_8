@@ -38,7 +38,7 @@ public class calcularEstadisticasServlet extends HttpServlet {
 			
 			
 			request.setAttribute("estadistica", estadistica);
-			request.getRequestDispatcher("Estadisticas.jsp").forward(request, response);
+			request.getRequestDispatcher("Admin/Estadisticas.jsp").forward(request, response);
 		}
 		
 		if(request.getParameter("btnMostrarConteo") != null) {
@@ -50,7 +50,7 @@ public class calcularEstadisticasServlet extends HttpServlet {
 			System.out.println(conteo);
 								
 			request.setAttribute("conteo", conteo);
-			request.getRequestDispatcher("Estadisticas.jsp").forward(request, response);
+			request.getRequestDispatcher("Admin/Estadisticas.jsp").forward(request, response);
 		}
 		
 		

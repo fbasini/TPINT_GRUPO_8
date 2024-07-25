@@ -8,9 +8,10 @@ import entidad.Estadistica;
 public class estadisticaNegocioImpl {
 
 	private estadisticaDaoImpl estadisticadao;
-	
-	public estadisticaNegocioImpl(){}
-	
+
+    public estadisticaNegocioImpl() {
+        this.estadisticadao = new estadisticaDaoImpl();  // Inicialización del objeto
+    }
 	
 	public Estadistica obtenerDatos(String tipo, String tabla, LocalDate fechaInicio, LocalDate fechaFinal) {
 		return estadisticadao.obtenerDatos(tipo, tabla, fechaInicio, fechaFinal);
