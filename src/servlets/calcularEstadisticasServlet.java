@@ -44,9 +44,10 @@ public class calcularEstadisticasServlet extends HttpServlet {
 		if(request.getParameter("btnMostrarConteo") != null) {
 			estadisticaNegocioImpl negEstadistica = new estadisticaNegocioImpl();
 			
-			
-			
-			int conteo = Integer.parseInt(request.getParameter("ddlConteo")); 
+			char tipo =request.getParameter("ddlConteo").charAt(0);
+			System.out.println(tipo);
+			int conteo = negEstadistica.obtenerConteo(tipo); 
+			System.out.println(conteo);
 								
 			request.setAttribute("conteo", conteo);
 			request.getRequestDispatcher("Estadisticas.jsp").forward(request, response);

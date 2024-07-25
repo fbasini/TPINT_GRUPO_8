@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="../Style.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
     <style>
-        /* Estilos específicos para este JSP */
+        /* Estilos especï¿½ficos para este JSP */
         .form-container {
             background-color: #f0f0f0; 
             border-radius: 8px; 
@@ -43,9 +43,9 @@
             width: 100%;
             color: #FFF;
             background-color: #007BFF; /* Color de fondo azul */
-            border-radius: 12px; /* Borde más redondeado */
+            border-radius: 12px; /* Borde mï¿½s redondeado */
             padding: 8px; /* Menor espacio interno */
-            font-size: 14px; /* Tamaño de fuente más pequeño */
+            font-size: 14px; /* Tamaï¿½o de fuente mï¿½s pequeï¿½o */
             font-weight: 600;
             cursor: pointer;
             text-align: center;
@@ -54,7 +54,7 @@
         }
 
         .form-container button:hover {
-            background-color: #0056b3; /* Color de fondo azul más oscuro en hover */
+            background-color: #0056b3; /* Color de fondo azul mï¿½s oscuro en hover */
             transform: scale(1.05);
         }
 
@@ -89,7 +89,7 @@
                 </li>                
                 <li class="nav-item">
                     <form action="../CerrarSesionServlet" method="post" class="form-inline">
-                        <button type="submit" class="btn-cerrar-sesion">Cerrar Sesión</button>
+                        <button type="submit" class="btn-cerrar-sesion">Cerrar Sesiï¿½n</button>
                     </form>
                 </li>
             </ul>
