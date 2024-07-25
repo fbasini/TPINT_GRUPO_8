@@ -128,3 +128,22 @@
 }
 
 
+/* Estilo para los botones del formulario */
+.form-container button {
+    width: 100%;
+    color: #FFF;
+    background-color: #007BFF; 
+    border-radius: 12px; 
+    padding: 8px;
+    font-size: 14px; 
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    border: none;
+    transition: all .2s linear;
+}
+
+.form-container button:hover {
+    background-color: #0056b3; 
+    transform: scale(1.05);
+}
