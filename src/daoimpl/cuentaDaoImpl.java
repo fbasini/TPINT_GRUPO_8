@@ -32,9 +32,10 @@ public class cuentaDaoImpl implements cuentaDao {
 	private static final String updateSaldo="UPDATE cuenta SET saldoCuenta = saldoCuenta + ? WHERE idcuenta = ?";
 	private static final String obtenerIdPorCBU = "SELECT idcuenta FROM cuenta WHERE CBUCuenta = ?";
 	private static final String obtenerDescripcion = "SELECT descripcion FROM tipocuenta WHERE tipoCuenta = ?";
+	private static final String traerCuenta= "SELECT * FROM cuenta WHERE idcuenta = ?";
 	private static final String obtenerSaldo = "SELECT saldoCuenta FROM cuenta WHERE idcuenta = ?";
-	
-	
+	private static final String updateSaldoTransferencia = "UPDATE cuenta SET saldoCuenta = ? WHERE idcuenta = ?";
+	private static final String obtenerCBUPorIdCuenta = "SELECT CBUCuenta FROM cuenta WHERE idcuenta = ?";
 	public int agregarCuenta(Cuenta cuenta) {
 		
 		
@@ -65,13 +66,13 @@ public class cuentaDaoImpl implements cuentaDao {
 	}
 
 	
-	public int eliminarCuenta(Cuenta cuenta) {
+	public int eliminarCuenta(int  idcuenta) {
 		PreparedStatement statement;
 		Connection conexion = Conexion.getConexion().getSQLConexion();
 		int filas = 0;
 		try {
 			statement = conexion.prepareStatement(delete);
-			statement.setInt(1, cuenta.getIdcuenta());
+			statement.setInt(1, idcuenta);
 			filas = statement.executeUpdate();
 			if (filas > 0) {
 				conexion.commit();
@@ -186,7 +187,35 @@ public class cuentaDaoImpl implements cuentaDao {
 		
 	}
 	
-
+public Cuenta obtenerCuentaPorID(int idcuenta) {
+		
+		PreparedStatement statement;
+		Connection conexion = Conexion.getConexion().getSQLConexion();
+		Cuenta cuenta = new Cuenta();
+		try {
+			statement = conexion.prepareStatement(traerCuenta);
+			statement.setInt(1, idcuenta);
+			ResultSet resultSet = statement.executeQuery();
+			
+			while (resultSet.next()) {
+				cuenta.setIdcuenta(resultSet.getInt("idcuenta"));
+				cuenta.setIdcliente(resultSet.getInt("idcliente"));
+				cuenta.setTipoCuenta(resultSet.getString("tipoCuenta"));
+				cuenta.setFechaCreacion(resultSet.getDate("fechaCreacion").toLocalDate());
+				cuenta.setCBUCuenta(resultSet.getInt("CBUCuenta"));
+				cuenta.setSaldoCuenta(resultSet.getBigDecimal("saldoCuenta"));
+				cuenta.setCuentaActiva(resultSet.getString("CuentaActiva").charAt(0));
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return cuenta;
+		
+	}
+	
+	
+	
 
 	public boolean asignarCuentaSiEsPosible(int idCliente, int idCuenta) {
 	    Connection conexion = null;
@@ -380,14 +409,14 @@ public class cuentaDaoImpl implements cuentaDao {
 	}
 
 
-	public void actualizarSaldo(int idCuenta, BigDecimal monto) {
+	public void actualizarSaldo(int idCuenta, BigDecimal nuevoSaldo) {
 		try (Connection conexion = Conexion.getConexion().getSQLConexion();
-		         PreparedStatement statement = conexion.prepareStatement(updateSaldo)) {
+		         PreparedStatement statement = conexion.prepareStatement(updateSaldoTransferencia)) {
 
-		        statement.setBigDecimal(1, monto);
+		        statement.setBigDecimal(1, nuevoSaldo);
 		        statement.setInt(2, idCuenta);
 		        int filasAfectadas = statement.executeUpdate();
-		        
+
 		        if (filasAfectadas == 0) {
 		            throw new SQLException("No se actualiz� el saldo para la cuenta con id: " + idCuenta);
 		        }
@@ -404,6 +433,21 @@ public class cuentaDaoImpl implements cuentaDao {
 	}
 
 
+	public int obtenerCBUPorIdCuenta(int idCuenta) {
+		int cbu = -1;
+		try {
+			Connection conexion = Conexion.getConexion().getSQLConexion();
+	        PreparedStatement stmt = conexion.prepareStatement(obtenerCBUPorIdCuenta);
+	        stmt.setInt(1, idCuenta);
+	        ResultSet rs = stmt.executeQuery();
+	        if (rs.next()) {
+	        	cbu = rs.getInt("CBUCuenta");
+	        }
+	       } catch (SQLException e) {
+	           e.printStackTrace();
+	       }
+       return cbu;
+	}
 
 
 

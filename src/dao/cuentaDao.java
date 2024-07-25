@@ -10,7 +10,7 @@ import entidad.Cliente;
 public interface cuentaDao {
 
 	public int agregarCuenta(Cuenta cuenta);
-	public int eliminarCuenta(Cuenta cuenta);
+	public int eliminarCuenta(int idcuenta);
 	public int modificarCuenta(Cuenta cuenta);
 	public ArrayList<Cuenta> listarCuentas();
 	public boolean asignarCuenta(int idCliente, int idCuenta) throws SQLException;

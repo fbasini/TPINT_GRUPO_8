@@ -51,13 +51,19 @@ public class TransferenciasServlet extends HttpServlet {
             request.getRequestDispatcher("TransferirFondos.jsp").forward(request, response);
             return;
         }
+        
+        BigDecimal nuevoSaldoOrigen = saldoOrigen.subtract(importe);
+        BigDecimal saldoDestino = cuentaNeg.obtenerSaldo(idCuentaDestino);
+        BigDecimal nuevoSaldoDestino = saldoDestino.add(importe);
+        
+        int cbuOrigen = cuentaNeg.obtenerCBUPorIdCuenta(idCuentaOrigen);
 
-        Movimiento movimientoSalida = new Movimiento(0, idCuentaOrigen, "Extracción", LocalDate.now(), "Transferencia a cuenta " + cbuDestino, importe.negate(), idCuentaDestino);
-        Movimiento movimientoEntrada = new Movimiento(0, idCuentaDestino, "Depósito", LocalDate.now(), "Transferencia recibida de cuenta " + idCuentaOrigen, importe, idCuentaOrigen);
+        Movimiento movimientoSalida = new Movimiento(0, idCuentaOrigen, "Transferencia", LocalDate.now(), "Transferencia a cuenta " + cbuDestino, importe.negate(), idCuentaDestino);
+        Movimiento movimientoEntrada = new Movimiento(0, idCuentaDestino, "Transferencia", LocalDate.now(), "Transferencia recibida de cuenta " + cbuOrigen, importe, idCuentaOrigen);
 
         try {
-            cuentaNeg.actualizarSaldo(idCuentaOrigen, saldoOrigen.subtract(importe));
-            cuentaNeg.actualizarSaldo(idCuentaDestino, cuentaNeg.obtenerSaldo(idCuentaDestino).add(importe));
+        	cuentaNeg.actualizarSaldo(idCuentaOrigen, nuevoSaldoOrigen);
+            cuentaNeg.actualizarSaldo(idCuentaDestino, nuevoSaldoDestino);
             
             movNeg.agregarMovimiento(movimientoSalida);
             movNeg.agregarMovimiento(movimientoEntrada);
@@ -67,7 +73,7 @@ public class TransferenciasServlet extends HttpServlet {
             request.setAttribute("mensaje", "Error al realizar la transferencia.");
         }
 
-        request.getRequestDispatcher("Cliente/TransferirFondos.jsp").forward(request, response);
+        request.getRequestDispatcher("CuentasClienteServlet").forward(request, response);
     }
 }
 
