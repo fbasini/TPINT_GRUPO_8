@@ -128,3 +128,98 @@
 }
 
 
+/* Estilo para los botones del formulario */
+.form-container button {
+    width: 100%;
+    color: #FFF;
+    background-color: #007BFF; 
+    border-radius: 12px; 
+    padding: 8px;
+    font-size: 14px; 
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    border: none;
+    transition: all .2s linear;
+}
+
+.form-container button:hover {
+    background-color: #0056b3; 
+    transform: scale(1.05);
+}
+
+/* Estilos para la tabla de datos */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+
+.btn-modificar:hover {
+    background-color: #0056b3; /* Azul más oscuro */
+}
+
+/* Estilo para centrar el contenido */
+.center-content {
+    text-align: center;
+}
+
+.center-content table {
+    margin: 0 auto;
+}
+
+/* Estilo para el contenedor del recuadro gris */
+.recuadro-gris {
+    background-color: #f0f0f0; /* Gris claro */
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 600px; /* Puedes ajustar el ancho máximo aquí */
+    margin: 20px auto; /* Centra el recuadro horizontalmente */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Sombra para darle profundidad */
+}
+
+/* Estilo para la tabla de datos */
+.recuadro-gris table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.recuadro-gris table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+.recuadro-gris table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Estilo para el botón de modificar datos */
+.btn-modificar {
+    color: #FFF;
+    background-color: #007BFF; /* Azul de Bootstrap */
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    text-align: center;
+    transition: background-color .2s linear;
+    display: block; /* Para centrarlo */
+    margin: 20px auto; /* Centra el botón horizontalmente */
+}
+
+.btn-modificar:hover {
+    background-color: #0056b3; /* Azul más oscuro */
+}
+
