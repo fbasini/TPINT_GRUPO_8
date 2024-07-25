@@ -9,20 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import entidad.Cuenta;
-import negocioImpl.cuentaNegocioImpl;
+import entidad.Movimiento;
+import negocioImpl.movimientoNegocioImpl;
 
 /**
- * Servlet implementation class ObtenerCuentasServlet
+ * Servlet implementation class MovimientosServlet
  */
-@WebServlet("/ObtenerCuentasServlet")
-public class ObtenerCuentasServlet extends HttpServlet {
+@WebServlet("/MovimientosServlet")
+public class MovimientosServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	 private cuentaNegocioImpl cuentaDAO = new cuentaNegocioImpl();
+       
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ObtenerCuentasServlet() {
+    public MovimientosServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,20 +31,21 @@ public class ObtenerCuentasServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int idCliente = Integer.parseInt(request.getParameter("idCliente"));
-        ArrayList<Cuenta> cuentasCliente = cuentaDAO.listarCuentasDeCliente(idCliente);
-
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-        
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		int idCuenta = Integer.parseInt(request.getParameter("misCuentas"));
+
+        movimientoNegocioImpl negMov = new movimientoNegocioImpl();
+        ArrayList<Movimiento> movimientos = negMov.obtenerMovimientosIdCuenta(idCuenta);
+
+        request.setAttribute("movimientos", movimientos);
+        request.getRequestDispatcher("Cliente/ListarMisMovimientos.jsp").forward(request, response);
 	}
 
 }

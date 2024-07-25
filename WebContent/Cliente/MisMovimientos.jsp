@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <%@ page import="entidad.Movimiento" %>
+      <%@ page import="entidad.Cuenta" %>
+<%@ page import="java.util.ArrayList" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -36,33 +39,31 @@
             </ul>
         </div>
     </nav>
-
+ <h2>Historial de Movimientos</h2>
 	<div>
+	<form action="../MovimientosServlet" method="post">
 		<select name="misCuentas" id="misCuentas">
-        <option value="Cuenta1">Mi cuenta 1</option>
-        <option value="Cuenta2">Mi cuenta 2</option>
-        <option value="Cuenta3">Mi cuenta 3</option>
+		<option value="" disabled selected>Seleccione una cuenta</option>
+     
+ <% 
+                            ArrayList<Cuenta> cuentasCliente = (ArrayList<Cuenta>) session.getAttribute("cuentasCliente");
+                            if (cuentasCliente != null) {
+                                for (Cuenta cuenta : cuentasCliente) {
+                        %>
+                                    <option value="<%= cuenta.getIdcuenta() %>">
+                                        Cuenta: <%= cuenta.getIdcuenta() %> </option>
+                        <% 
+                                }
+                            }
+                        %>
+
+
+
     	</select>
+    	<button type="submit" >Seleccionar</button>
+    	</form>
 	</div>
-    <div>
-        <h2>Historial de Movimientos</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Fecha</th>
-                    <th>Detalle</th>
-                    <th>Importe</th>
-                    <th>Tipo de Movimiento</th>
-                </tr>
-                <tr>
-                	<td>11/11/22</td>
-                	<td>Creacion CA</td>
-                	<td>$10.000</td>
-                	<td>Alta de Cuenta</td>
-                </tr>
-            </thead>
-        </table>
-    </div>
+    
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
