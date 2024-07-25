@@ -33,6 +33,8 @@ public class cuentaDaoImpl implements cuentaDao {
 	private static final String obtenerIdPorCBU = "SELECT idcuenta FROM cuenta WHERE CBUCuenta = ?";
 	private static final String obtenerDescripcion = "SELECT descripcion FROM tipocuenta WHERE tipoCuenta = ?";
 	private static final String obtenerSaldo = "SELECT saldoCuenta FROM cuenta WHERE idcuenta = ?";
+	
+	
 	public int agregarCuenta(Cuenta cuenta) {
 		
 		
@@ -402,11 +404,7 @@ public class cuentaDaoImpl implements cuentaDao {
 	}
 
 
-@Override
-public boolean asignarCuenta(int idCliente, int idCuenta) throws SQLException {
-	// TODO Auto-generated method stub
-	return false;
-}
+
 
 
 
