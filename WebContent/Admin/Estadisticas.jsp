@@ -11,7 +11,7 @@
 <body>
 
 <div>
-<form action="calcularEstadisticasServlet" method="get">
+<form action="../calcularEstadisticasServlet" method="get">
 	<label for="ddlTipo">Seleccione la estadistica de dinero a obtener:</label>
 	<select name="ddlTipo">
 		<option value="sum">SUMA TOTAL</option>
@@ -35,7 +35,7 @@
 	<input type="date" name="txtFechaFinal" required pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))">
 	<br>
 	
-	<button type="submit" name="btnMostrarDatos">MOSTRAR</button>
+	<button type="submit" name="btnMostrarDatos" value="btn2">MOSTRAR</button>
 </form>
 	<% if (request.getAttribute("estadistica")!= null){
 		Estadistica estadistica = new Estadistica();
@@ -46,21 +46,21 @@
 	<br>
 </div>
 <div>	
-<form action="calcularEstadisticasServlet" method="get">
+<form action="../calcularEstadisticasServlet" method="get">
 	<label for="ddlConteo">Cantidad de usuarios de sexo:</label>
 	<select name="ddlConteo">
-		<option value="M">MASCULINO</option>
-		<option value="F">FEMENINO</option>
-		<option value="O">NO BINARIO</option>
-			
-	</select> <br>
+		<option value="M">Masculino</option>
+		<option value="F">Femenino</option>
+		<option value="O">Otro</option>
+		</select> 
+		<br>
 	
-	<button type="submit" name="btnMostrarConteo">MOSTRAR</button>
+	<button type="submit" name="btnMostrarConteo" value="btn2">MOSTRAR</button>
 </form>
 	<% if (request.getAttribute("conteo")!= null){
 		%>
 	
-	<h6> La cantidad de persona del sexo seleccionado es: <%= request.getAttribute("conteo") %> </h6>
+	<h6> La cantidad de persona/s del sexo seleccionado es: <%= request.getAttribute("conteo") %> </h6>
 		
 	<%} %>
 </div>
