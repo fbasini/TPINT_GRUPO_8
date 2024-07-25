@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+ <%@ page import="entidad.pagoCuota" %>
+  <%@ page import="entidad.Cuenta" %>
+<%@ page import="java.util.ArrayList" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -31,7 +34,7 @@
                 -->
                 <li class="nav-item">
                     <form action="../CerrarSesionServlet" method="post" class="form-inline">
-                        <button type="submit" class="btn-cerrar-sesion">Cerrar Sesion</button>
+                        <button type="submit" class="btn-cerrar-sesion">Cerrar Sesión</button>
                     </form>
                 </li>
             </ul>
@@ -41,53 +44,59 @@
 
 
 <div>
-	<select name="misCuentas" id="misCuentas">
-        <option value="Cuenta1">Mi cuenta 1</option>
-        <option value="Cuenta2">Mi cuenta 2</option>
-        <option value="Cuenta3">Mi cuenta 3</option>
-    </select>
- </div>
- 
-
-<h2>Pago de Préstamos</h2>
-<div>
-<table style="text-align:center;">
-	<thead >
-		<tr>
-			<th style="width: 41px; "></th>
-			<th style="width: 162px; ">Cuota a pagar</th>
-			<th>Importe</th>
-			<th style="width: 115px; ">Cuenta</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr style="width: 482px; ">
-			<td style=" 30px; height: 13px"><input type="radio" name="radio" value="radio1"></td>	
-			<td>4/6</td>
-			<td style="width: 128px">10000</td>
-			<td><select name="cuentas">
-					<option value="cuenta1">Cuenta 1</option>
-					<option value="cuenta1">Cuenta 2</option>
-					<option value="cuenta1">Cuenta 3</option>
-				</select> </td>
-		</tr>
-		<tr style="width: 482px; ">
-			<td style=" 30px; height: 13px"><input type="radio" name="radio" value="radio2"></td>	
-			<td>1/12</td>
-			<td style="width: 128px">4166,666</td>
-			<td><select name="cuentas">
-					<option value="cuenta1">Cuenta 1</option>
-					<option value="cuenta1">Cuenta 2</option>
-					<option value="cuenta1">Cuenta 3</option>
-				</select> </td>
-		</tr>
-		<tr>
-			<td colspan="4" style=" height:50px;"><button type="submit" class="btn btn-primary mb-2" name="btnPagar" style="text-align:center; border-radius: 5px;">Pagar</button>
-			</td>
-		</tr>
-		
-	</tbody>
-</table>
+ <form method="get" action="/TPINT_GRUPO_8_LAB4/pagarCuotaServlet">
+    <table  class="table table-bordered">
+    	<thead>
+    		<tr>
+    			<th>Préstamo</th>
+    			<th>Cuota a Pagar</th>
+    			<th>Cuotas</th>
+    			<th>Monto</th>
+    			<th>Cuenta</th>
+    		</tr>
+    	</thead>
+    	<tbody>
+	    	<% 
+	    		ArrayList<pagoCuota> listaPagoCuota=(ArrayList<pagoCuota>) request.getSession().getAttribute("listaCuotas");
+	    		if(listaPagoCuota != null){
+	    			for(pagoCuota cuota : listaPagoCuota){
+	    	%>
+	    	 
+	    	<tr>
+	    	 <form method="get" action="/TPINT_GRUPO_8_LAB4/pagarCuotaServlet">
+	    		<td><%=cuota.getIdPrestamo() %></td>
+	    		<td><%=cuota.getIdCuota() %></td>
+	    		<td><%=cuota.getCuotas() %></td>
+	    		<td><%=cuota.getMontoAPagar() %></td>
+	    		<td>
+	    		<select name="misCuentas" id="Cuentas">
+   			<% ArrayList<Cuenta> cuentasCliente = (ArrayList<Cuenta>) request.getSession().getAttribute("cuentasCliente");
+	                
+	   			if (cuentasCliente != null) {
+	     		for (Cuenta cuenta : cuentasCliente) { %>
+	    	 
+	    	 <option value= "<%= cuenta.getIdcuenta()%>" >Cuenta:<%= cuenta.getIdcuenta() %> </option>
+	    	 
+	      <%} }%>
+     
+    		</select>
+    		
+    		<input type="hidden" value="<%=cuota.getIdPrestamo() %>" name="idPrestamo"></input>
+	    			<input type="hidden" value="<%=cuota.getIdCuenta() %>" name="idCuenta"></input>
+	    			<input type="hidden" value="<%=cuota.getIdCuota()%>" name="cuota"></input>
+	    			<input type="hidden" value="<%=cuota.getIdCliente()%>" name="idCliente"></input>
+	    			<button type="submit" class="btn btn-link nav-link boton-links" name="btnEnviar">Enviar</button>
+	    		</td>
+	    		</form>
+	    	</tr>
+	    	<%		}
+	    	}
+	   		 %>
+    	</tbody>
+    
+    </table><br>
+    
+    </form>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
